@@ -1,0 +1,22 @@
+import path from "node:path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./tests/unit/setup.ts"],
+    include: ["tests/unit/**/*.test.{ts,tsx}"],
+    env: {
+      NEXT_PUBLIC_SANITY_PROJECT_ID: "9vajygee",
+      NEXT_PUBLIC_SANITY_DATASET: "production",
+      NEXT_PUBLIC_SANITY_API_VERSION: "2026-07-27",
+    },
+  },
+});
