@@ -1,35 +1,58 @@
-import { sanityClient } from "@/lib/sanity/client";
-import { documentCountQuery } from "@/lib/sanity/queries";
-import { siteEnv } from "@/lib/sanity/env";
+import type { Metadata } from "next";
+import { getHomepageContent } from "@/lib/content/homepage";
+import { getSiteUrl, siteName } from "@/lib/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Hero } from "@/components/homepage/sections/Hero";
+import { BuyerLanes } from "@/components/homepage/sections/BuyerLanes";
+import { FeaturedEngagement } from "@/components/homepage/sections/FeaturedEngagement";
+import { EvidencePackSection } from "@/components/homepage/sections/EvidencePackSection";
+import { PlatformParitySection } from "@/components/homepage/sections/PlatformParitySection";
+import { SecureAISection } from "@/components/homepage/sections/SecureAISection";
+import { IndustryFitSection } from "@/components/homepage/sections/IndustryFitSection";
+import { ProcessSection } from "@/components/homepage/sections/ProcessSection";
+import { FinalCTASection } from "@/components/homepage/sections/FinalCTASection";
+
+export const metadata: Metadata = {
+  title: "Web, Cloud & AI Solutions Built for Growth, Security and Scale",
+  description:
+    "Rive Webworks helps growing and regulated organizations create high-converting websites, modernize AWS and Microsoft cloud environments, and deploy governed AI solutions — with clear scope, documented evidence, and ongoing support.",
+  alternates: { canonical: "/" },
+};
 
 export default async function HomePage() {
-  let sanityStatus: "connected" | "unavailable" = "unavailable";
+  const content = await getHomepageContent();
+  const siteUrl = getSiteUrl();
 
-  try {
-    await sanityClient.fetch(documentCountQuery);
-    sanityStatus = "connected";
-  } catch {
-    sanityStatus = "unavailable";
-  }
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    ...(siteUrl ? { url: siteUrl.toString() } : {}),
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    ...(siteUrl ? { url: siteUrl.toString() } : {}),
+  };
 
   return (
-    <main id="main-content" className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-2xl font-semibold">Rive Webworks</h1>
-      <p className="mt-2 text-sm text-neutral-500">
-        Week 0 build foundation. This diagnostic page is not the approved
-        homepage design.
-      </p>
+    <>
+      <JsonLd id="organization-jsonld" data={organizationJsonLd} />
+      <JsonLd id="website-jsonld" data={websiteJsonLd} />
 
-      <dl className="mt-8 space-y-2 text-sm">
-        <div className="flex justify-between gap-4 border-b border-neutral-200 py-2 dark:border-neutral-800">
-          <dt>Environment</dt>
-          <dd>{siteEnv()}</dd>
-        </div>
-        <div className="flex justify-between gap-4 border-b border-neutral-200 py-2 dark:border-neutral-800">
-          <dt>Sanity connectivity</dt>
-          <dd>{sanityStatus}</dd>
-        </div>
-      </dl>
-    </main>
+      <main id="main-content">
+        <Hero content={content.hero} />
+        <BuyerLanes lanes={content.buyerLanes} />
+        <FeaturedEngagement content={content.featuredEngagement} />
+        <EvidencePackSection content={content.evidencePack} />
+        <PlatformParitySection content={content.platformParity} />
+        <SecureAISection content={content.secureAi} />
+        <IndustryFitSection content={content.industries} />
+        <ProcessSection content={content.process} />
+        <FinalCTASection content={content.finalCta} />
+      </main>
+    </>
   );
 }

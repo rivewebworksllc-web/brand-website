@@ -1,28 +1,126 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-navy-950: #0f172a;
+  --color-brand-gold: #d4af37;
+  --color-brand-maroon: #6b1f32;
+  --color-action-navy: #0f172a;
+  --color-slate-50: #f8fafc;
+  --color-slate-200: #e2e8f0;
+  --color-slate-600: #64748b;
+  --color-white: #ffffff;
+
+  --background: var(--color-white);
+  --foreground: var(--color-navy-950);
+
+  /* Light-surface default; sections on a navy background opt into the gold
+     variant so the ring keeps >=3:1 contrast against its own surface. */
+  --focus-ring-color: var(--color-navy-950);
+}
+
+.surface-dark {
+  --focus-ring-color: var(--color-brand-gold);
 }
 
 @theme inline {
+  --color-navy-950: var(--color-navy-950);
+  --color-brand-gold: var(--color-brand-gold);
+  --color-brand-maroon: var(--color-brand-maroon);
+  --color-action-navy: var(--color-action-navy);
+  --color-slate-50: var(--color-slate-50);
+  --color-slate-200: var(--color-slate-200);
+  --color-slate-600: var(--color-slate-600);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-sm: 6px;
+  --radius-lg: 12px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* Semantic typography scale — the single source for heading/body sizing so
+   components never hard-code font-size/line-height ad hoc. */
+@layer utilities {
+  .text-h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .text-h2 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .text-h3 {
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .text-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .text-evidence {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  @media (min-width: 768px) {
+    .text-h2 {
+      font-size: 34px;
+    }
+
+    .text-h3 {
+      font-size: 24px;
+    }
+
+    .text-eyebrow {
+      font-size: 13px;
+    }
+
+    .text-evidence {
+      font-size: 13px;
+    }
+  }
+}
+
+.container-rw {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-rw {
+    padding-inline: 2rem;
+  }
 }
 
 .skip-link {
@@ -31,16 +129,28 @@ body {
   top: 0;
   z-index: 100;
   padding: 0.75rem 1rem;
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--color-navy-950);
+  color: var(--color-white);
+  border-radius: 0 0 var(--radius-sm) 0;
 }
 
 .skip-link:focus {
-  left: 0.5rem;
-  top: 0.5rem;
+  left: 0;
+  top: 0;
 }
 
 :focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--focus-ring-color);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
