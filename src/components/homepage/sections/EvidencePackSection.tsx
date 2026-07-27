@@ -9,7 +9,7 @@ type EvidencePackSectionProps = {
 
 export function EvidencePackSection({ content }: EvidencePackSectionProps) {
   return (
-    <Section aria-labelledby="evidence-pack-heading" className="bg-white">
+    <Section aria-labelledby="evidence-pack-heading" className="border-t border-slate-100 bg-white">
       <SectionHeading
         id="evidence-pack-heading"
         eyebrow="Documented, not implied"

@@ -9,7 +9,7 @@ type PlatformParitySectionProps = {
 
 export function PlatformParitySection({ content }: PlatformParitySectionProps) {
   return (
-    <Section aria-labelledby="platform-parity-heading" className="bg-slate-50">
+    <Section aria-labelledby="platform-parity-heading" className="border-t border-slate-100 bg-slate-50">
       <SectionHeading
         id="platform-parity-heading"
         eyebrow="Platform alignment"

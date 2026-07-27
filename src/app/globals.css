@@ -3,6 +3,10 @@
 :root {
   --color-navy-950: #0f172a;
   --color-brand-gold: #d4af37;
+  /* Same hue, darkened so borders/accents on white/slate surfaces clear the
+     3:1 non-text contrast minimum — full-strength gold (~2.1:1 on white) is
+     reserved for navy surfaces and text is never set in gold on light. */
+  --color-gold-deep: #9c7c22;
   --color-brand-maroon: #6b1f32;
   --color-action-navy: #0f172a;
   --color-slate-50: #f8fafc;
@@ -25,6 +29,7 @@
 @theme inline {
   --color-navy-950: var(--color-navy-950);
   --color-brand-gold: var(--color-brand-gold);
+  --color-gold-deep: var(--color-gold-deep);
   --color-brand-maroon: var(--color-brand-maroon);
   --color-action-navy: var(--color-action-navy);
   --color-slate-50: var(--color-slate-50);
@@ -60,9 +65,10 @@ body {
    components never hard-code font-size/line-height ad hoc. */
 @layer utilities {
   .text-h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.25rem, 5vw + 1rem, 3.5rem);
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
   }
 
   .text-h2 {
@@ -106,6 +112,30 @@ body {
 
     .text-evidence {
       font-size: 13px;
+    }
+  }
+}
+
+/* Shared card surface so section-level components stay visually
+   consistent without each one re-declaring border/hover/shadow rules. */
+@layer components {
+  .card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-slate-200);
+    background: var(--color-white);
+    transition:
+      border-color 200ms,
+      box-shadow 200ms;
+  }
+
+  .card-interactive:hover {
+    border-color: var(--color-gold-deep);
+    box-shadow: 0 4px 16px -4px rgb(15 23 42 / 0.1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
     }
   }
 }

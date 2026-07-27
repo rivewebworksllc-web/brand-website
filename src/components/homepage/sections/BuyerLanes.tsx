@@ -9,7 +9,7 @@ type BuyerLanesProps = {
 
 export function BuyerLanes({ lanes }: BuyerLanesProps) {
   return (
-    <Section aria-labelledby="buyer-lanes-heading" className="bg-white">
+    <Section aria-labelledby="buyer-lanes-heading" className="border-t border-slate-100 bg-white">
       <SectionHeading
         id="buyer-lanes-heading"
         eyebrow="Where do you start?"

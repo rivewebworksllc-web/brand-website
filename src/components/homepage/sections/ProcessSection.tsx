@@ -9,7 +9,7 @@ type ProcessSectionProps = {
 
 export function ProcessSection({ content }: ProcessSectionProps) {
   return (
-    <Section aria-labelledby="process-heading" className="bg-white">
+    <Section aria-labelledby="process-heading" className="border-t border-slate-100 bg-white">
       <SectionHeading
         id="process-heading"
         eyebrow="Founder-led delivery"

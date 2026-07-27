@@ -9,7 +9,7 @@ type IndustryFitSectionProps = {
 
 export function IndustryFitSection({ content }: IndustryFitSectionProps) {
   return (
-    <Section aria-labelledby="industry-fit-heading" className="bg-slate-50">
+    <Section aria-labelledby="industry-fit-heading" className="border-t border-slate-100 bg-slate-50">
       <SectionHeading id="industry-fit-heading" eyebrow="Who we serve" heading={content.heading} />
       <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {content.items.map((industry) => (

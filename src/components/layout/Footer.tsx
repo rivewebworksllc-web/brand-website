@@ -7,24 +7,32 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="surface-dark bg-navy-950 text-white">
-      <Container className="py-12 md:py-16">
-        <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
+    <footer className="surface-dark border-t border-white/10 bg-navy-950 text-white">
+      <Container className="py-14 md:py-20">
+        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
           <div className="max-w-sm">
-            <p className="text-lg font-bold">Rive Webworks</p>
-            <p className="mt-3 text-[15px] leading-[1.65] text-white/70">
+            <div className="flex items-center gap-2.5">
+              <span
+                aria-hidden="true"
+                className="flex h-7 w-7 items-center justify-center rounded-sm border border-brand-gold/40 text-xs font-bold text-brand-gold"
+              >
+                R
+              </span>
+              <p className="text-xl font-bold">Rive Webworks</p>
+            </div>
+            <p className="mt-4 text-[15px] leading-[1.65] text-white/75">
               Web, Cloud &amp; AI solutions for growing and regulated
               organizations — clear scope, documented evidence, ongoing
               support.
             </p>
           </div>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-3">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3">
             {primaryNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[15px] text-white/80 transition-colors duration-200 hover:text-brand-gold motion-reduce:transition-none"
+                className="text-[15px] text-white/85 transition-colors duration-200 hover:text-brand-gold motion-reduce:transition-none"
               >
                 {item.label}
               </Link>
@@ -44,7 +52,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-10 border-t border-white/10 pt-6 text-[13px] text-white/50">
+        <p className="mt-12 border-t border-white/10 pt-6 text-[13px] text-white/60">
           © {year} Rive Webworks. AWS-aligned · Microsoft cloud-aligned.
         </p>
       </Container>

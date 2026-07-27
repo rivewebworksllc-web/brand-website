@@ -8,17 +8,20 @@ type SecureAISectionProps = {
 
 export function SecureAISection({ content }: SecureAISectionProps) {
   return (
-    <Section aria-labelledby="secure-ai-heading" className="bg-white">
+    <Section aria-labelledby="secure-ai-heading" className="border-t border-slate-100 bg-white">
       <SectionHeading
         id="secure-ai-heading"
         eyebrow="Governed by design"
         heading={content.heading}
         description={content.description}
       />
-      <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {content.controls.map((control) => (
-          <li key={control} className="rounded-lg border border-slate-200 bg-white p-5">
-            <p className="text-[15px] leading-[1.65] text-slate-600">{control}</p>
+      <ul className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {content.controls.map((control, index) => (
+          <li key={control} className="card p-6">
+            <span className="text-evidence text-brand-maroon">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <p className="mt-2 text-[15px] leading-[1.65] text-slate-700">{control}</p>
           </li>
         ))}
       </ul>

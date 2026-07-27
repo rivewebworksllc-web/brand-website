@@ -100,7 +100,7 @@ export function MobileNav({ items, startCta }: MobileNavProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 top-[var(--header-h,64px)] z-50 overflow-y-auto bg-navy-950 px-6 py-8"
+          className="fixed inset-0 top-20 z-50 overflow-y-auto bg-navy-950 px-6 py-8"
         >
           <nav aria-label="Primary">
             <ul className="flex flex-col gap-1">

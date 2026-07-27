@@ -13,7 +13,7 @@ export default function Error({
     <main id="main-content">
       <Section className="bg-white text-center">
         <h1 className="text-h1 text-navy-950">Something went wrong</h1>
-        <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.65] text-slate-600 md:text-base">
+        <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.65] text-slate-700 md:text-base">
           This page hit an unexpected error. You can try again, or head back
           to the homepage.
         </p>
