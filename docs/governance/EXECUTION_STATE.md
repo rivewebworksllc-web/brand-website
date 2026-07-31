@@ -1,7 +1,7 @@
 # Execution State
 
-**Last updated:** 2026-07-30 22:43 Africa/Lagos  
-**Updated by:** Claude Code (governance package install, this session)
+**Last updated:** 2026-07-31 Africa/Lagos  
+**Updated by:** Claude Code (recording Silvester's Week 1 visual acceptance)
 
 ## Authoritative baseline
 
@@ -12,7 +12,7 @@
 | Integration branch | `develop` |
 | Last verified integration commit | `9b76f0f` — confirmed: matches `develop` HEAD both locally and on `origin/develop` |
 | Last confirmed feature branch | `feature/week-1-design-shell-homepage` |
-| Last confirmed feature commit | `20efe31` — local commit reported; remote push not yet verified |
+| Last confirmed feature commit | `20efe31` — confirmed present on `origin/feature/week-1-design-shell-homepage` |
 | Current implementation owner | `NONE — set before editing` |
 | Current work package | `NONE` |
 | Sanity project | `9vajygee` |
@@ -24,14 +24,14 @@
 |---|---|---|
 | Week 0 technical foundation | `VERIFIED` | Next.js/React/TypeScript/Tailwind/Sanity foundation; reported checks passed; `main` and `develop` created |
 | Week 1 initial design shell/homepage | `IMPLEMENTED` | Commit `c1516ef`; feature branch pushed |
-| Week 1 visual refinement | `IMPLEMENTED` | Commit `20efe31`; remote push and final visual acceptance still require confirmation |
+| Week 1 visual refinement | `VERIFIED` | Commit `20efe31`, confirmed on `origin/feature/week-1-design-shell-homepage`; full technical suite (lint/typecheck/unit/build/e2e/axe) passed; Silvester gave explicit visual acceptance in conversation ("Outcome B — Visual refinement approved") |
 
 ## Current transition boundary
 
 Codex must not begin Week 2 until the following facts are verified from the repository:
 
-- [ ] `20efe31` exists on the remote feature branch.
-- [ ] Week 1 has received Silvester’s visual acceptance.
+- [x] `20efe31` exists on the remote feature branch. — verified via `git rev-parse origin/feature/week-1-design-shell-homepage` and `git branch -r --contains 20efe31`.
+- [x] Week 1 has received Silvester’s visual acceptance. — explicit conversational approval, "Outcome B — Visual refinement approved."
 - [ ] The approved Week 1 branch has been merged into `develop`.
 - [ ] The resulting `develop` commit is recorded above.
 - [ ] Working tree is clean.
