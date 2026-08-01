@@ -3,14 +3,17 @@ import { getHomepageContent } from "@/lib/content/homepage";
 import { getSiteUrl, siteName } from "@/lib/site";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Hero } from "@/components/homepage/sections/Hero";
-import { BuyerLanes } from "@/components/homepage/sections/BuyerLanes";
+import { BuyerPathGrid } from "@/components/homepage/sections/BuyerPathGrid";
+import { AuthorityBand } from "@/components/homepage/sections/AuthorityBand";
 import { FeaturedEngagement } from "@/components/homepage/sections/FeaturedEngagement";
 import { EvidencePackSection } from "@/components/homepage/sections/EvidencePackSection";
 import { PlatformParitySection } from "@/components/homepage/sections/PlatformParitySection";
 import { SecureAISection } from "@/components/homepage/sections/SecureAISection";
 import { IndustryFitSection } from "@/components/homepage/sections/IndustryFitSection";
 import { ProcessSection } from "@/components/homepage/sections/ProcessSection";
-import { FinalCTASection } from "@/components/homepage/sections/FinalCTASection";
+import { ProofSection } from "@/components/homepage/sections/ProofSection";
+import { ResourcesSection } from "@/components/homepage/sections/ResourcesSection";
+import { FinalCTASection } from "@/components/homepage/sections/FinalConversionSection";
 
 export const metadata: Metadata = {
   title: "Web, Cloud & AI Solutions Built for Growth, Security and Scale",
@@ -44,14 +47,17 @@ export default async function HomePage() {
 
       <main id="main-content">
         <Hero content={content.hero} />
-        <BuyerLanes lanes={content.buyerLanes} />
+        <BuyerPathGrid paths={content.buyerPaths} />
+        <AuthorityBand content={content.authorityBand} />
         <FeaturedEngagement content={content.featuredEngagement} />
-        <EvidencePackSection content={content.evidencePack} />
         <PlatformParitySection content={content.platformParity} />
-        <SecureAISection content={content.secureAi} />
+        <EvidencePackSection content={content.evidencePack} />
+        <SecureAISection content={content.governedAi} />
         <IndustryFitSection content={content.industries} />
         <ProcessSection content={content.process} />
-        <FinalCTASection content={content.finalCta} />
+        <ProofSection content={content.proof} />
+        <ResourcesSection content={content.resources} />
+        <FinalCTASection content={content.finalConversion} />
       </main>
     </>
   );

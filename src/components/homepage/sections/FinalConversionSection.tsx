@@ -1,18 +1,15 @@
 import { Section } from "@/components/layout/Section";
-import { FinalCTA } from "@/components/homepage/FinalCTA";
+import { FinalConversion } from "@/components/homepage/FinalConversion";
 import type { HomepageContent } from "@/lib/content/homepage";
 
-type FinalCTASectionProps = {
-  content: HomepageContent["finalCta"];
+type FinalConversionSectionProps = {
+  content: HomepageContent["finalConversion"];
 };
 
-export function FinalCTASection({ content }: FinalCTASectionProps) {
+export function FinalCTASection({ content }: FinalConversionSectionProps) {
   return (
-    <Section aria-labelledby="final-cta-heading" dark>
-      <div className="sr-only" id="final-cta-heading">
-        {content.heading}
-      </div>
-      <FinalCTA {...content} />
+    <Section aria-labelledby="final-conversion-heading" dark>
+      <FinalConversion {...content} />
     </Section>
   );
 }
