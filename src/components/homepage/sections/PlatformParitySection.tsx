@@ -9,7 +9,7 @@ type PlatformParitySectionProps = {
 
 export function PlatformParitySection({ content }: PlatformParitySectionProps) {
   return (
-    <Section aria-labelledby="platform-parity-heading" className="border-t border-slate-100 bg-slate-50">
+    <Section aria-labelledby="platform-parity-heading" className="border-t border-hairline-faint bg-surface-alt">
       <SectionHeading
         id="platform-parity-heading"
         eyebrow="Platform alignment"
@@ -17,7 +17,7 @@ export function PlatformParitySection({ content }: PlatformParitySectionProps) {
         description={content.description}
       />
       <div className="mt-8">
-        <PlatformParity groups={content.groups} />
+        <PlatformParity groups={content.groups} sharedLayer={content.sharedLayer} />
       </div>
     </Section>
   );

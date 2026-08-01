@@ -9,7 +9,7 @@ type SecureAISectionProps = {
 
 export function SecureAISection({ content }: SecureAISectionProps) {
   return (
-    <Section aria-labelledby="secure-ai-heading" className="border-t border-hairline-faint bg-white">
+    <Section aria-labelledby="secure-ai-heading" className="border-t border-hairline-faint bg-surface">
       <p className="text-eyebrow text-brand-maroon">{content.eyebrow}</p>
       <h2 id="secure-ai-heading" className="text-h2 mt-2 max-w-2xl text-heading">
         {content.heading}
