@@ -104,17 +104,24 @@ export function MobileNav({ items, startCta }: MobileNavProps) {
         >
           <nav aria-label="Primary">
             <ul className="flex flex-col gap-1">
-              {items.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={close}
-                    className="block rounded-sm px-2 py-3 text-lg font-medium text-white transition-colors duration-200 hover:text-brand-gold motion-reduce:transition-none"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {items.map((item) => {
+                const isCurrent = item.href === pathname;
+
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={close}
+                      aria-current={isCurrent ? "page" : undefined}
+                      className={`block rounded-sm px-2 py-3 text-lg font-medium transition-colors duration-200 hover:text-brand-gold motion-reduce:transition-none ${
+                        isCurrent ? "text-brand-gold" : "text-white"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 

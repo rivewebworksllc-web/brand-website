@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { NavItem } from "@/lib/nav";
 
 type DesktopNavProps = {
   items: NavItem[];
-  currentPath?: string;
 };
 
-export function DesktopNav({ items, currentPath }: DesktopNavProps) {
+export function DesktopNav({ items }: DesktopNavProps) {
+  const currentPath = usePathname();
+
   return (
     <nav aria-label="Primary" className="hidden lg:block">
       <ul className="flex items-center gap-7">
