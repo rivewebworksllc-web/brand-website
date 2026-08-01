@@ -1,5 +1,8 @@
 "use client";
 
+import { Section } from "@/components/layout/Section";
+import { Button, LinkButton } from "@/components/ui/Button";
+
 export default function Error({
   reset,
 }: {
@@ -7,15 +10,22 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <main id="main-content" className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-2xl font-semibold">Something went wrong</h1>
-      <button
-        type="button"
-        onClick={reset}
-        className="mt-4 rounded border border-neutral-300 px-4 py-2 text-sm dark:border-neutral-700"
-      >
-        Try again
-      </button>
+    <main id="main-content">
+      <Section className="bg-white text-center">
+        <h1 className="text-h1 text-navy-950">Something went wrong</h1>
+        <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.65] text-slate-700 md:text-base">
+          This page hit an unexpected error. You can try again, or head back
+          to the homepage.
+        </p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button variant="primary" onClick={reset}>
+            Try again
+          </Button>
+          <LinkButton href="/" variant="outline">
+            Return home
+          </LinkButton>
+        </div>
+      </Section>
     </main>
   );
 }
