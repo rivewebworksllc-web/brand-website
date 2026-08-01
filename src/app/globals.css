@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
+
   --color-navy-950: #0f172a;
   --color-brand-gold: #d4af37;
   /* Same hue, darkened so borders/accents on white/slate surfaces clear the

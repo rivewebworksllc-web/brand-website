@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     default: siteName,
     template: `%s · ${siteName}`,
   },
-  description: "Rive Webworks — Week 0 build foundation.",
+  description:
+    "Rive Webworks helps growing and regulated organizations create high-converting websites, modernize AWS and Microsoft cloud environments, and deploy governed AI solutions—with clear scope, documented evidence and ongoing support.",
   robots: isProductionSite()
     ? { index: true, follow: true }
     : { index: false, follow: false },
