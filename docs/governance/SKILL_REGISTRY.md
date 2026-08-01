@@ -111,3 +111,4 @@ Update this registry only when the skill baseline changes materially (a skill is
 | Date | Change | Authority |
 |---|---|---|
 | 2026-08-01 | Registry created under `RIVE-PO-009`; initial capability audit performed (see `RW-GOV-002` implementation evidence for the full status matrix at adoption). | Product Office |
+| 2026-08-01 | `RIVE-PO-012` adopted: 21st.dev/Magic and TasteSkill (and future external design/performance/analytics/platform capabilities) require an official MCP connection provided by the Product Office — no substitute-implementation state. TasteSkill has no MCP form; a named exception (`DECISIONS.md` GOV-007) approved all 13 skills from `Leonxlnx/taste-skill` as a third-party package. 21st.dev MCP connected at transport level (`https://21st.dev/api/mcp`) but exposed zero discoverable tools at verification time — not yet confirmed `INSTALLED_CALLABLE`. | Product Office |
