@@ -17,14 +17,14 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
   if (items.length === 0) return null;
 
   return (
-    <nav aria-label="Breadcrumb" className="text-sm text-slate-600">
+    <nav aria-label="Breadcrumb" className="text-sm text-muted">
       <ol className="flex flex-wrap items-center gap-1.5">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
             <li key={`${item.label}-${index}`} className="flex items-center gap-1.5">
               {item.href && !isLast ? (
-                <Link href={item.href} className="hover:text-navy-950">
+                <Link href={item.href} className="hover:text-heading">
                   {item.label}
                 </Link>
               ) : (

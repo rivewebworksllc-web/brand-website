@@ -25,6 +25,23 @@ export const metadata: Metadata = {
     : { index: false, follow: false },
 };
 
+/**
+ * Runs before paint (blocking, in <head>) so the correct theme applies with
+ * no flash of the wrong colour scheme — persisted choice wins, otherwise the
+ * system preference decides on a first visit. Defensive: storage access can
+ * throw in locked-down/private browsing contexts.
+ */
+const themeInitScript = `(function () {
+  try {
+    var stored = window.localStorage.getItem("rive-theme");
+    var theme = stored === "light" || stored === "dark"
+      ? stored
+      : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.style.colorScheme = theme;
+  } catch (e) {}
+})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,11 +49,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
         <Header />
+        {/* Compensates for the now-fixed Header. The homepage's Hero
+            section cancels this out with -mt-20 so its own background sits
+            behind the transparent header instead of leaving a gap. */}
+        <div className="h-20" aria-hidden="true" />
         {children}
         <Footer />
       </body>

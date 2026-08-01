@@ -9,6 +9,7 @@ import type { NavItem } from "@/lib/nav";
 type MobileNavProps = {
   items: NavItem[];
   startCta: NavItem;
+  connectCta: NavItem;
 };
 
 function getFocusable(container: HTMLElement): HTMLElement[] {
@@ -19,7 +20,7 @@ function getFocusable(container: HTMLElement): HTMLElement[] {
   );
 }
 
-export function MobileNav({ items, startCta }: MobileNavProps) {
+export function MobileNav({ items, startCta, connectCta }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -78,7 +79,7 @@ export function MobileNav({ items, startCta }: MobileNavProps) {
   }
 
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         ref={triggerRef}
         type="button"
@@ -133,6 +134,13 @@ export function MobileNav({ items, startCta }: MobileNavProps) {
           >
             {startCta.label}
           </LinkButton>
+          <Link
+            href={connectCta.href}
+            onClick={close}
+            className="mt-3 block text-center text-[15px] font-medium text-white underline decoration-white/30 underline-offset-4 hover:text-brand-gold"
+          >
+            {connectCta.label}
+          </Link>
         </div>
       ) : null}
     </div>
