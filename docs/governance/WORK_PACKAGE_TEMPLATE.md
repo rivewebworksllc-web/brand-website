@@ -29,6 +29,11 @@ One observable implementation outcome.
 - Pending content:
 - Prohibited claims:
 
+## Required Skills and Tools
+
+| Skill/tool | Why required | Availability confirmed | Planned invocation |
+|---|---|---:|---|
+
 ## Scope
 
 ### Included

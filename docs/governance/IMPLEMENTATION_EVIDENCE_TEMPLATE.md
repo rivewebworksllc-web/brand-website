@@ -36,6 +36,11 @@
 | Accessibility |  |  |
 | Responsive review |  |  |
 
+## Skill Invocation Evidence
+
+| Skill/tool | Invoked? | Evidence | Limitation or exception |
+|---|---:|---|---|
+
 ## Review access
 
 - Preview URL/instructions:
