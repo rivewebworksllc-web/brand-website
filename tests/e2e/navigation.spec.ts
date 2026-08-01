@@ -22,7 +22,9 @@ test("header exposes the approved top-level navigation", async ({ page }) => {
   }
 
   const header = page.getByRole("banner");
-  await expect(header.getByRole("link", { name: "Start", exact: true })).toBeVisible();
+  await expect(
+    header.getByRole("link", { name: "Find Your Solution", exact: true }),
+  ).toBeVisible();
 });
 
 test("no navigation link uses a href=\"#\" placeholder", async ({ page }) => {

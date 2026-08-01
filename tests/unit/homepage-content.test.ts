@@ -10,7 +10,7 @@ describe("homepage fallback content", () => {
       "Web, Cloud & AI Solutions Built for Growth, Security and Scale",
     );
     expect(hero.summary).toBe(
-      "Rive Webworks helps growing and regulated organizations create high-converting websites, modernize AWS and Microsoft cloud environments, and deploy governed AI solutions — with clear scope, documented evidence, and ongoing support.",
+      "Rive Webworks helps growing and regulated organizations create high-converting websites, modernize AWS and Microsoft cloud environments, and deploy governed AI solutions—with clear scope, documented evidence and ongoing support.",
     );
     expect(hero.primaryCta).toEqual({ label: "Find Your Solution", href: "/start/" });
     expect(hero.secondaryCta).toEqual({
@@ -22,8 +22,17 @@ describe("homepage fallback content", () => {
     );
   });
 
-  it("uses the four approved buyer lane routes", () => {
-    expect(homepageFallbackContent.buyerLanes.map((lane) => lane.href)).toEqual([
+  it("carries the four-stage architecture flow", () => {
+    expect(homepageFallbackContent.hero.architectureFlow.map((step) => step.label)).toEqual([
+      "Digital Experience",
+      "Cloud Foundation",
+      "Governed AI",
+      "Managed Outcomes",
+    ]);
+  });
+
+  it("uses the four approved buyer path routes", () => {
+    expect(homepageFallbackContent.buyerPaths.map((path) => path.cta.href)).toEqual([
       "/solutions/web-growth/",
       "/solutions/cloud-modernization/",
       "/solutions/ai-data-automation/",
@@ -32,6 +41,22 @@ describe("homepage fallback content", () => {
   });
 
   it("never invents a featured-engagement price", () => {
-    expect(homepageFallbackContent.featuredEngagement.priceStatus).toBe("pending");
+    const text = JSON.stringify(homepageFallbackContent.featuredEngagement);
+    expect(text.toLowerCase()).not.toMatch(/\$\d|per month|per year|pricing/);
+  });
+
+  it("never invents resource author or reading-time data", () => {
+    for (const card of homepageFallbackContent.resources.cards) {
+      expect(card.metaStatus).toBe("pending");
+    }
+  });
+
+  it("contains exactly six Evidence Pack artifacts", () => {
+    expect(homepageFallbackContent.evidencePack.artifacts).toHaveLength(6);
+  });
+
+  it("never implies AWS or Microsoft partner status", () => {
+    const text = JSON.stringify(homepageFallbackContent).toLowerCase();
+    expect(text).not.toMatch(/aws partner|microsoft solutions partner|certified partner/);
   });
 });
