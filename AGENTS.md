@@ -108,6 +108,7 @@ Before implementation:
 3. Inspect the current branch, HEAD, remote and working tree.
 4. Confirm the work package, writer, branch, authority and acceptance criteria.
 5. Stop if the branch contains overlapping uncommitted work or ownership is ambiguous.
+6. Classify the task against `docs/governance/SKILL_REGISTRY.md` and print the Skill Gate (below) before writing or changing any file.
 
 During implementation:
 
@@ -122,7 +123,32 @@ After implementation:
 2. Record the commit and evidence in `EXECUTION_STATE.md`.
 3. Return the completed scope, files changed, tests, preview instructions, omissions and blockers.
 4. Confirm whether any push, PR or merge occurred.
-5. Stop for visual/human acceptance when required.
+5. Include Skill Invocation Evidence per `docs/governance/SKILL_REGISTRY.md` §6.
+6. Stop for visual/human acceptance when required.
+
+## Skill gate
+
+Authority: `RIVE-PO-009`, implemented in `docs/governance/SKILL_REGISTRY.md`.
+
+A skill being installed is not enough — it must be invoked for the task it governs. Before implementation, print:
+
+```text
+SKILL GATE
+Task classification:
+Required skills:
+Available skills:
+Unavailable skills:
+Invocation plan:
+Decision: PROCEED / PARTIAL / BLOCKED
+```
+
+Rules:
+
+- Every work package must declare a `## Required Skills and Tools` table; every implementation report must declare a `## Skill Invocation Evidence` table (templates in `docs/governance/WORK_PACKAGE_TEMPLATE.md` and `docs/governance/IMPLEMENTATION_EVIDENCE_TEMPLATE.md`).
+- Do not infer availability from documentation alone — verify it in the current session.
+- Do not claim a skill, plugin or MCP server was used unless it was genuinely available and invoked. A passing outcome does not excuse a false invocation claim.
+- If a mandatory skill from the registry's routing matrix is unavailable, stop the affected work and report the gap, or complete only the portion that does not require it and mark the limitation. Do not silently substitute generic reasoning.
+- Acquiring a missing capability (install, credential, connection, global configuration change) requires explicit Product Office authorization; never do this silently while checking availability.
 
 ## Default quality gate
 
