@@ -1,24 +1,50 @@
 import { Section } from "@/components/layout/Section";
-import { SectionHeading } from "@/components/homepage/SectionHeading";
-import { ServiceCard } from "@/components/homepage/ServiceCard";
 import type { HomepageContent } from "@/lib/content/homepage";
 
 type IndustryFitSectionProps = {
   content: HomepageContent["industries"];
 };
 
+/**
+ * One dominant feature (Healthcare) plus a compact inline list for the
+ * rest — not five more identical cards after the accordion, the split
+ * panel and the diagram have already established the page's rhythm.
+ */
 export function IndustryFitSection({ content }: IndustryFitSectionProps) {
+  const featured = content.items.find((item) => item.featured) ?? content.items[0];
+  const rest = content.items.filter((item) => item !== featured);
+
   return (
-    <Section aria-labelledby="industry-fit-heading" className="border-t border-slate-100 bg-slate-50">
-      <SectionHeading id="industry-fit-heading" eyebrow="Who we serve" heading={content.heading} />
-      <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {content.items.map((industry) => (
-          <ServiceCard
-            key={industry.name}
-            title={industry.name}
-            description={industry.description}
-          />
-        ))}
+    <Section aria-labelledby="industry-fit-heading" className="border-t border-hairline-faint bg-surface-alt">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-5">
+          <p className="text-eyebrow text-brand-maroon">Who we serve</p>
+          <h2 id="industry-fit-heading" className="text-h2 mt-2 text-heading text-balance">
+            {content.heading}
+          </h2>
+          <p className="mt-3 text-[15px] leading-[1.65] text-body md:text-base">
+            {content.description}
+          </p>
+        </div>
+
+        <div className="lg:col-span-7">
+          <div className="card border-l-[3px] border-l-navy-950 p-6">
+            <p className="text-eyebrow text-brand-maroon">Featured sector</p>
+            <h3 className="text-h3 mt-2 text-heading">{featured.name}</h3>
+            <p className="mt-2 text-[15px] leading-[1.6] text-body">{featured.description}</p>
+          </div>
+
+          <ul className="mt-6 divide-y divide-hairline-faint border-y border-hairline-faint">
+            {rest.map((industry) => (
+              <li key={industry.name} className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6">
+                <span className="text-[15px] font-semibold text-heading sm:w-64 sm:shrink-0">
+                  {industry.name}
+                </span>
+                <span className="text-[14px] leading-[1.6] text-body">{industry.description}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );

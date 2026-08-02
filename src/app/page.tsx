@@ -3,19 +3,22 @@ import { getHomepageContent } from "@/lib/content/homepage";
 import { getSiteUrl, siteName } from "@/lib/site";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Hero } from "@/components/homepage/sections/Hero";
-import { BuyerLanes } from "@/components/homepage/sections/BuyerLanes";
+import { Manifesto } from "@/components/homepage/sections/Manifesto";
+import { BuyerPathGrid } from "@/components/homepage/sections/BuyerPathGrid";
 import { FeaturedEngagement } from "@/components/homepage/sections/FeaturedEngagement";
-import { EvidencePackSection } from "@/components/homepage/sections/EvidencePackSection";
 import { PlatformParitySection } from "@/components/homepage/sections/PlatformParitySection";
-import { SecureAISection } from "@/components/homepage/sections/SecureAISection";
+import { EvidencePackSection } from "@/components/homepage/sections/EvidencePackSection";
+import { GovernedAISection } from "@/components/homepage/sections/GovernedAISection";
 import { IndustryFitSection } from "@/components/homepage/sections/IndustryFitSection";
 import { ProcessSection } from "@/components/homepage/sections/ProcessSection";
-import { FinalCTASection } from "@/components/homepage/sections/FinalCTASection";
+import { ProofFootnoteSection } from "@/components/homepage/sections/ProofFootnoteSection";
+import { ResourcesSection } from "@/components/homepage/sections/ResourcesSection";
+import { FinalCTASection } from "@/components/homepage/sections/FinalConversionSection";
 
 export const metadata: Metadata = {
-  title: "Web, Cloud & AI Solutions Built for Growth, Security and Scale",
+  title: "One Accountable Team for Web, Cloud & AI",
   description:
-    "Rive Webworks helps growing and regulated organizations create high-converting websites, modernize AWS and Microsoft cloud environments, and deploy governed AI solutions — with clear scope, documented evidence, and ongoing support.",
+    "Rive Webworks builds the website, modernizes the AWS or Microsoft cloud behind it, and ships governed AI on top — one accountable team, documented evidence at every stage.",
   alternates: { canonical: "/" },
 };
 
@@ -44,14 +47,17 @@ export default async function HomePage() {
 
       <main id="main-content">
         <Hero content={content.hero} />
-        <BuyerLanes lanes={content.buyerLanes} />
+        <Manifesto content={content.manifesto} />
+        <BuyerPathGrid intro={content.buyerPathsIntro} paths={content.buyerPaths} />
         <FeaturedEngagement content={content.featuredEngagement} />
-        <EvidencePackSection content={content.evidencePack} />
         <PlatformParitySection content={content.platformParity} />
-        <SecureAISection content={content.secureAi} />
+        <EvidencePackSection content={content.evidencePack} />
+        <GovernedAISection content={content.governedAi} />
         <IndustryFitSection content={content.industries} />
         <ProcessSection content={content.process} />
-        <FinalCTASection content={content.finalCta} />
+        <ProofFootnoteSection text={content.proofFootnote} />
+        <ResourcesSection content={content.resources} />
+        <FinalCTASection content={content.finalConversion} />
       </main>
     </>
   );

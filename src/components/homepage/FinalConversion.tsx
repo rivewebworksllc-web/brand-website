@@ -1,20 +1,25 @@
 import { LinkButton } from "@/components/ui/Button";
+import type { FinalConversionContent } from "@/lib/content/homepage";
 
-type FinalCTAProps = {
-  heading: string;
-  description: string;
-  primaryCta: { label: string; href: string };
-  secondaryCta: { label: string; href: string };
-};
-
-export function FinalCTA({ heading, description, primaryCta, secondaryCta }: FinalCTAProps) {
+export function FinalConversion({
+  heading,
+  description,
+  primaryCta,
+  secondaryCta,
+  reassurance,
+}: FinalConversionContent) {
   return (
-    <div className="text-center">
-      <span
-        aria-hidden="true"
-        className="mx-auto block h-1 w-12 rounded-full bg-brand-gold"
-      />
-      <h2 className="text-h2 mt-6 text-white">{heading}</h2>
+    <div
+      className="rounded-lg p-10 text-center md:p-16"
+      style={{
+        background:
+          "linear-gradient(135deg, var(--color-navy-950) 0%, var(--color-navy-950) 60%, var(--color-gold-deep) 150%)",
+      }}
+    >
+      <span aria-hidden="true" className="mx-auto block h-1 w-12 rounded-full bg-brand-gold" />
+      <h2 id="final-conversion-heading" className="text-h2 mt-6 text-white">
+        {heading}
+      </h2>
       <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.7] text-white/80 md:text-base">
         {description}
       </p>
@@ -26,6 +31,7 @@ export function FinalCTA({ heading, description, primaryCta, secondaryCta }: Fin
           {secondaryCta.label}
         </LinkButton>
       </div>
+      <p className="text-evidence mx-auto mt-8 max-w-md text-white/60">{reassurance}</p>
     </div>
   );
 }
