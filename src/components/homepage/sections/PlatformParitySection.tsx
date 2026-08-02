@@ -1,24 +1,66 @@
-import { Section } from "@/components/layout/Section";
-import { SectionHeading } from "@/components/homepage/SectionHeading";
-import { PlatformParity } from "@/components/homepage/PlatformParity";
+import { Container } from "@/components/layout/Container";
 import type { HomepageContent } from "@/lib/content/homepage";
 
 type PlatformParitySectionProps = {
   content: HomepageContent["platformParity"];
 };
 
+/**
+ * Full-bleed two-tone split instead of twin bordered cards — the platform
+ * "equal weight" message is made structurally true (identical column width,
+ * no card competing for attention) rather than just visually implied.
+ */
 export function PlatformParitySection({ content }: PlatformParitySectionProps) {
   return (
-    <Section aria-labelledby="platform-parity-heading" className="border-t border-slate-100 bg-slate-50">
-      <SectionHeading
-        id="platform-parity-heading"
-        eyebrow="Platform alignment"
-        heading={content.heading}
-        description={content.description}
-      />
-      <div className="mt-8">
-        <PlatformParity groups={content.groups} />
+    <section aria-labelledby="platform-parity-heading" className="border-t border-hairline-faint">
+      <Container className="pt-12 pb-8 md:pt-20 md:pb-10">
+        <h2 id="platform-parity-heading" className="text-h2 max-w-2xl text-heading">
+          {content.heading}
+        </h2>
+        <p className="mt-3 max-w-2xl text-[15px] leading-[1.65] text-body md:text-base">
+          {content.description}
+        </p>
+      </Container>
+
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {content.groups.map((group, index) => (
+          <div
+            key={group.platform}
+            className={`px-6 py-10 md:px-12 md:py-14 ${index === 0 ? "bg-surface-alt" : "bg-surface md:border-l md:border-hairline"}`}
+          >
+            <div className="mx-auto max-w-sm">
+              <p className="text-eyebrow text-brand-maroon">{group.platform}</p>
+              <h3 className="text-h3 mt-2 text-heading">{group.heading}</h3>
+              <ul className="mt-5 space-y-3">
+                {group.items.map((item) => (
+                  <li key={item} className="flex gap-2.5 text-[15px] leading-[1.65] text-body">
+                    <span aria-hidden="true" className="mt-0.5 text-brand-maroon">
+                      ✓
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
       </div>
-    </Section>
+
+      <Container className="py-8 md:py-10">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-hairline pt-6 text-[14px] font-medium text-heading">
+          <span className="text-eyebrow mr-2 text-brand-maroon">Shared layer</span>
+          {content.sharedLayer.map((item, index) => (
+            <span key={item} className="flex items-center gap-2">
+              {item}
+              {index < content.sharedLayer.length - 1 ? (
+                <span aria-hidden="true" className="text-muted">
+                  ·
+                </span>
+              ) : null}
+            </span>
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 }
