@@ -45,6 +45,37 @@
   --color-accent-surface-alt: #f0dfae;
   --color-accent-foreground: var(--color-navy-950);
   --color-accent-focus: var(--color-gold-deep);
+  /* Full-strength brand-gold only clears 1.74:1 on the warm accent surface
+     (well under the 3:1 non-text minimum) — same issue as gold-on-cream
+     documented elsewhere. gold-deep clears 3.27:1, the accent-surface
+     equivalent of gold-deep's existing light-surface role. */
+  --color-accent-gold: var(--color-gold-deep);
+
+  /* Mineral Azure (RW-PW04) — secondary interactive/technical accent. Gold
+     stays primary/conversion; azure marks pathways, active states and
+     supporting highlights. Raw palette exactly as specified by the brief.
+     --accent-azure-* is the validated semantic layer: azure-500 (the
+     brief's literal "core" shade) only clears 4.48:1 on pure white and
+     drops below 4.5:1 on every warmer surface this site actually uses, so
+     text/link usage promotes to azure-700 (>=6.47:1 on every light
+     surface, verified). azure-500 remains available as -strong for
+     decorative/non-text use (SVG pathways, node fills), where only the
+     3:1 non-text minimum applies and it clears >=3.7:1 everywhere. */
+  --color-azure-50: #f0f7f9;
+  --color-azure-100: #ddeef3;
+  --color-azure-200: #b9dae3;
+  --color-azure-300: #8fc5d4;
+  --color-azure-400: #5fa9c5;
+  --color-azure-500: #2f7fa3;
+  --color-azure-600: #286d8b;
+  --color-azure-700: #1f5871;
+  --color-azure-800: #194759;
+  --color-azure-900: #123746;
+
+  --color-accent-azure: var(--color-azure-700);
+  --color-accent-azure-hover: var(--color-azure-800);
+  --color-accent-azure-soft: var(--color-azure-100);
+  --color-accent-azure-strong: var(--color-azure-500);
 
   /* Light-surface default; the accent surface opts into its own gold
      variant so the ring keeps >=3:1 contrast against its own surface. */
@@ -69,6 +100,7 @@
   --color-accent-surface-alt: #0b1424;
   --color-accent-foreground: #f8fafc;
   --color-accent-focus: var(--color-brand-gold);
+  --color-accent-gold: var(--color-brand-gold);
 
   /* Secondary accent (eyebrows, checkmarks, "Explore ->" links) converges
      with the primary gold accent in dark mode instead of staying maroon —
@@ -77,6 +109,16 @@
      This also matches the brief's dark palette being gold-on-navy/graphite,
      with no separate maroon material called for. */
   --color-brand-maroon: var(--color-brand-gold);
+
+  /* Dark-mode azure: text/link usage demotes to azure-400 (>=6.57:1 on
+     every dark surface, verified) since azure-700's own darkness reverses
+     on navy; -strong stays azure-500 (>=3.86:1 non-text on every dark
+     surface). Hover brightens instead of darkening, matching how gold
+     already behaves against dark surfaces elsewhere on the page. */
+  --color-accent-azure: var(--color-azure-400);
+  --color-accent-azure-hover: var(--color-azure-300);
+  --color-accent-azure-soft: rgba(95, 169, 197, 0.14);
+  --color-accent-azure-strong: var(--color-azure-500);
 
   --focus-ring-color: var(--color-brand-gold);
 }
@@ -111,6 +153,23 @@
   --color-accent-surface: var(--color-accent-surface);
   --color-accent-surface-alt: var(--color-accent-surface-alt);
   --color-accent-foreground: var(--color-accent-foreground);
+  --color-accent-gold: var(--color-accent-gold);
+
+  --color-azure-50: var(--color-azure-50);
+  --color-azure-100: var(--color-azure-100);
+  --color-azure-200: var(--color-azure-200);
+  --color-azure-300: var(--color-azure-300);
+  --color-azure-400: var(--color-azure-400);
+  --color-azure-500: var(--color-azure-500);
+  --color-azure-600: var(--color-azure-600);
+  --color-azure-700: var(--color-azure-700);
+  --color-azure-800: var(--color-azure-800);
+  --color-azure-900: var(--color-azure-900);
+
+  --color-accent-azure: var(--color-accent-azure);
+  --color-accent-azure-hover: var(--color-accent-azure-hover);
+  --color-accent-azure-soft: var(--color-accent-azure-soft);
+  --color-accent-azure-strong: var(--color-accent-azure-strong);
 
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
@@ -256,6 +315,33 @@ body {
   50% {
     opacity: 0.7;
   }
+}
+
+/* Atmospheric background primitives (RW-PW04). Purely decorative — always
+   aria-hidden, absolutely positioned within a `position: relative` section,
+   and layered behind content (z-index isn't set explicitly; these are the
+   section's first child so normal stacking order already puts real content
+   on top). Both are theme-aware for free: --color-hairline and
+   --color-accent-azure-soft already flip between light/dark. Used sparingly
+   (2-3 sections), never stacked on adjacent sections. */
+.atmosphere-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--color-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-hairline) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.5;
+  mask-image: linear-gradient(to bottom, black, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.atmosphere-radial {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(640px circle at 88% 12%, var(--color-accent-azure-soft), transparent 70%);
 }
 
 .container-rw {
