@@ -8,7 +8,7 @@ type FinalConversionSectionProps = {
 
 export function FinalCTASection({ content }: FinalConversionSectionProps) {
   return (
-    <Section aria-labelledby="final-conversion-heading" dark>
+    <Section aria-labelledby="final-conversion-heading" accent>
       <FinalConversion {...content} />
     </Section>
   );

@@ -21,8 +21,8 @@ export function DesktopNav({ items }: DesktopNavProps) {
               <Link
                 href={item.href}
                 aria-current={isCurrent ? "page" : undefined}
-                className={`text-[15px] font-medium tracking-wide text-white/95 transition-colors duration-200 hover:text-brand-gold motion-reduce:transition-none ${
-                  isCurrent ? "text-brand-gold" : ""
+                className={`text-[15px] font-medium tracking-wide text-accent-foreground/95 transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none ${
+                  isCurrent ? "text-brand-maroon" : ""
                 }`}
               >
                 {item.label}

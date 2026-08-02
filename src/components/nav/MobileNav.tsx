@@ -87,7 +87,7 @@ export function MobileNav({ items, startCta, connectCta }: MobileNavProps) {
         aria-controls="mobile-nav-panel"
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm text-white"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm text-accent-foreground"
       >
         <span aria-hidden="true" className="text-2xl leading-none">
           {open ? "✕" : "☰"}
@@ -101,7 +101,7 @@ export function MobileNav({ items, startCta, connectCta }: MobileNavProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className="fixed inset-0 top-20 z-50 overflow-y-auto bg-navy-950 px-6 py-8"
+          className="surface-accent fixed inset-0 top-20 z-50 overflow-y-auto bg-accent-surface px-6 py-8"
         >
           <nav aria-label="Primary">
             <ul className="flex flex-col gap-1">
@@ -114,8 +114,8 @@ export function MobileNav({ items, startCta, connectCta }: MobileNavProps) {
                       href={item.href}
                       onClick={close}
                       aria-current={isCurrent ? "page" : undefined}
-                      className={`block rounded-sm px-2 py-3 text-lg font-medium transition-colors duration-200 hover:text-brand-gold motion-reduce:transition-none ${
-                        isCurrent ? "text-brand-gold" : "text-white"
+                      className={`block rounded-sm px-2 py-3 text-lg font-medium transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none ${
+                        isCurrent ? "text-brand-maroon" : "text-accent-foreground"
                       }`}
                     >
                       {item.label}
@@ -137,7 +137,7 @@ export function MobileNav({ items, startCta, connectCta }: MobileNavProps) {
           <Link
             href={connectCta.href}
             onClick={close}
-            className="mt-3 block text-center text-[15px] font-medium text-white underline decoration-white/30 underline-offset-4 hover:text-brand-gold"
+            className="mt-3 block text-center text-[15px] font-medium text-accent-foreground underline decoration-accent-foreground/30 underline-offset-4 hover:text-brand-maroon"
           >
             {connectCta.label}
           </Link>

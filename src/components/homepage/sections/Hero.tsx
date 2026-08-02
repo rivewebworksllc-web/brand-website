@@ -11,20 +11,20 @@ export function Hero({ content }: HeroProps) {
   return (
     <Section
       as="section"
-      dark
+      accent
       aria-labelledby="hero-heading"
-      className="-mt-20 border-b border-white/10 pt-36 pb-14 md:pt-44 md:pb-20"
+      className="-mt-20 border-b border-accent-foreground/10 pt-36 pb-14 md:pt-44 md:pb-20"
     >
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-5 lg:gap-16">
         <div className="lg:col-span-3">
-          <p className="flex items-center gap-2 text-eyebrow text-brand-gold">
-            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
+          <p className="flex items-center gap-2 text-eyebrow text-brand-maroon">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand-maroon" />
             {content.eyebrow}
           </p>
-          <h1 id="hero-heading" className="text-h1 mt-5 max-w-2xl text-white text-balance">
+          <h1 id="hero-heading" className="text-h1 mt-5 max-w-2xl text-accent-foreground text-balance">
             {content.heading}
           </h1>
-          <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-white/85 md:text-base">
+          <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-accent-foreground/85 md:text-base">
             {content.summary}
           </p>
 
@@ -37,16 +37,16 @@ export function Hero({ content }: HeroProps) {
             </LinkButton>
           </div>
 
-          <p className="text-evidence mt-8 border-t border-white/10 pt-5 text-white/70">
+          <p className="text-evidence mt-8 border-t border-accent-foreground/10 pt-5 text-accent-foreground/70">
             {content.trustLine}
           </p>
         </div>
 
         <div className="lg:col-span-2">
-          <p className="text-eyebrow text-white/50" id="hero-architecture-heading">
+          <p className="text-eyebrow text-accent-foreground/70" id="hero-architecture-heading">
             How the work fits together
           </p>
-          <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-5">
+          <div className="mt-4 rounded-lg border border-accent-foreground/10 bg-accent-foreground/[0.03] p-5">
             <ArchitectureFlow steps={content.architectureFlow} />
           </div>
         </div>

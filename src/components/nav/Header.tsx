@@ -16,6 +16,10 @@ import { MobileNav } from "./MobileNav";
  * Every other route gets a plain h-20 spacer (in layout.tsx) to push
  * content clear. The full nav + both CTAs only fit from `xl` (1280px) up;
  * 1024-1279px collapses to the same mobile drawer used below `lg`.
+ *
+ * RW-PW03: uses the theme-aware accent surface (warm ivory in light mode,
+ * navy in dark) instead of a fixed navy background, so it matches the hero
+ * it floats over in both themes.
  */
 export function Header() {
   const pathname = usePathname();
@@ -38,19 +42,21 @@ export function Header() {
 
   return (
     <header
-      className={`surface-dark fixed inset-x-0 top-0 z-40 text-white transition-colors duration-200 motion-reduce:transition-none ${
-        solid ? "border-b border-white/10 bg-navy-950/95 backdrop-blur" : "border-b border-transparent bg-transparent"
+      className={`surface-accent fixed inset-x-0 top-0 z-40 transition-colors duration-200 motion-reduce:transition-none ${
+        solid
+          ? "border-b border-accent-foreground/10 bg-accent-surface/95 backdrop-blur"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
       <Container className="flex h-20 items-center justify-between gap-4">
         <Link
           href="/"
-          className="flex items-center gap-2.5 text-white"
+          className="flex items-center gap-2.5 text-accent-foreground"
           aria-label="Rive Webworks — home"
         >
           <span
             aria-hidden="true"
-            className="flex h-8 w-8 items-center justify-center rounded-sm border border-brand-gold/40 text-sm font-bold text-brand-gold"
+            className="flex h-8 w-8 items-center justify-center rounded-sm border border-brand-maroon/40 text-sm font-bold text-brand-maroon"
           >
             R
           </span>
@@ -66,7 +72,7 @@ export function Header() {
 
           <Link
             href={connectCta.href}
-            className="hidden text-[14px] font-medium text-white/90 hover:text-brand-gold xl:block"
+            className="hidden text-[14px] font-medium text-accent-foreground/90 hover:text-brand-maroon xl:block"
           >
             {connectCta.label}
           </Link>

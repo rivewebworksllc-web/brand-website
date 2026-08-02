@@ -16,23 +16,37 @@
   --color-slate-600: #64748b;
   --color-white: #ffffff;
 
-  --background: var(--color-white);
+  --background: #faf6ed;
   --foreground: var(--color-navy-950);
 
-  /* Theme-aware semantic layer. Navy CTA/authority surfaces (`.surface-dark`,
-     the `dark` Section prop) are an intentional brand surface, not a theme —
-     they stay navy in both light and dark mode. These tokens only govern the
-     *page* surfaces that actually flip: white/slate section backgrounds,
-     card surfaces, body copy and hairline borders. */
-  --color-surface: var(--color-white);
-  --color-surface-alt: var(--color-slate-50);
+  /* Theme-aware semantic layer governing every section background, card
+     surface, body copy and hairline border on the page — including the
+     brand accent surfaces (Header/Hero/Footer/final-CTA) via
+     --color-accent-*. RW-PW03: previously the accent surfaces were forced
+     navy in both themes ("brand identity, not a theme"); Product Office
+     correction — light theme must have zero full-width navy/near-black
+     sections, so the accent surface now flips too: warm gold-tinted pale
+     ivory in light, navy in dark. It deliberately isn't a plain inversion —
+     light leans warm/cream, dark leans navy/graphite with gold accents. */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3ede1;
   --color-heading: var(--color-navy-950);
   --color-body: #334155;
-  --color-muted: #64748b;
-  --color-hairline: var(--color-slate-200);
-  --color-hairline-faint: #f1f5f9;
+  /* Darker than the original #64748b — that value only cleared 4.5:1 against
+     pure white; against the warmer surface-alt/hairline-faint introduced by
+     the RW-PW03 light-theme correction it dropped to ~4.0-4.4:1. This clears
+     >=5.3:1 against every light surface in use (verified: background 5.90,
+     surface 6.36, surface-alt 5.45, hairline-faint 5.30). */
+  --color-muted: #556072;
+  --color-hairline: #e7dfce;
+  --color-hairline-faint: #f1ead9;
 
-  /* Light-surface default; sections on a navy background opt into the gold
+  --color-accent-surface: #f6e9c9;
+  --color-accent-surface-alt: #f0dfae;
+  --color-accent-foreground: var(--color-navy-950);
+  --color-accent-focus: var(--color-gold-deep);
+
+  /* Light-surface default; the accent surface opts into its own gold
      variant so the ring keeps >=3:1 contrast against its own surface. */
   --focus-ring-color: var(--color-navy-950);
 }
@@ -51,11 +65,26 @@
   --color-hairline: rgba(248, 250, 252, 0.14);
   --color-hairline-faint: rgba(248, 250, 252, 0.08);
 
+  --color-accent-surface: var(--color-navy-950);
+  --color-accent-surface-alt: #0b1424;
+  --color-accent-foreground: #f8fafc;
+  --color-accent-focus: var(--color-brand-gold);
+
+  /* Secondary accent (eyebrows, checkmarks, "Explore ->" links) converges
+     with the primary gold accent in dark mode instead of staying maroon —
+     maroon was calibrated for light surfaces only (see the comment on
+     --color-gold-deep below) and read as low-contrast on dark navy cards.
+     This also matches the brief's dark palette being gold-on-navy/graphite,
+     with no separate maroon material called for. */
+  --color-brand-maroon: var(--color-brand-gold);
+
   --focus-ring-color: var(--color-brand-gold);
 }
 
-.surface-dark {
-  --focus-ring-color: var(--color-brand-gold);
+.surface-accent {
+  background: var(--color-accent-surface);
+  color: var(--color-accent-foreground);
+  --focus-ring-color: var(--color-accent-focus);
 }
 
 @theme inline {
@@ -78,6 +107,10 @@
   --color-muted: var(--color-muted);
   --color-hairline: var(--color-hairline);
   --color-hairline-faint: var(--color-hairline-faint);
+
+  --color-accent-surface: var(--color-accent-surface);
+  --color-accent-surface-alt: var(--color-accent-surface-alt);
+  --color-accent-foreground: var(--color-accent-foreground);
 
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;

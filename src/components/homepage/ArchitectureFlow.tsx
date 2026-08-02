@@ -31,8 +31,8 @@ export function ArchitectureFlow({ steps }: ArchitectureFlowProps) {
             ) : null}
           </div>
           <div className="pb-6 lg:px-2 lg:pb-0 lg:text-center">
-            <p className="text-[13px] font-semibold tracking-wide text-white">{step.label}</p>
-            <p className="mt-1 text-[13px] leading-[1.5] text-white/70">{step.description}</p>
+            <p className="text-[13px] font-semibold tracking-wide text-accent-foreground">{step.label}</p>
+            <p className="mt-1 text-[13px] leading-[1.5] text-accent-foreground/70">{step.description}</p>
           </div>
         </li>
       ))}

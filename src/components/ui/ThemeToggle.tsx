@@ -41,7 +41,7 @@ export function ThemeToggle() {
             ? "Switch to light theme"
             : "Switch to dark theme"
       }
-      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm text-white transition-colors duration-200 hover:text-brand-gold motion-reduce:transition-none"
+      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm text-accent-foreground transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none"
     >
       {mounted && isDark ? (
         <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5" fill="currentColor">
