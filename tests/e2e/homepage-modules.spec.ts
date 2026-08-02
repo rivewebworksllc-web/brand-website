@@ -11,7 +11,7 @@ test("manifesto statement renders as plain editorial text, not a card", async ({
   await expect(heading).toBeVisible();
 });
 
-test("buyer-path accordion opens the first path by default and exposes all four", async ({
+test("Guided Outcome Explorer (desktop) selects a path via the tablist and updates the panel", async ({
   page,
 }) => {
   await page.goto("/");
@@ -19,6 +19,50 @@ test("buyer-path accordion opens the first path by default and exposes all four"
   const section = page.locator("section", {
     has: page.getByRole("heading", { name: "Tell us what's broken. We'll tell you where to start." }),
   });
+
+  const tablist = section.getByRole("tablist", { name: "Buyer outcomes" });
+  const panel = section.getByRole("tabpanel");
+  const names = [
+    "Website & Growth",
+    "AWS & Microsoft Cloud",
+    "Secure AI & Automation",
+    "Managed Care & Advisory",
+  ];
+  for (const name of names) {
+    await expect(tablist.getByRole("tab", { name })).toBeVisible();
+  }
+
+  // Website & Growth is selected by default.
+  await expect(panel.getByText(/A weak, slow or low-converting website/)).toBeVisible();
+
+  await tablist.getByRole("tab", { name: "AWS & Microsoft Cloud" }).click();
+  await expect(panel.getByText(/Architecture, migration, security/)).toBeVisible();
+});
+
+test("Guided Outcome Explorer tablist is keyboard operable", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator("section", {
+    has: page.getByRole("heading", { name: "Tell us what's broken. We'll tell you where to start." }),
+  });
+  const panel = section.getByRole("tabpanel");
+  const firstTab = section.getByRole("tab", { name: "Website & Growth" });
+  await firstTab.focus();
+  await page.keyboard.press("ArrowDown");
+  await expect(section.getByRole("tab", { name: "AWS & Microsoft Cloud" })).toBeFocused();
+  await expect(panel.getByText(/Architecture, migration, security/)).toBeVisible();
+});
+
+test("buyer-path accordion (mobile) opens the first path by default and works via native details with zero JS reliance", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto("/");
+
+  const section = page.locator("section", {
+    has: page.getByRole("heading", { name: "Tell us what's broken. We'll tell you where to start." }),
+  });
+  const accordion = section.locator("details");
 
   const names = [
     "Website & Growth",
@@ -27,23 +71,17 @@ test("buyer-path accordion opens the first path by default and exposes all four"
     "Managed Care & Advisory",
   ];
   for (const name of names) {
-    await expect(section.getByText(name, { exact: true })).toBeVisible();
+    await expect(accordion.getByText(name, { exact: true })).toBeVisible();
   }
 
   // First path's detail is open by default (native <details open>).
-  await expect(section.getByText(/A weak, slow or low-converting website/)).toBeVisible();
-});
+  await expect(accordion.getByText(/A weak, slow or low-converting website/)).toBeVisible();
 
-test("buyer-path accordion rows work with zero JavaScript reliance via native details", async ({
-  page,
-}) => {
-  await page.goto("/");
-  const section = page.locator("section", {
-    has: page.getByRole("heading", { name: "Tell us what's broken. We'll tell you where to start." }),
-  });
-  const secondSummary = section.getByText("AWS & Microsoft Cloud", { exact: true });
+  const secondSummary = accordion.getByText("AWS & Microsoft Cloud", { exact: true });
   await secondSummary.click();
-  await expect(section.getByText(/Architecture, migration, security/)).toBeVisible();
+  await expect(accordion.getByText(/Architecture, migration, security/)).toBeVisible();
+
+  await context.close();
 });
 
 test("cloud platform parity gives AWS and Microsoft equal billing", async ({ page }) => {
