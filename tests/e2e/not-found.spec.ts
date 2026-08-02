@@ -9,6 +9,8 @@ test("404 foundation renders a useful recovery path", async ({ page }) => {
   const returnHome = page.getByRole("link", { name: "Return home" });
   await expect(returnHome).toHaveAttribute("href", "/");
 
-  const findSolution = page.getByRole("link", { name: "Find Your Solution" });
+  const findSolution = page
+    .locator("#main-content")
+    .getByRole("link", { name: "Find Your Solution" });
   await expect(findSolution).toHaveAttribute("href", "/start/");
 });

@@ -22,7 +22,7 @@ test("selecting a mobile nav link closes the panel", async ({ page }) => {
 
   await page.getByRole("button", { name: "Open menu" }).click();
   const panel = page.getByRole("dialog", { name: "Mobile navigation" });
-  await panel.getByRole("link", { name: "Start" }).click();
+  await panel.getByRole("link", { name: "Find Your Solution" }).click();
 
   await expect(panel).toBeHidden();
 });

@@ -7,7 +7,7 @@ test("home route renders the approved H1 and primary CTA", async ({ page }) => {
 
   const h1 = page.getByRole("heading", { level: 1 });
   await expect(h1).toHaveText(
-    "Web, Cloud & AI Solutions Built for Growth, Security and Scale",
+    "One accountable team — not three vendors pointing at each other.",
   );
 
   const primaryCta = page.getByRole("link", { name: "Find Your Solution" }).first();
@@ -19,7 +19,7 @@ test("trust line is visible in server-rendered content", async ({ page }) => {
   await page.goto("/");
   await expect(
     page.getByText(
-      "AWS-aligned · Microsoft cloud-aligned · Security-first · Evidence Pack™ delivery",
+      "AWS-aligned · Microsoft cloud-aligned · Security-first · Evidence Pack™ on every engagement",
     ),
   ).toBeVisible();
 });
