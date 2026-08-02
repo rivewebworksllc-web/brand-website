@@ -55,6 +55,33 @@ export function BuyerPathAccordion({ paths }: BuyerPathAccordionProps) {
                 <li aria-hidden="true">→</li>
                 <li>Managed outcome</li>
               </ol>
+
+              <p className="mt-4 text-eyebrow text-accent-azure">Recognizable symptoms</p>
+              <ul className="mt-2 space-y-1.5">
+                {path.symptoms.map((symptom) => (
+                  <li key={symptom} className="flex gap-2 text-[14px] leading-[1.6] text-body">
+                    <span aria-hidden="true" className="mt-0.5 text-accent-azure">
+                      ·
+                    </span>
+                    {symptom}
+                  </li>
+                ))}
+              </ul>
+
+              <dl className="mt-4 space-y-2 text-[14px] leading-[1.6]">
+                <div>
+                  <dt className="font-semibold text-heading">What Rive examines first</dt>
+                  <dd className="text-body">{path.whatWeExamine}</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-heading">Expected output</dt>
+                  <dd className="text-body">{path.expectedOutput}</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-heading">Managed follow-on</dt>
+                  <dd className="text-body">{path.managedFollowOn}</dd>
+                </div>
+              </dl>
             </div>
 
             <div className="flex items-start lg:justify-end">
