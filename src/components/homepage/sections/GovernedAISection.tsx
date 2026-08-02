@@ -9,8 +9,12 @@ type GovernedAISectionProps = {
 
 export function GovernedAISection({ content }: GovernedAISectionProps) {
   return (
-    <Section aria-labelledby="governed-ai-heading" className="border-t border-hairline-faint bg-surface">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+    <Section
+      aria-labelledby="governed-ai-heading"
+      className="relative overflow-hidden border-t border-hairline-faint bg-surface"
+    >
+      <div className="atmosphere-radial" aria-hidden="true" />
+      <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <p className="text-eyebrow text-brand-maroon">{content.eyebrow}</p>
           <h2 id="governed-ai-heading" className="text-h2 mt-2 text-heading text-balance">
@@ -30,7 +34,7 @@ export function GovernedAISection({ content }: GovernedAISectionProps) {
           <ul className="divide-y divide-hairline-faint">
             {content.capabilities.map((capability, index) => (
               <li key={capability.title} className="flex gap-4 py-4 first:pt-0">
-                <span aria-hidden="true" className="text-evidence w-6 shrink-0 text-muted">
+                <span aria-hidden="true" className="text-evidence w-6 shrink-0 text-accent-azure">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div>

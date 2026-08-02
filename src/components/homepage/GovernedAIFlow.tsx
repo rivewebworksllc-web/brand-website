@@ -21,8 +21,7 @@ export function GovernedAIFlow({ steps }: GovernedAIFlowProps) {
           {index < steps.length - 1 ? (
             <span
               aria-hidden="true"
-              className="flow-connector ml-[1.125rem] h-6 w-px sm:ml-0 sm:mt-[1.125rem] sm:h-px sm:w-full sm:flex-1"
-              style={{ opacity: 0.5, background: "var(--color-gold-deep)" }}
+              className="ml-[1.125rem] h-6 w-px bg-accent-azure-strong sm:ml-0 sm:mt-[1.125rem] sm:h-px sm:w-full sm:flex-1"
             />
           ) : null}
         </li>

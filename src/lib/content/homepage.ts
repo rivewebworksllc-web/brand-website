@@ -4,6 +4,8 @@ export type ArchitectureFlowStep = {
   id: string;
   label: string;
   description: string;
+  /** Two supporting systems at this layer, e.g. "AWS and Microsoft foundation" for Cloud Foundation. */
+  subItems: [string, string];
 };
 
 export type HeroContent = {
@@ -29,6 +31,11 @@ export type BuyerPath = {
   outcome: string;
   startingEngagements: string[];
   cta: CtaLink;
+  /** Self-authored supporting detail for the Guided Outcome Explorer (RW-PW04) — not separately copy-approved. */
+  symptoms: string[];
+  whatWeExamine: string;
+  expectedOutput: string;
+  managedFollowOn: string;
 };
 
 export type FeaturedEngagementContent = {
@@ -168,21 +175,25 @@ export const homepageFallbackContent: HomepageContent = {
         id: "experience",
         label: "Digital Experience",
         description: "Websites and applications your buyers actually use.",
+        subItems: ["Website and application layer", "Content and customer journey"],
       },
       {
         id: "cloud",
         label: "Cloud Foundation",
         description: "AWS and Microsoft foundations sized to what you run.",
+        subItems: ["AWS and Microsoft foundation", "Identity and security"],
       },
       {
         id: "governed-ai",
         label: "Governed AI",
         description: "Automation and AI with scope, review and evidence.",
+        subItems: ["Data and observability", "Governed retrieval and automation"],
       },
       {
         id: "outcomes",
         label: "Managed Outcomes",
         description: "Operated, monitored and supported after launch.",
+        subItems: ["Evaluation and human oversight", "Monitoring and managed operations"],
       },
     ],
   },
@@ -204,6 +215,14 @@ export const homepageFallbackContent: HomepageContent = {
       outcome: "A high-converting site with a clear proposition and measurable funnel.",
       startingEngagements: ["Discovery & Roadmap Engagement", "Website Rebuild"],
       cta: { label: "Explore Website & Growth", href: "/solutions/web-growth/" },
+      symptoms: [
+        "Traffic arrives but rarely converts",
+        "The site is slow, dated, or hard to update",
+        "Visitors can't tell what you actually do",
+      ],
+      whatWeExamine: "Current funnel performance, information architecture, and technical/CMS constraints.",
+      expectedOutput: "A scoped roadmap or a full rebuild, with a clear conversion path and CMS-controlled content.",
+      managedFollowOn: "Ongoing performance, accessibility and content support after launch.",
     },
     {
       title: "AWS & Microsoft Cloud",
@@ -211,6 +230,14 @@ export const homepageFallbackContent: HomepageContent = {
       outcome: "A documented cloud foundation matched to the platform you already run.",
       startingEngagements: ["Architecture Review", "Migration Readiness Assessment"],
       cta: { label: "Explore Cloud Modernization", href: "/solutions/cloud-modernization/" },
+      symptoms: [
+        "Cloud costs are unpredictable or climbing",
+        "Migration or modernization keeps getting delayed",
+        "Security or compliance posture is unclear",
+      ],
+      whatWeExamine: "Current architecture, cost drivers, identity and security posture, and platform fit.",
+      expectedOutput: "A documented architecture review or migration readiness assessment with sequencing.",
+      managedFollowOn: "Managed cloud operations, cost governance and ongoing security review.",
     },
     {
       title: "Secure AI & Automation",
@@ -218,6 +245,14 @@ export const homepageFallbackContent: HomepageContent = {
       outcome: "AI and automation with human oversight built into every consequential step.",
       startingEngagements: ["AI Readiness Sprint", "Secure RAG Pilot"],
       cta: { label: "Explore Secure AI & Automation", href: "/solutions/ai-data-automation/" },
+      symptoms: [
+        "AI pilots stall before reaching production",
+        "No clear boundary on what data a model can access",
+        "Automation exists but nobody reviews its output",
+      ],
+      whatWeExamine: "Data readiness, workflow candidates, and the governance controls already in place.",
+      expectedOutput: "A scoped AI Readiness Sprint or Secure RAG pilot with named human sign-off points.",
+      managedFollowOn: "Managed agents and automation with ongoing evaluation and oversight.",
     },
     {
       title: "Managed Care & Advisory",
@@ -225,6 +260,14 @@ export const homepageFallbackContent: HomepageContent = {
       outcome: "A documented, accountable operating partner for what you've already built.",
       startingEngagements: ["Managed Care Assessment"],
       cta: { label: "Explore Managed Care & Advisory", href: "/solutions/managed-services/" },
+      symptoms: [
+        "What you have works, but nobody owns it",
+        "Small requests take too long to get attention",
+        "You need specialist coverage without a full hire",
+      ],
+      whatWeExamine: "What's currently deployed, who supports it today, and where the gaps are.",
+      expectedOutput: "A Managed Care Assessment defining scope, response expectations and coverage.",
+      managedFollowOn: "An ongoing accountable operating relationship with documented response times.",
     },
   ],
 
