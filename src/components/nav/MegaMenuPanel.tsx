@@ -92,27 +92,40 @@ function DefaultGrid({ group, hasLinks }: { group: MegaMenuGroup; hasLinks: bool
 }
 
 /**
- * RW-PW07B (rebalancing, corrected): Web/Cloud/Microsoft fill row 1, AI
- * takes row 2 col 1, the Placeholder's own `col-span-2` fills the rest of
- * row 2 (upper-right, above the fold, no dangling empty cell) — and
- * Automation, placed right after the Placeholder in source order with no
- * span of its own, falls through CSS Grid's normal auto-placement to the
- * next open cell: row 3 col 1, directly under AI. No manual positioning,
- * no separate wide-row treatment — the grid does this on its own precisely
- * because the two items before it (AI, then the 2-wide Placeholder) leave
- * exactly one open slot in that spot and none anywhere earlier.
+ * RW-PW12A (Product Office correction): AI and Automation are a single
+ * capability cluster ("Web enables the platform, AI enables intelligence,
+ * Automation operationalises intelligence") and read as one column — a
+ * `flex flex-col` pair placed as one grid item, so it occupies exactly one
+ * cell of row 2 (under Web) with no gap between the two cards and no
+ * manual row/column indices. The Placeholder stays inside the same grid as
+ * its own item: with the AI/Automation column taking row 2's first cell,
+ * auto-placement drops the `col-span-2` Placeholder into the row's
+ * remaining two cells — directly under Cloud and Microsoft, spanning
+ * exactly their combined width, with no manual row/column indices needed.
+ * `self-stretch` matches its height to the AI/Automation column (the
+ * row's tallest item) instead of the row overflowing to its own aspect
+ * ratio. Card styling, spacing, gutters, hover behaviour, icon treatment
+ * and the grid's own column count are all untouched per the directive's
+ * "preserve existing grid" requirement — only which items go where
+ * changes.
  */
 function ServicesGrid({ group }: { group: MegaMenuGroup }) {
+  const ai = group.links.find((item) => item.label === "AI");
   const automation = group.links.find((item) => item.label === "Automation");
-  const upperLinks = group.links.filter((item) => item.label !== "Automation");
+  const topRow = group.links.filter((item) => item.label !== "AI" && item.label !== "Automation");
 
   return (
     <div className="grid grid-cols-2 items-start gap-4 sm:grid-cols-3">
-      {upperLinks.map((item, index) => (
+      {topRow.map((item, index) => (
         <TileLink key={item.href} item={item} tone={toneFor(index)} />
       ))}
-      <Placeholder meta={group.placeholder} className="col-span-2" />
-      {automation ? <TileLink item={automation} tone={toneFor(upperLinks.length)} /> : null}
+      {ai ? (
+        <div className="flex flex-col gap-4">
+          <TileLink item={ai} tone={toneFor(topRow.length)} />
+          {automation ? <TileLink item={automation} tone={toneFor(topRow.length + 1)} /> : null}
+        </div>
+      ) : null}
+      <Placeholder meta={group.placeholder} className="col-span-2 self-stretch sm:col-span-2" />
     </div>
   );
 }
