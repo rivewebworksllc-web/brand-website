@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getHomepageContent } from "@/lib/content/homepage";
 import { getSiteUrl, siteName } from "@/lib/site";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ArchitectureSpine } from "@/components/homepage/ArchitectureSpine";
 import { Hero } from "@/components/homepage/sections/Hero";
 import { Manifesto } from "@/components/homepage/sections/Manifesto";
 import { BuyerPathGrid } from "@/components/homepage/sections/BuyerPathGrid";
@@ -40,21 +41,30 @@ export default async function HomePage() {
     ...(siteUrl ? { url: siteUrl.toString() } : {}),
   };
 
+  // RW-PW06A: the four sections that genuinely correspond to one stage of
+  // the Rive Operating Architecture each get a `stage` prop (index + the
+  // real architectureFlow entry) so the architectural spine and their
+  // attachment-point markers stay driven by the same single source of
+  // content as the hero illustration — not a second, hand-maintained list.
+  const [experience, cloud, governedAi, outcomes] = content.hero.architectureFlow;
+
   return (
     <>
       <JsonLd id="organization-jsonld" data={organizationJsonLd} />
       <JsonLd id="website-jsonld" data={websiteJsonLd} />
 
+      <ArchitectureSpine steps={content.hero.architectureFlow} />
+
       <main id="main-content">
         <Hero content={content.hero} />
-        <Manifesto content={content.manifesto} />
+        <Manifesto content={content.manifesto} stage={{ index: 1, step: experience }} />
         <BuyerPathGrid intro={content.buyerPathsIntro} paths={content.buyerPaths} />
         <FeaturedEngagement content={content.featuredEngagement} />
-        <PlatformParitySection content={content.platformParity} />
+        <PlatformParitySection content={content.platformParity} stage={{ index: 2, step: cloud }} />
         <EvidencePackSection content={content.evidencePack} />
-        <GovernedAISection content={content.governedAi} />
+        <GovernedAISection content={content.governedAi} stage={{ index: 3, step: governedAi }} />
         <IndustryFitSection content={content.industries} />
-        <ProcessSection content={content.process} />
+        <ProcessSection content={content.process} stage={{ index: 4, step: outcomes }} />
         <ProofFootnoteSection text={content.proofFootnote} />
         <ResourcesSection content={content.resources} />
         <FinalCTASection content={content.finalConversion} />

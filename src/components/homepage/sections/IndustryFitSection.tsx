@@ -18,8 +18,9 @@ export function IndustryFitSection({ content }: IndustryFitSectionProps) {
     <Section aria-labelledby="industry-fit-heading" className="border-t border-hairline-faint bg-surface-alt">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <p className="text-eyebrow text-brand-maroon">Who we serve</p>
-          <h2 id="industry-fit-heading" className="text-h2 mt-2 text-heading text-balance">
+          {/* RW-PW05: eyebrow ("Who we serve") dropped — page-wide eyebrow
+              reduction; the heading already states this directly. */}
+          <h2 id="industry-fit-heading" className="text-h2 text-heading text-balance">
             {content.heading}
           </h2>
           <p className="mt-3 text-[15px] leading-[1.65] text-body md:text-base">
@@ -29,8 +30,15 @@ export function IndustryFitSection({ content }: IndustryFitSectionProps) {
 
         <div className="lg:col-span-7">
           <div className="card border-l-[3px] border-l-navy-950 p-6">
-            <p className="text-eyebrow text-brand-maroon">Featured sector</p>
-            <h3 className="text-h3 mt-2 text-heading">{featured.name}</h3>
+            {/* RW-PW05: "Featured" as an inline badge next to the name
+                rather than a floating eyebrow line above it — the border-l
+                accent already marks this card as distinct. */}
+            <h3 className="text-h3 flex flex-wrap items-center gap-2.5 text-heading">
+              {featured.name}
+              <span className="rounded-sm bg-heading/10 px-2 py-0.5 text-[11px] font-semibold text-heading">
+                Featured
+              </span>
+            </h3>
             <p className="mt-2 text-[15px] leading-[1.6] text-body">{featured.description}</p>
           </div>
 

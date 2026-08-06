@@ -2,6 +2,8 @@
 
 This directory records project reality without replacing the v40.0 playbook.
 
+`docs/governance/` holds the shared, cross-cutting process layer only: authority, decisions, execution state, claims and the skill registry. Domain knowledge (creative direction, UX, design system, engineering, QA, research, architecture) lives in the sibling office folders indexed at `docs/OFFICES.md`, each with its own charter. Office charters link back to the files below rather than duplicating them — do not fork a second decision log, execution-state file or authority matrix inside an office folder.
+
 ## Files
 
 - `AUTHORITY.md` — decision ownership and gate authority.

@@ -123,10 +123,29 @@
   --focus-ring-color: var(--color-brand-gold);
 }
 
-.surface-accent {
-  background: var(--color-accent-surface);
-  color: var(--color-accent-foreground);
-  --focus-ring-color: var(--color-accent-focus);
+/*
+ * RW-PW07A fix: this was an unlayered rule. Per the CSS cascade-layers spec,
+ * unlayered rules always beat layered ones regardless of specificity or
+ * source order — so Tailwind's own utility classes (all emitted inside
+ * `@layer utilities` via the `@import "tailwindcss"` above) could never
+ * override this `background`, no matter what was written in a component's
+ * className. This was invisible everywhere `.surface-accent` is applied
+ * unconditionally (Footer, FinalConversion, the accent Hero) since nothing
+ * there competes for `background-color` — but Header.tsx conditionally
+ * layers `bg-transparent`/`bg-accent-surface/95` on top of `surface-accent`
+ * for its float-over-hero-then-solidify effect, and that toggle was
+ * silently a no-op: the header was always rendering solid, camouflaged only
+ * because the hero happens to share the same accent-surface color. Moving
+ * this into `@layer components` (before Tailwind's `utilities` layer, per
+ * Tailwind v4's default `theme, base, components, utilities` order) lets
+ * utility classes correctly win again, as every component here assumed.
+ */
+@layer components {
+  .surface-accent {
+    background: var(--color-accent-surface);
+    color: var(--color-accent-foreground);
+    --focus-ring-color: var(--color-accent-focus);
+  }
 }
 
 @theme inline {
@@ -305,6 +324,36 @@ body {
   background: var(--color-brand-gold);
   opacity: 0.35;
   animation: connector-pulse 2.6s ease-in-out infinite;
+}
+
+/* RW-PW07A: mega-menu panel entrance — opacity + a small vertical
+   settle, nothing larger. `motion-safe:` already gates this out entirely
+   under prefers-reduced-motion (the panel just appears instantly), so no
+   separate reduced-motion override is needed here. */
+@keyframes megamenu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scaleY(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+/* RW-PHASE-02: the Placeholder system's "ambient-drift" motion option — a
+   near-imperceptible scale breathe (transform-only, applies uniformly
+   regardless of which of the 10 category treatments is inside) so a
+   placeholder doesn't read as a dead static block while staying restrained.
+   `motion-safe:` already gates this out entirely under reduced-motion. */
+@keyframes placeholder-drift {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.012);
+  }
 }
 
 @keyframes connector-pulse {

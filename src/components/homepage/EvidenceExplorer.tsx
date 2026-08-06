@@ -111,21 +111,19 @@ export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
             </div>
           </div>
 
-          <div aria-hidden="true" className="bg-surface-alt p-6 sm:col-span-2">
-            <div className="rounded-sm border border-hairline bg-surface p-4">
-              <div className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-hairline" />
-                <span className="h-1.5 w-1.5 rounded-full bg-hairline" />
-                <span className="h-1.5 w-1.5 rounded-full bg-hairline" />
-                <span className="ml-1 h-1.5 w-16 rounded-full bg-hairline" />
-              </div>
-              <div className="mt-3 h-1.5 w-3/4 rounded-full bg-hairline" />
-              <div className="mt-2 h-1.5 w-full rounded-full bg-hairline-faint" />
-              <div className="mt-2 h-1.5 w-full rounded-full bg-hairline-faint" />
-              <div className="mt-2 h-1.5 w-1/2 rounded-full bg-hairline-faint" />
-              <div className="mt-3 inline-flex items-center gap-1.5 rounded-sm border border-gold-deep px-2 py-1">
-                <span className="text-evidence text-heading">{String(activeIndex + 1).padStart(2, "0")}</span>
-              </div>
+          {/* RW-PW05: was a fake-document mock (dots + bars simulating text
+              lines) — the same fake-screenshot pattern flagged elsewhere.
+              Replaced with a real record stamp built from the artifact's own
+              position and id, no invented content. */}
+          <div
+            aria-hidden="true"
+            className="flex items-center justify-center border-t border-hairline bg-surface-alt p-6 sm:col-span-2 sm:border-t-0"
+          >
+            <div className="text-center">
+              <p className="text-h1 text-heading" style={{ fontSize: "3.25rem" }}>
+                {String(activeIndex + 1).padStart(2, "0")}
+              </p>
+              <p className="text-evidence mt-2 text-muted">{active.id}</p>
             </div>
           </div>
         </div>

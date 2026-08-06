@@ -201,12 +201,12 @@ export const homepageFallbackContent: HomepageContent = {
   manifesto: {
     eyebrow: "How we think about this",
     lead: "A website, its cloud, and the AI layered on top are one system.",
-    body: "Most vendors specialize in a layer and hand you off at the seam — a design shop for the site, a reseller for the cloud, a bolt-on for AI. Rive scopes, builds and operates all three as a single accountable engagement, with a written record of what was decided and why, not a folder of disconnected invoices.",
+    body: "Most vendors specialize in a layer and hand you off at the seam: a design shop for the site, a reseller for the cloud, a bolt-on for AI. Rive scopes, builds and operates all three as a single accountable engagement, with a written record of what was decided and why, not a folder of disconnected invoices.",
   },
 
   buyerPathsIntro: {
     heading: "Tell us what's broken. We'll tell you where to start.",
-    description: "You don't need to know the service name — pick the outcome.",
+    description: "You don't need to know the service name. Pick the outcome.",
   },
   buyerPaths: [
     {
@@ -293,7 +293,7 @@ export const homepageFallbackContent: HomepageContent = {
   platformParity: {
     heading: "AWS or Microsoft. We don't have a favorite.",
     description:
-      "Most shops lean one way and treat the other as an afterthought. Rive runs full-depth practice on both ecosystems — matched to what you already run, not to a house preference.",
+      "Most shops lean one way and treat the other as an afterthought. Rive runs full-depth practice on both ecosystems, matched to what you already run, not to a house preference.",
     groups: [
       {
         platform: "AWS",
@@ -326,7 +326,7 @@ export const homepageFallbackContent: HomepageContent = {
   evidencePack: {
     heading: "Know what was decided, built, tested and handed over",
     description:
-      "Every engagement produces documented evidence — not just a delivered artifact, but a record of how it was scoped, built, verified, and handed off.",
+      "Every engagement produces documented evidence: not just a delivered artifact, but a record of how it was scoped, built, verified, and handed off.",
     cta: { label: "Explore the Evidence Pack™", href: "/trust/evidence-pack/" },
     artifacts: [
       { id: "scope", title: "Scope and decision record", description: "The written, agreed boundary of the work.", preview: "Approved scope, sign-off dates and named decision owners." },
@@ -362,7 +362,7 @@ export const homepageFallbackContent: HomepageContent = {
   industries: {
     heading: "Built where mistakes are expensive.",
     description:
-      "Regulated data, thin margins, or a brand that can't absorb a bad launch — these are the constraints we design around.",
+      "Regulated data, thin margins, or a brand that can't absorb a bad launch: these are the constraints we design around.",
     items: [
       {
         name: "Healthcare",
@@ -392,7 +392,7 @@ export const homepageFallbackContent: HomepageContent = {
   process: {
     heading: "How an engagement actually runs.",
     description:
-      "A founder-led approach with a documented method at every stage — not a handoff to an anonymous production queue.",
+      "A founder-led approach with a documented method at every stage, not a handoff to an anonymous production queue.",
     stages: [
       { step: "01", title: "Discover", description: "Assess current state against your stated goals." },
       { step: "02", title: "Architect", description: "Decide structure and constraints before any tool is chosen." },
@@ -403,7 +403,7 @@ export const homepageFallbackContent: HomepageContent = {
   },
 
   proofFootnote:
-    "We don't have client case studies published yet. Until we do, anything shown here is labeled for exactly what it is — a methodology walkthrough or a sample artifact, never dressed up as a completed client result.",
+    "We don't have client case studies published yet. Until we do, anything shown here is labeled for exactly what it is: a methodology walkthrough or a sample artifact, never dressed up as a completed client result.",
 
   resources: {
     heading: "Make a better technology decision",
@@ -411,7 +411,7 @@ export const homepageFallbackContent: HomepageContent = {
       {
         category: "Guide",
         title: "How to know when your website needs a rebuild",
-        summary: "The signals that separate a refresh from a full rebuild — and how to tell which one you actually need.",
+        summary: "The signals that separate a refresh from a full rebuild, and how to tell which one you actually need.",
         href: "/resources/how-to-know-when-your-website-needs-a-rebuild/",
         metaStatus: "pending",
       },
@@ -425,7 +425,7 @@ export const homepageFallbackContent: HomepageContent = {
       {
         category: "Insight",
         title: "What governed AI looks like in practice",
-        summary: "Concrete controls — not slogans — for deploying AI with scoped data access and human oversight.",
+        summary: "Concrete controls, not slogans, for deploying AI with scoped data access and human oversight.",
         href: "/resources/what-governed-ai-looks-like-in-practice/",
         metaStatus: "pending",
       },
@@ -439,7 +439,7 @@ export const homepageFallbackContent: HomepageContent = {
     primaryCta: { label: "Find Your Solution", href: "/start/" },
     secondaryCta: { label: "Book a Discovery Call", href: "/connect/" },
     reassurance:
-      "Clear response expectations · No obligation · Do not submit confidential data or protected health information",
+      "Clear response expectations. No obligation. Do not submit confidential data or protected health information.",
   },
 };
 

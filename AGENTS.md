@@ -15,6 +15,16 @@ Authority is applied in this order:
 
 When instructions conflict, stop the affected work and record the conflict. Do not silently choose.
 
+## Repository-resident offices
+
+The Product Office chat is the only long-lived strategic conversation for this project. It no longer stores long-term project memory — it updates repository offices instead.
+
+- Repository offices under `docs/` (indexed at `docs/OFFICES.md`) are authoritative for their domain: creative direction, UX, design system, engineering, QA, research and architecture.
+- Engineering must not implement from chat memory. Before implementing any task, read this file and the relevant repository office. Repository first, conversation second.
+- Chat history is not project memory. Repository documentation always supersedes historical chat conversations.
+- Whenever a refinement changes how Rive should be built, the Product Office determines which office owns it (`docs/OFFICES.md` § Refinement-ownership routing), and that office's documentation is updated before any future implementation relies on it.
+- `docs/governance/` remains the shared, non-duplicated process layer (authority, decisions, execution state, claims, skill registry, templates) that every office depends on — office charters link to it rather than restating it.
+
 ## Human authority
 
 - **Silvester Odilu:** objectives, priorities, design leadership, visual acceptance and day-to-day build decisions.
@@ -81,6 +91,15 @@ Update `docs/governance/EXECUTION_STATE.md` whenever a work package crosses one 
 - `feature/*` — one bounded implementation package.
 
 Do not push to or merge into `main`. Do not merge into `develop` without explicit approval. Preserve unrelated user changes.
+
+## Git authority
+
+Git operations belong exclusively to the user. Task completion, implementation and verification do not, by themselves, authorize any git operation.
+
+- The user alone decides when to `git add`, `git commit`, `git push`, `git merge` or `git tag`.
+- No agent may perform these operations automatically after finishing a task unless explicitly instructed for that specific action.
+- Required workflow after completing implementation: run required validation, report results, list changed files, leave the working tree untouched, then stop.
+- This does not relax the single-writer rule or branch authority above — it adds an explicit stop before any git write, regardless of writer or branch.
 
 ## Claims and content safety
 
@@ -149,6 +168,16 @@ Rules:
 - Do not claim a skill, plugin or MCP server was used unless it was genuinely available and invoked. A passing outcome does not excuse a false invocation claim.
 - If a mandatory skill from the registry's routing matrix is unavailable, stop the affected work and report the gap, or complete only the portion that does not require it and mark the limitation. Do not silently substitute generic reasoning.
 - Acquiring a missing capability (install, credential, connection, global configuration change) requires explicit Product Office authorization; never do this silently while checking availability.
+
+## Capability governance
+
+Authority: Product Office Capability Governance Framework (CGF v1.0), implemented in `docs/capabilities/` (indexed at `docs/OFFICES.md`).
+
+- Every external capability Rive depends on or is considering (MCP server, skill, plugin, tool) must be represented in `docs/capabilities/CAPABILITY_REGISTER.md` with a documented purpose, evidenced operational state, owner, approved uses and evidence.
+- The register recognizes exactly five states: `VERIFIED`, `CONNECTED`, `EXPERIMENTAL`, `PLANNED`, `RETIRED` (defined in `docs/capabilities/00-CHARTER.md`). These describe durable, cross-session trust in a capability and are distinct from `docs/governance/SKILL_REGISTRY.md` §5's per-work-package availability vocabulary — a capability can be `VERIFIED` here and still needs a fresh Skill Gate availability check for a given task.
+- Engineering may only rely on a capability classified `VERIFIED`, or `CONNECTED` with explicit acknowledgement of its unvalidated risk in the work package. `EXPERIMENTAL` and `PLANNED` capabilities must never become a mandatory project dependency.
+- Do not infer a capability's state from documentation or a prior claim alone — verify it in the current session before relying on it, consistent with the Skill gate's no-assumption rule.
+- Every major design implementation must be checked against the Human Design Review checklist (`docs/capabilities/HUMAN_DESIGN_REVIEW.md`) before Product Office acceptance, to reject generic/AI-slop design patterns before they reach acceptance.
 
 ## Default quality gate
 

@@ -15,7 +15,7 @@ export default function NotFound() {
           <LinkButton href="/" variant="primary">
             Return home
           </LinkButton>
-          <LinkButton href="/start/" variant="outline">
+          <LinkButton href="/start/" variant="secondary">
             Find Your Solution
           </LinkButton>
         </div>

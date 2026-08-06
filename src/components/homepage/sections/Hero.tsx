@@ -16,10 +16,7 @@ export function Hero({ content }: HeroProps) {
       className="-mt-20 border-b border-accent-foreground/10 pt-36 pb-16 md:pt-44 md:pb-24"
     >
       <div className="max-w-2xl">
-        <p className="flex items-center gap-2 text-eyebrow text-brand-maroon">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand-maroon" />
-          {content.eyebrow}
-        </p>
+        <p className="text-eyebrow text-brand-maroon">{content.eyebrow}</p>
         <h1 id="hero-heading" className="text-h1 mt-5 text-accent-foreground text-balance">
           {content.heading}
         </h1>
@@ -31,19 +28,30 @@ export function Hero({ content }: HeroProps) {
           <LinkButton href={content.primaryCta.href} variant="primary">
             {content.primaryCta.label}
           </LinkButton>
-          <LinkButton href={content.secondaryCta.href} variant="outline">
+          <LinkButton href={content.secondaryCta.href} variant="secondary">
             {content.secondaryCta.label}
           </LinkButton>
         </div>
 
-        <p className="text-evidence mt-8 text-accent-foreground/70">{content.trustLine}</p>
+        {/* RW-PW05: given a top hairline + tighter vertical rhythm of its own
+            (rather than reading as a trailing mono afterthought line) so the
+            trust line feels like a considered element, not a generic strip.
+            Text is unchanged from the approved copy locked by
+            tests/unit/homepage-content.test.ts and tests/e2e/home.spec.ts. */}
+        <p className="text-evidence mt-8 border-t border-accent-foreground/10 pt-4 text-accent-foreground/80">
+          {content.trustLine}
+        </p>
       </div>
 
       {/* Illustration 1 (RW-PW04): full-width, not squeezed into a side
           column — the brief's own priority for this to become a memorable
           brand asset rather than the previous compact panel. */}
       <div className="mt-14 border-t border-accent-foreground/10 pt-10 md:mt-16 md:pt-12">
-        <p className="text-eyebrow text-accent-foreground/70" id="hero-architecture-heading">
+        {/* RW-PW05: plain caption, not a second text-eyebrow — the hero
+            already carries one eyebrow above; a second uppercase-tracked
+            label here was the "eyebrow overuse" pattern flagged by both the
+            design-taste-frontend audit and Human Design Review. */}
+        <p className="text-[13px] font-medium text-accent-foreground/70" id="hero-architecture-heading">
           The Rive Operating Architecture
         </p>
         <div className="mt-6 rounded-lg border border-accent-foreground/10 bg-accent-foreground/[0.03] p-6 md:p-8">

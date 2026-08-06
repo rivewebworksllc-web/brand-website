@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { BuyerPath } from "@/lib/content/homepage";
+import { CAPABILITY_VISUALS, CapabilityVisual } from "@/components/homepage/CapabilityVisual";
 
 type BuyerPathAccordionProps = {
   paths: BuyerPath[];
@@ -14,11 +15,15 @@ type BuyerPathAccordionProps = {
 export function BuyerPathAccordion({ paths }: BuyerPathAccordionProps) {
   return (
     <div className="divide-y divide-hairline border-y border-hairline">
-      {paths.map((path, index) => (
+      {paths.map((path, index) => {
+        const Icon = CAPABILITY_VISUALS[path.title]?.Icon;
+        return (
         <details key={path.title} open={index === 0} className="group py-6">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
             <span className="flex items-center gap-4">
-              <span className="text-evidence text-muted">{String(index + 1).padStart(2, "0")}</span>
+              <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline text-heading">
+                {Icon ? <span className="h-5 w-5">{<Icon />}</span> : String(index + 1).padStart(2, "0")}
+              </span>
               <span className="text-h3 text-heading">{path.title}</span>
             </span>
             <span
@@ -31,6 +36,7 @@ export function BuyerPathAccordion({ paths }: BuyerPathAccordionProps) {
 
           <div className="mt-5 grid grid-cols-1 gap-6 pl-0 sm:pl-11 lg:grid-cols-3">
             <div className="lg:col-span-2">
+              <CapabilityVisual title={path.title} className="mb-5 w-full sm:max-w-sm" />
               <p className="text-[15px] leading-[1.6] text-body">
                 <span className="font-semibold text-heading">If: </span>
                 {path.problem}
@@ -100,7 +106,8 @@ export function BuyerPathAccordion({ paths }: BuyerPathAccordionProps) {
             </div>
           </div>
         </details>
-      ))}
+        );
+      })}
     </div>
   );
 }

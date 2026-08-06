@@ -24,10 +24,25 @@ export function FinalConversion({
         {description}
       </p>
       <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <LinkButton href={primaryCta.href} variant="primary" className="w-full sm:w-auto">
-          {primaryCta.label}
-        </LinkButton>
-        <LinkButton href={secondaryCta.href} variant="outline" className="w-full sm:w-auto">
+        {/* RW-PW07B (Product Office calibration): the one place on the site
+            that gets the reference recording's "accent disc behind the
+            arrow" treatment — reserved for this single highest-intent CTA,
+            not applied to the general Button system, so it stays a
+            deliberate signature moment rather than a repeated novelty.
+            2026-08-06 fix: the disc was on the button's left edge (`left-0`)
+            with the arrow on the right — a stray circle disconnected from
+            the arrow it was meant to sit behind, not the intended
+            treatment. Moved to `right-0`, behind the arrow. */}
+        <span className="group relative inline-flex w-full sm:w-auto">
+          <span
+            aria-hidden="true"
+            className="absolute top-1/2 right-0 z-0 h-11 w-11 translate-x-1/3 -translate-y-1/2 rounded-full bg-surface shadow-sm transition-transform duration-300 ease-out group-hover:scale-110 motion-reduce:transition-none"
+          />
+          <LinkButton href={primaryCta.href} variant="primary" className="relative z-10 w-full sm:w-auto">
+            {primaryCta.label}
+          </LinkButton>
+        </span>
+        <LinkButton href={secondaryCta.href} variant="inverse" className="w-full sm:w-auto">
           {secondaryCta.label}
         </LinkButton>
       </div>

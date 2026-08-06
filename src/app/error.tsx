@@ -21,7 +21,7 @@ export default function Error({
           <Button variant="primary" onClick={reset}>
             Try again
           </Button>
-          <LinkButton href="/" variant="outline">
+          <LinkButton href="/" variant="secondary">
             Return home
           </LinkButton>
         </div>

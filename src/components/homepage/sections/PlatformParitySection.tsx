@@ -1,8 +1,10 @@
 import { Container } from "@/components/layout/Container";
-import type { HomepageContent } from "@/lib/content/homepage";
+import { ArchitectureNode } from "@/components/homepage/ArchitectureNode";
+import type { ArchitectureFlowStep, HomepageContent } from "@/lib/content/homepage";
 
 type PlatformParitySectionProps = {
   content: HomepageContent["platformParity"];
+  stage: { index: number; step: ArchitectureFlowStep };
 };
 
 /**
@@ -10,9 +12,13 @@ type PlatformParitySectionProps = {
  * "equal weight" message is made structurally true (identical column width,
  * no card competing for attention) rather than just visually implied.
  */
-export function PlatformParitySection({ content }: PlatformParitySectionProps) {
+export function PlatformParitySection({ content, stage }: PlatformParitySectionProps) {
   return (
-    <section aria-labelledby="platform-parity-heading" className="border-t border-hairline-faint">
+    <section
+      id={`stage-${stage.step.id}`}
+      aria-labelledby="platform-parity-heading"
+      className="border-t border-hairline-faint"
+    >
       <Container className="pt-12 pb-8 md:pt-20 md:pb-10">
         <h2 id="platform-parity-heading" className="text-h2 max-w-2xl text-heading">
           {content.heading}
@@ -29,7 +35,11 @@ export function PlatformParitySection({ content }: PlatformParitySectionProps) {
             className={`px-6 py-10 md:px-12 md:py-14 ${index === 0 ? "bg-surface-alt" : "bg-surface md:border-l md:border-hairline"}`}
           >
             <div className="mx-auto max-w-sm">
-              <p className="text-eyebrow text-brand-maroon">{group.platform}</p>
+              {/* RW-PW05: dropped the text-eyebrow (uppercase/tracked)
+                  treatment here — "AWS"/"Microsoft" are already correctly
+                  cased brand names, an eyebrow style added nothing but
+                  another repeated visual tic. */}
+              <p className="text-[13px] font-bold text-brand-maroon">{group.platform}</p>
               <h3 className="text-h3 mt-2 text-heading">{group.heading}</h3>
               <ul className="mt-5 space-y-3">
                 {group.items.map((item) => (
@@ -47,18 +57,26 @@ export function PlatformParitySection({ content }: PlatformParitySectionProps) {
       </div>
 
       <Container className="py-8 md:py-10">
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-hairline pt-6 text-[14px] font-medium text-heading">
-          <span className="text-eyebrow mr-2 text-brand-maroon">Shared layer</span>
-          {content.sharedLayer.map((item, index) => (
-            <span key={item} className="flex items-center gap-2">
-              {item}
-              {index < content.sharedLayer.length - 1 ? (
-                <span aria-hidden="true" className="text-muted">
-                  ·
-                </span>
-              ) : null}
-            </span>
-          ))}
+        {/* RW-PW05: chips instead of a 5-dot-separated inline string — the
+            middle-dot rationing guidance flagged this as over-used (one
+            dot is fine, five in a single line reads as filler). */}
+        <div className="flex flex-wrap items-center gap-3 border-t border-hairline pt-6">
+          <span className="text-[13px] font-semibold text-heading">Shared layer</span>
+          <ul className="flex flex-wrap gap-2">
+            {content.sharedLayer.map((item) => (
+              <li
+                key={item}
+                className="rounded-sm border border-hairline px-2.5 py-1 text-[13px] text-body"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* RW-PW06A: attachment point — "Cloud Foundation" stage. */}
+        <div className="mt-8 border-t border-hairline-faint pt-4">
+          <ArchitectureNode index={stage.index} label={stage.step.label} />
         </div>
       </Container>
     </section>
