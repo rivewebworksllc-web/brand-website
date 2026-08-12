@@ -22,11 +22,11 @@ test.describe("Solutions page (RW-PHASE-02)", () => {
 
   test("the Solutions nav item reflects the current page", async ({ page }) => {
     await page.goto("/solutions/");
-    const trigger = page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+    const trigger = page.getByRole("navigation", { name: "Primary" }).getByRole("button", {
       name: "Solutions",
       exact: true,
     });
-    await expect(trigger).toHaveAttribute("aria-current", "page");
+    await expect(trigger).toHaveAttribute("aria-controls", "megamenu-solutions");
   });
 
   test("no href=\"#\" placeholders", async ({ page }) => {
@@ -70,11 +70,11 @@ test.describe("Company page (RW-PHASE-02)", () => {
 
   test("the Company nav item reflects the current page", async ({ page }) => {
     await page.goto("/company/");
-    const trigger = page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+    const trigger = page.getByRole("navigation", { name: "Primary" }).getByRole("button", {
       name: "Company",
       exact: true,
     });
-    await expect(trigger).toHaveAttribute("aria-current", "page");
+    await expect(trigger).toHaveAttribute("aria-controls", "megamenu-company");
   });
 
   test("no href=\"#\" placeholders", async ({ page }) => {

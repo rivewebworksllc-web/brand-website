@@ -25,7 +25,7 @@ test.describe("Industries page (RW-PHASE-02)", () => {
   }) => {
     await page.goto("/industries/");
     const nav = page.getByRole("navigation", { name: "Primary" });
-    await nav.getByRole("link", { name: "Solutions", exact: true }).hover();
+    await nav.getByRole("button", { name: "Solutions", exact: true }).hover();
 
     const link = page.locator("#megamenu-solutions").getByRole("link", { name: "Industries", exact: true });
     await expect(link).toHaveAttribute("aria-current", "page");
@@ -76,7 +76,7 @@ test.describe("Platforms page (RW-PHASE-02)", () => {
   }) => {
     await page.goto("/platforms/");
     const nav = page.getByRole("navigation", { name: "Primary" });
-    await nav.getByRole("link", { name: "Solutions", exact: true }).hover();
+    await nav.getByRole("button", { name: "Solutions", exact: true }).hover();
 
     const link = page.locator("#megamenu-solutions").getByRole("link", { name: "Platforms", exact: true });
     await expect(link).toHaveAttribute("aria-current", "page");

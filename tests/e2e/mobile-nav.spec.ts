@@ -10,7 +10,7 @@ test("mobile navigation opens, closes via Escape, and restores focus", async ({ 
 
   const panel = page.getByRole("dialog", { name: "Mobile navigation" });
   await expect(panel).toBeVisible();
-  await expect(panel.getByRole("link", { name: "Solutions" })).toBeVisible();
+  await expect(panel.getByRole("button", { name: "Solutions" })).toBeVisible();
 
   await page.keyboard.press("Escape");
   await expect(panel).toBeHidden();
@@ -41,29 +41,23 @@ test("background scroll is locked while the panel is open", async ({ page }) => 
   expect(overflowAfter).not.toBe("hidden");
 });
 
-test("a group with real sub-content (Solutions) expands to reveal its real links, without replacing the top-level link (RW-PW07A)", async ({ page }) => {
+test("a menu-owning item (Solutions) is a disclosure trigger, not a parent-route link", async ({ page }) => {
   await page.goto("/");
 
   await page.getByRole("button", { name: "Open menu" }).click();
   const panel = page.getByRole("dialog", { name: "Mobile navigation" });
 
-  // The top-level item is still a real link, unaffected by the disclosure.
-  await expect(panel.getByRole("link", { name: "Solutions", exact: true })).toBeVisible();
-
-  // The button's accessible name flips ("Expand" <-> "Collapse") with its
-  // state, so it's re-located after each click rather than reusing one
-  // locator bound to a name that's about to become stale.
-  await expect(panel.getByRole("button", { name: "Expand Solutions" })).toHaveAttribute(
+  const trigger = panel.getByRole("button", { name: "Solutions", exact: true });
+  await expect(trigger).toHaveAttribute(
     "aria-expanded",
     "false",
   );
-  await panel.getByRole("button", { name: "Expand Solutions" }).click();
+  await trigger.click();
 
-  const collapseToggle = panel.getByRole("button", { name: "Collapse Solutions" });
-  await expect(collapseToggle).toHaveAttribute("aria-expanded", "true");
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeVisible();
 
-  await page.getByRole("button", { name: "Collapse Solutions" }).click();
+  await trigger.click();
   await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeHidden();
 });
 
@@ -85,7 +79,7 @@ test("a group with only secondaryLinks (Company -> Pricing) still gets an expand
   await page.getByRole("button", { name: "Open menu" }).click();
   const panel = page.getByRole("dialog", { name: "Mobile navigation" });
 
-  await panel.getByRole("button", { name: "Expand Company" }).click();
+  await panel.getByRole("button", { name: "Company", exact: true }).click();
   await expect(panel.getByRole("link", { name: "Pricing", exact: true })).toBeVisible();
 });
 
@@ -131,10 +125,10 @@ test("only one group is expanded at a time", async ({ page }) => {
   await page.getByRole("button", { name: "Open menu" }).click();
   const panel = page.getByRole("dialog", { name: "Mobile navigation" });
 
-  await panel.getByRole("button", { name: "Expand Solutions" }).click();
+  await panel.getByRole("button", { name: "Solutions", exact: true }).click();
   await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeVisible();
 
-  await panel.getByRole("button", { name: "Expand Company" }).click();
+  await panel.getByRole("button", { name: "Company", exact: true }).click();
   await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeHidden();
   await expect(panel.getByRole("link", { name: "About" })).toBeVisible();
 });
@@ -146,7 +140,7 @@ test("expanding a group with a Placeholder reveals its Visual Story illustration
   const panel = page.getByRole("dialog", { name: "Mobile navigation" });
 
   await expect(panel.getByRole("img")).toHaveCount(0);
-  await panel.getByRole("button", { name: "Expand Solutions" }).click();
+  await panel.getByRole("button", { name: "Solutions", exact: true }).click();
   await expect(panel.getByRole("img")).toHaveCount(1);
 });
 
@@ -156,6 +150,6 @@ test("the primary CTA stays visible in the drawer without scrolling", async ({ p
   await page.getByRole("button", { name: "Open menu" }).click();
   const panel = page.getByRole("dialog", { name: "Mobile navigation" });
 
-  await panel.getByRole("button", { name: "Expand Solutions" }).click();
+  await panel.getByRole("button", { name: "Solutions", exact: true }).click();
   await expect(panel.getByRole("link", { name: "Find Your Solution" })).toBeVisible();
 });
