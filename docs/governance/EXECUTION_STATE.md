@@ -1,7 +1,7 @@
 # Execution State
 
 **Last updated:** 2026-08-12
-**Updated by:** Codex (recording RW-INT-01 integration audit)
+**Updated by:** Codex (recording completed RW-INT-01 integration)
 
 ## Authoritative baseline
 
@@ -10,10 +10,10 @@
 | Repository | `rivewebworksllc-web/brand-website` |
 | Remote | `git@github-rive:rivewebworksllc-web/brand-website.git` |
 | Integration branch | `develop` |
-| Last verified integration commit | `5871a37` — confirmed: matches `develop` HEAD both locally and on `origin/develop`; merges task-based skill governance (`a81006a`) and the official 21st.dev MCP capability (`GOV-008`) |
+| Last verified integration commit | `739065e` — Work + Guides feature commit `7275eaf` merged cleanly into local `develop`; post-merge validation recorded under RW-INT-01 below; remote push pending at the time of this record |
 | Last confirmed feature branch (rejected, not merged) | `feature/homepage-full-personalisation` — full 11-module homepage + light/dark theme, technically `VERIFIED` (lint/typecheck/unit/build/e2e/axe all passing, 6 commits, pushed at `6072ba2`) but visually `REJECTED` by Silvester; left intact, not merged, not to be continued |
-| Current implementation owner | `Codex` for the bounded `RW-INT-01` integration package; Services remains excluded and preserved separately |
-| Current work package | `RW-INT-01` (audit and consolidation of accepted build-phase Work + Guides packages into `develop`), `IN_PROGRESS` on `feature/work-page-production` |
+| Current implementation owner | None after completion of Codex's bounded `RW-INT-01` integration package; the next package requires a new recorded assignment |
+| Current work package | `RW-INT-01` is `VERIFIED` on local `develop`; Services remains excluded and preserved separately; final imagery, premium refinement and release regression remain deferred |
 | Sanity project | `9vajygee` |
 | Sanity dataset | `production — read-only` |
 
@@ -21,6 +21,7 @@
 
 | Work | State | Evidence |
 |---|---|---|
+| RW-INT-01 (Work + Guides Integration Audit, Consolidation & Develop Baseline) | `IMPLEMENTED` and integration `VERIFIED`; remote push authorized and pending at the time of this record | Every dirty file and all three preservation stashes were inventoried before staging; no Services or unknown file was included. Pre-commit lint/typecheck/build passed, 29 unit tests passed, and the full 81-test Playwright suite passed including axe. Feature commit `7275eaf` was merged without conflict into local `develop` as `739065e`. Post-merge lint/typecheck/build and 29 unit tests passed. The post-merge full E2E run completed 79/81: home axe timed out under 10-worker load and Industries axe sampled transient reveal opacity; both passed immediately in a serial 2/2 rerun, so no stable product regression was reproduced and the 79/81 run is not described as passing. Work and Guides were rendered and inspected at 375, 768 and 1440 CSS pixels: correct sections/placeholders, HTTP 200, no horizontal overflow or runtime overlay. `/guides/` remains a tested 404. Services, Work and Guides recovery stashes remain untouched. |
 | RW-PAGE-02A (Correct Guides Route Architecture and Resource Navigation) | `IMPLEMENTED`, focused-route `VERIFIED`, and accepted for the current build phase | Existing Guides page relocated from `/guides/` to the canonical `/resources/guides/`; central Resources link, canonical metadata and tests aligned; flat route returns 404 rather than duplicating the page; no `/resources/` landing page created; no visual implementation changes. Lint/typecheck/build clean; 29 unit tests pass; 3/3 route/navigation correction tests pass; light/dark axe pass; canonical page rendered at 375×812, 768×1024 and 1440×900 with HTTP 200, correct canonical metadata and no horizontal overflow. Final imagery and premium site-wide refinement remain deferred. |
 | RW-PAGE-02 (Guides Page + Resource Editorial Foundation) | `IMPLEMENTED` and accepted for the current build phase | Codex implemented the editorial Guides page and reusable resource components/content model. RW-PAGE-02A supersedes its original flat route: the canonical page is `/resources/guides/`. Final imagery and premium site-wide refinement remain deferred; full release regression remains deferred to the release gate. |
 | RW-PAGE-01B (Work Page — Premium Editorial Production Build) | `IMPLEMENTED` and accepted for the current build phase | Codex implemented the eight-section `/work/` narrative on `feature/work-page-production` from clean `develop` baseline `ae25e5905b35393210f178b1f23bce7837245ac7`; Services WIP remains preserved untouched in stash SHA `b45059e93f46a39dd55753a6aa1b04b69fecbc7b`. UI/UX Pro Max was unavailable and Product Office explicitly authorized partial-capability execution; TasteSkill and Human Design Review were applied. Lint/typecheck clean, 26 unit tests pass, production build compiles, Work-specific Playwright tests pass in bounded runs (5 interaction/structure/mobile + 2 axe light/dark); the full 72-test suite was started but the execution window ended after its first 7 passing cases, so no full-suite pass is claimed. Six required viewports and dark theme were rendered and inspected; one reveal-caused blank-region defect was found and fixed. Final imagery and premium site-wide refinement remain deferred. |
