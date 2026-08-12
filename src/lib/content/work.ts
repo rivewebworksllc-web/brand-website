@@ -1,6 +1,6 @@
 import type { PlaceholderMeta } from "@/components/media/Placeholder";
 import { homepageFallbackContent } from "@/lib/content/homepage";
-import { contactCta } from "@/lib/nav";
+import { contactCta, footerNav } from "@/lib/nav";
 
 export type WorkInclude = {
   id: string;
@@ -10,7 +10,7 @@ export type WorkInclude = {
   visual: PlaceholderMeta;
 };
 
-const serviceLinks: { label: string; href: string }[] = [];
+const serviceLinks = footerNav.find((group) => group.heading === "Services")!.items;
 
 export const workContent = {
   hero: {

@@ -112,11 +112,11 @@ test("Evidence Pack explorer lets a visitor select an artifact and see its previ
   await expect(preview).toBeVisible();
 });
 
-test("footer exposes only the canonical implemented link groups", async ({ page }) => {
+test("footer exposes the five approved link groups", async ({ page }) => {
   await page.goto("/");
 
   const footer = page.getByRole("contentinfo");
-  for (const heading of ["Explore", "Company", "Resources"]) {
+  for (const heading of ["Solutions", "Services", "Company", "Trust", "Resources"]) {
     await expect(footer.getByText(heading, { exact: true })).toBeVisible();
   }
 });

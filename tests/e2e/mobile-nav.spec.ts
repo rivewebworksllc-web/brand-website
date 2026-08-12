@@ -1,42 +1,155 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.use({ viewport: { width: 390, height: 844 } });
 
-async function openMenu(page: Page) {
+test("mobile navigation opens, closes via Escape, and restores focus", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Open menu" }).click();
-  return page.getByRole("dialog", { name: "Mobile navigation" });
-}
 
-test("mobile drawer opens, closes with Escape and restores focus", async ({ page }) => {
-  const panel = await openMenu(page);
-  await expect(panel.getByRole("button", { name: "Close menu" })).toBeFocused();
+  const trigger = page.getByRole("button", { name: "Open menu" });
+  await trigger.click();
+
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+  await expect(panel).toBeVisible();
+  await expect(panel.getByRole("button", { name: "Solutions" })).toBeVisible();
+
   await page.keyboard.press("Escape");
   await expect(panel).toBeHidden();
   await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
 });
 
-test("mobile IA matches desktop and exposes no conversion dead links", async ({ page }) => {
-  const panel = await openMenu(page);
-  for (const label of ["Solutions", "Resources", "Company"]) await expect(panel.getByRole("button", { name: label, exact: true })).toBeVisible();
-  await expect(panel.getByRole("link", { name: "Work", exact: true })).toHaveAttribute("href", "/work/");
-  await expect(panel.getByText("Services", { exact: true })).toHaveCount(0);
-  await expect(panel.locator('a[href="/connect/"], a[href="/start/"]')).toHaveCount(0);
-});
+test("selecting a mobile nav link closes the panel", async ({ page }) => {
+  await page.goto("/");
 
-test("mobile disclosure children are reachable and only one group stays open", async ({ page }) => {
-  const panel = await openMenu(page);
-  await panel.getByRole("button", { name: "Solutions", exact: true }).click();
-  await expect(panel.getByRole("link", { name: "Industries", exact: true })).toBeVisible();
-  await panel.getByRole("button", { name: "Company", exact: true }).click();
-  await expect(panel.getByRole("link", { name: "Industries", exact: true })).toBeHidden();
-  await expect(panel.getByRole("link", { name: "About", exact: true })).toBeVisible();
-  await expect(panel.getByRole("link", { name: "Process", exact: true })).toBeVisible();
-});
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+  await panel.getByRole("link", { name: "Find Your Solution" }).click();
 
-test("selecting Work closes the drawer and navigates", async ({ page }) => {
-  const panel = await openMenu(page);
-  await panel.getByRole("link", { name: "Work", exact: true }).click();
-  await expect(page).toHaveURL(/\/work\/$/);
   await expect(panel).toBeHidden();
+});
+
+test("background scroll is locked while the panel is open", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  await expect(page.getByRole("dialog", { name: "Mobile navigation" })).toBeVisible();
+
+  const overflow = await page.evaluate(() => document.body.style.overflow);
+  expect(overflow).toBe("hidden");
+
+  await page.keyboard.press("Escape");
+  const overflowAfter = await page.evaluate(() => document.body.style.overflow);
+  expect(overflowAfter).not.toBe("hidden");
+});
+
+test("a menu-owning item (Solutions) is a disclosure trigger, not a parent-route link", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+
+  const trigger = panel.getByRole("button", { name: "Solutions", exact: true });
+  await expect(trigger).toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
+  await trigger.click();
+
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeVisible();
+
+  await trigger.click();
+  await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeHidden();
+});
+
+test("an item with no reachable children (Work) has no expand control", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+
+  await expect(panel.getByRole("link", { name: "Work", exact: true })).toBeVisible();
+  await expect(panel.getByRole("button", { name: /Work/ })).toHaveCount(0);
+});
+
+test("a group with only secondaryLinks (Company -> Pricing) still gets an expand control on mobile", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+
+  await panel.getByRole("button", { name: "Company", exact: true }).click();
+  await expect(panel.getByRole("link", { name: "Pricing", exact: true })).toBeVisible();
+});
+
+// --- RW-PW10: right-side drawer additions ---
+
+test("the drawer is a right-side panel with its own close control, focused on open", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+  await expect(panel).toBeVisible();
+
+  const box = await panel.boundingBox();
+  const viewport = page.viewportSize()!;
+  expect(box).not.toBeNull();
+  // Anchored to the right edge, not full-width (near-full-screen, not a
+  // downward-expanding accordion under the header).
+  expect(box!.x + box!.width).toBeGreaterThan(viewport.width - 5);
+  expect(box!.width).toBeLessThan(viewport.width);
+
+  const closeButton = panel.getByRole("button", { name: "Close menu" });
+  await expect(closeButton).toBeFocused();
+  await closeButton.click();
+  await expect(panel).toBeHidden();
+});
+
+test("clicking the backdrop closes the drawer", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+  await expect(panel).toBeVisible();
+
+  // Click near the left edge of the viewport — outside the right-anchored
+  // drawer, on the backdrop.
+  await page.mouse.click(5, 5);
+  await expect(panel).toBeHidden();
+});
+
+test("only one group is expanded at a time", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+
+  await panel.getByRole("button", { name: "Solutions", exact: true }).click();
+  await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeVisible();
+
+  await panel.getByRole("button", { name: "Company", exact: true }).click();
+  await expect(panel.getByRole("link", { name: "Website & Growth" })).toBeHidden();
+  await expect(panel.getByRole("link", { name: "About" })).toBeVisible();
+});
+
+test("expanding a group with a Placeholder reveals its Visual Story illustration", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+
+  await expect(panel.getByRole("img")).toHaveCount(0);
+  await panel.getByRole("button", { name: "Solutions", exact: true }).click();
+  await expect(panel.getByRole("img")).toHaveCount(1);
+});
+
+test("the primary CTA stays visible in the drawer without scrolling", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Open menu" }).click();
+  const panel = page.getByRole("dialog", { name: "Mobile navigation" });
+
+  await panel.getByRole("button", { name: "Solutions", exact: true }).click();
+  await expect(panel.getByRole("link", { name: "Find Your Solution" })).toBeVisible();
 });

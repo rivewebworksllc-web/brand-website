@@ -22,7 +22,7 @@ export type MegaMenuGroup = {
   secondaryLinks?: NavItem[];
   /** Heading shown above `secondaryLinks` in the panel — required whenever secondaryLinks is set. */
   secondaryHeading?: string;
-  panel: { heading: string; body: string; cta?: NavItem };
+  panel: { heading: string; body: string; cta: NavItem };
   placeholder: PlaceholderMeta;
 };
 
@@ -37,6 +37,7 @@ export type MegaMenuGroup = {
  */
 export const primaryNav: NavItem[] = [
   { label: "Solutions", href: "/solutions/" },
+  { label: "Services", href: "/services/" },
   { label: "Work", href: "/work/" },
   { label: "Resources", href: "/resources/" },
   { label: "Company", href: "/company/" },
@@ -61,11 +62,22 @@ export const contactCta: NavItem = { label: "Contact Us", href: "/connect/" };
 /** Footer link architecture. Same safe-route convention as `primaryNav`. */
 export const footerNav: NavGroup[] = [
   {
-    heading: "Explore",
+    heading: "Solutions",
     items: [
-      { label: "Work", href: "/work/" },
-      { label: "Industries", href: "/industries/" },
-      { label: "Platforms", href: "/platforms/" },
+      { label: "Website & Growth", href: "/solutions/web-growth/" },
+      { label: "Cloud Modernization", href: "/solutions/cloud-modernization/" },
+      { label: "AI & Automation", href: "/solutions/ai-data-automation/" },
+      { label: "Managed Services", href: "/solutions/managed-services/" },
+    ],
+  },
+  {
+    heading: "Services",
+    items: [
+      { label: "Web", href: "/services/web/" },
+      { label: "Cloud", href: "/services/cloud/" },
+      { label: "Microsoft", href: "/services/microsoft/" },
+      { label: "AI", href: "/services/ai/" },
+      { label: "Automation", href: "/services/automation/" },
     ],
   },
   {
@@ -73,6 +85,20 @@ export const footerNav: NavGroup[] = [
     items: [
       { label: "About", href: "/company/about/" },
       { label: "Process", href: "/company/process/" },
+      { label: "Work", href: "/work/" },
+      { label: "Partners and Readiness", href: "/company/partners-and-readiness/" },
+      { label: "Careers", href: "/company/careers/" },
+      { label: "Contact", href: "/connect/" },
+    ],
+  },
+  {
+    heading: "Trust",
+    items: [
+      { label: "Trust Center", href: "/trust/" },
+      { label: "Evidence Pack™", href: "/trust/evidence-pack/" },
+      { label: "Accessibility", href: "/trust/accessibility/" },
+      { label: "Privacy", href: "/trust/privacy/" },
+      { label: "Security", href: "/trust/security/" },
     ],
   },
   {
@@ -80,12 +106,16 @@ export const footerNav: NavGroup[] = [
     items: [
       { label: "Guides", href: "/resources/guides/" },
       { label: "Insights", href: "/resources/insights/" },
+      { label: "Pricing", href: "/pricing/" },
+      { label: "FAQs", href: "/resources/faqs/" },
     ],
   },
 ];
 
 const industriesLink: NavItem = { label: "Industries", href: "/industries/" };
 const platformsLink: NavItem = { label: "Platforms", href: "/platforms/" };
+const pricingLink: NavItem = { label: "Pricing", href: "/pricing/" };
+const trustLinks: NavItem[] = footerNav.find((group) => group.heading === "Trust")!.items;
 
 /**
  * RW-PW07B: every mega menu now carries a real content panel, a real link
@@ -98,10 +128,13 @@ const platformsLink: NavItem = { label: "Platforms", href: "/platforms/" };
  */
 export const megaMenu: Record<string, MegaMenuGroup> = {
   Solutions: {
-    links: [industriesLink, platformsLink],
+    links: footerNav.find((group) => group.heading === "Solutions")!.items,
+    secondaryLinks: [industriesLink, platformsLink],
+    secondaryHeading: "By industry & platform",
     panel: {
       heading: homepageFallbackContent.buyerPathsIntro.heading,
       body: homepageFallbackContent.buyerPathsIntro.description,
+      cta: startCta,
     },
     placeholder: {
       id: "RW-NAV-SOLUTIONS-01",
@@ -115,11 +148,52 @@ export const megaMenu: Record<string, MegaMenuGroup> = {
       motion: "none",
     },
   },
+  Services: {
+    links: footerNav.find((group) => group.heading === "Services")!.items,
+    panel: {
+      heading: homepageFallbackContent.platformParity.heading,
+      body: homepageFallbackContent.platformParity.description,
+      cta: connectCta,
+    },
+    placeholder: {
+      id: "RW-NAV-SERVICES-01",
+      category: "device-render",
+      purpose: "Platform-agnostic service delivery",
+      aspect: "4:3",
+      composition: "Two platforms, one operating layer",
+      mood: "Precise, structured",
+      replacement: "Commissioned Rive illustration",
+      priority: "P1",
+      motion: "none",
+    },
+  },
+  Work: {
+    links: [],
+    panel: {
+      heading: homepageFallbackContent.featuredEngagement.heading,
+      body: homepageFallbackContent.featuredEngagement.description,
+      cta: homepageFallbackContent.featuredEngagement.primaryCta,
+    },
+    placeholder: {
+      id: "RW-NAV-WORK-01",
+      category: "editorial-photography",
+      purpose: "Case study cover — evidence pending",
+      aspect: "4:3",
+      composition: "Real project context, not stock imagery",
+      mood: "Honest, credible",
+      replacement: "Real case-study photography, once published",
+      priority: "P2",
+      motion: "none",
+    },
+  },
   Resources: {
     links: footerNav.find((group) => group.heading === "Resources")!.items,
+    secondaryLinks: trustLinks,
+    secondaryHeading: "Trust & compliance",
     panel: {
       heading: homepageFallbackContent.evidencePack.heading,
       body: homepageFallbackContent.evidencePack.description,
+      cta: homepageFallbackContent.evidencePack.cta,
     },
     placeholder: {
       id: "RW-NAV-RESOURCES-01",
@@ -135,9 +209,12 @@ export const megaMenu: Record<string, MegaMenuGroup> = {
   },
   Company: {
     links: footerNav.find((group) => group.heading === "Company")!.items,
+    secondaryLinks: [pricingLink],
+    secondaryHeading: "Also",
     panel: {
       heading: homepageFallbackContent.manifesto.lead,
       body: homepageFallbackContent.process.description,
+      cta: connectCta,
     },
     placeholder: {
       id: "RW-NAV-COMPANY-01",

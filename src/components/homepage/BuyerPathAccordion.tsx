@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { BuyerPath } from "@/lib/content/homepage";
 import { CAPABILITY_VISUALS, CapabilityVisual } from "@/components/homepage/CapabilityVisual";
-import { isAvailableHref } from "@/lib/public-routes";
 
 type BuyerPathAccordionProps = {
   paths: BuyerPath[];
@@ -91,7 +90,7 @@ export function BuyerPathAccordion({ paths }: BuyerPathAccordionProps) {
               </dl>
             </div>
 
-            {isAvailableHref(path.cta.href) ? <div className="flex items-start lg:justify-end">
+            <div className="flex items-start lg:justify-end">
               <Link
                 href={path.cta.href}
                 className="group/link inline-flex items-center gap-1 text-[15px] font-semibold text-brand-maroon underline-offset-4 hover:underline"
@@ -104,7 +103,7 @@ export function BuyerPathAccordion({ paths }: BuyerPathAccordionProps) {
                   →
                 </span>
               </Link>
-            </div> : null}
+            </div>
           </div>
         </details>
         );

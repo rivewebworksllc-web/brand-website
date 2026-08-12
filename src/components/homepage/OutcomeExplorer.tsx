@@ -2,7 +2,6 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
-import { isAvailableHref } from "@/lib/public-routes";
 import type { BuyerPath } from "@/lib/content/homepage";
 import { CAPABILITY_VISUALS, CapabilityVisual } from "@/components/homepage/CapabilityVisual";
 import { PresentationProgress } from "@/components/ui/PresentationProgress";
@@ -141,13 +140,13 @@ export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
 
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-hairline-faint pt-6">
             <p className="text-[15px] font-medium text-heading">{active.outcome}</p>
-            {isAvailableHref(active.cta.href) ? <Link
+            <Link
               href={active.cta.href}
               className="inline-flex shrink-0 items-center gap-1 text-[15px] font-semibold text-brand-maroon underline-offset-4 hover:underline"
             >
               {active.cta.label}
               <span aria-hidden="true">→</span>
-            </Link> : null}
+            </Link>
           </div>
 
           <button

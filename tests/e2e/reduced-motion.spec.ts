@@ -4,7 +4,7 @@ test("interactive elements respect prefers-reduced-motion", async ({ page }) => 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
 
-  const primaryCta = page.getByRole("link", { name: "Work", exact: true }).first();
+  const primaryCta = page.getByRole("link", { name: "Find Your Solution" }).first();
   const transitionDuration = await primaryCta.evaluate(
     (el) => getComputedStyle(el).transitionDuration,
   );

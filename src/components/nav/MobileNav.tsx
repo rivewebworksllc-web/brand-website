@@ -3,12 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LinkButton } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Placeholder } from "@/components/media/Placeholder";
 import { megaMenu, type NavItem } from "@/lib/nav";
 
 type MobileNavProps = {
   items: NavItem[];
+  startCta: NavItem;
+  connectCta: NavItem;
 };
 
 function getFocusable(container: HTMLElement): HTMLElement[] {
@@ -53,7 +56,7 @@ function getFocusable(container: HTMLElement): HTMLElement[] {
  * either; the directive's detailed timing spec in §3 is titled "Opening
  * interaction" and has no closing-motion equivalent).
  */
-export function MobileNav({ items }: MobileNavProps) {
+export function MobileNav({ items, startCta, connectCta }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   // Drives the entrance transition: mounts at the "closed" position/opacity,
   // then flips one frame later so the CSS transition actually plays instead
@@ -315,6 +318,21 @@ export function MobileNav({ items }: MobileNavProps) {
               </div>
             </div>
 
+            {/* CTA footer — shrink-0, always visible without scrolling
+                (directive §3.5: "the main CTA remains stable and easy to
+                find"), visually separated by the border above. */}
+            <div className="shrink-0 border-t border-hairline px-5 py-4">
+              <LinkButton href={startCta.href} onClick={close} variant="primary" className="w-full">
+                {startCta.label}
+              </LinkButton>
+              <Link
+                href={connectCta.href}
+                onClick={close}
+                className="mt-3 block text-center text-[15px] font-medium text-accent-foreground underline decoration-accent-foreground/30 underline-offset-4 hover:text-brand-maroon"
+              >
+                {connectCta.label}
+              </Link>
+            </div>
           </div>
         </>
       ) : null}
