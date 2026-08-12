@@ -1,6 +1,5 @@
 import { LinkButton } from "@/components/ui/Button";
 import type { FinalConversionContent } from "@/lib/content/homepage";
-import { isAvailableHref } from "@/lib/public-routes";
 
 export function FinalConversion({
   heading,
@@ -9,8 +8,6 @@ export function FinalConversion({
   secondaryCta,
   reassurance,
 }: FinalConversionContent) {
-  const hasPrimary = isAvailableHref(primaryCta.href);
-  const hasSecondary = isAvailableHref(secondaryCta.href);
   return (
     <div
       className="rounded-lg p-10 text-center md:p-16"
@@ -26,7 +23,7 @@ export function FinalConversion({
       <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.7] text-accent-foreground/80 md:text-base">
         {description}
       </p>
-      {hasPrimary || hasSecondary ? <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
         {/* RW-PW07B (Product Office calibration): the one place on the site
             that gets the reference recording's "accent disc behind the
             arrow" treatment — reserved for this single highest-intent CTA,
@@ -36,7 +33,7 @@ export function FinalConversion({
             with the arrow on the right — a stray circle disconnected from
             the arrow it was meant to sit behind, not the intended
             treatment. Moved to `right-0`, behind the arrow. */}
-        {hasPrimary ? <span className="group relative inline-flex w-full sm:w-auto">
+        <span className="group relative inline-flex w-full sm:w-auto">
           <span
             aria-hidden="true"
             className="absolute top-1/2 right-0 z-0 h-11 w-11 translate-x-1/3 -translate-y-1/2 rounded-full bg-surface shadow-sm transition-transform duration-300 ease-out group-hover:scale-110 motion-reduce:transition-none"
@@ -44,11 +41,11 @@ export function FinalConversion({
           <LinkButton href={primaryCta.href} variant="primary" className="relative z-10 w-full sm:w-auto">
             {primaryCta.label}
           </LinkButton>
-        </span> : null}
-        {hasSecondary ? <LinkButton href={secondaryCta.href} variant="inverse" className="w-full sm:w-auto">
+        </span>
+        <LinkButton href={secondaryCta.href} variant="inverse" className="w-full sm:w-auto">
           {secondaryCta.label}
-        </LinkButton> : null}
-      </div> : null}
+        </LinkButton>
+      </div>
       <p className="text-evidence mx-auto mt-8 max-w-md text-accent-foreground/70">{reassurance}</p>
     </div>
   );

@@ -3,7 +3,12 @@ import { aboutContent } from "@/lib/content/about";
 
 describe("About content (RW-PAGE-04)", () => {
   it("uses only approved Company destinations", () => {
-    expect(aboutContent.paths).toEqual([{ label: "Process", href: "/company/process/" }]);
+    expect(aboutContent.paths).toEqual([
+      { label: "Process", href: "/company/process/" },
+      { label: "Partners and Readiness", href: "/company/partners-and-readiness/" },
+      { label: "Careers", href: "/company/careers/" },
+      { label: "Contact", href: "/connect/" },
+    ]);
   });
 
   it("carries complete metadata for every production-scale placeholder", () => {

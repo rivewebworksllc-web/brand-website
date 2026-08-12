@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("home route renders the approved H1 without advertising missing conversion routes", async ({ page }) => {
+test("home route renders the approved H1 and primary CTA", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.locator("main")).toHaveCount(1);
@@ -10,7 +10,9 @@ test("home route renders the approved H1 without advertising missing conversion 
     "One accountable team — not three vendors pointing at each other.",
   );
 
-  await expect(page.locator('a[href="/start/"], a[href="/connect/"]')).toHaveCount(0);
+  const primaryCta = page.getByRole("link", { name: "Find Your Solution" }).first();
+  await expect(primaryCta).toBeVisible();
+  await expect(primaryCta).toHaveAttribute("href", "/start/");
 });
 
 test("trust line is visible in server-rendered content", async ({ page }) => {

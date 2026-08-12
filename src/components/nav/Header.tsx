@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { primaryNav } from "@/lib/nav";
+import { primaryNav, startCta, connectCta, contactCta } from "@/lib/nav";
 import { Container } from "@/components/layout/Container";
+import { LinkButton } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
@@ -102,7 +103,32 @@ export function Header() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
 
-          <MobileNav items={primaryNav} />
+          {/* RW-PW11: the header's one global action — was two simultaneous
+              CTAs (`connectCta` text link + `startCta` button) directly
+              duplicating the hero immediately below it. The hero keeps both
+              of its own specific CTAs unchanged; only the header collapses
+              to a single generic "Contact Us".
+              RW-PW11B: horizontal padding tightens slightly when compact
+              (`!` important-modifier override — Tailwind v4's trailing-`!`
+              syntax, needed because a plain later className isn't
+              guaranteed to win over the shared "nav" variant's own padding
+              utility at equal specificity). Height does not, and cannot,
+              shrink below `min-h-11` (44px) — that's the WCAG touch-target
+              floor the "nav" variant already enforces, already the binding
+              constraint before this change (the variant's own padding+text
+              never reached 44px on its own), so there's no visible height
+              change left to make without going non-compliant. */}
+          <div className="hidden xl:block">
+            <LinkButton
+              href={contactCta.href}
+              variant="nav"
+              className={compact ? "px-4! py-2!" : ""}
+            >
+              {contactCta.label}
+            </LinkButton>
+          </div>
+
+          <MobileNav items={primaryNav} startCta={startCta} connectCta={connectCta} />
         </div>
       </Container>
     </header>
