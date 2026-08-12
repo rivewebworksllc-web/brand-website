@@ -1,7 +1,9 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useRef } from "react";
 import { Placeholder, type PlaceholderCategory } from "@/components/media/Placeholder";
+import { PresentationProgress } from "@/components/ui/PresentationProgress";
+import { usePresentationCycle } from "@/hooks/usePresentationCycle";
 import type { ProcessStage } from "@/lib/content/homepage";
 
 type ProcessStepperProps = {
@@ -50,17 +52,17 @@ const STAGE_CATEGORY: Record<string, PlaceholderCategory> = {
  * buttons below and this panel's `aria-labelledby` link to the active tab.
  */
 export function ProcessStepper({ stages }: ProcessStepperProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const cycle = usePresentationCycle({ itemCount: stages.length });
   const panelId = useId();
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const active = stages[activeIndex]!;
+  const active = stages[cycle.activeIndex]!;
   const count = stages.length;
-  const isFirst = activeIndex === 0;
-  const isLast = activeIndex === count - 1;
+  const isFirst = cycle.activeIndex === 0;
+  const isLast = cycle.activeIndex === count - 1;
 
   function goTo(index: number) {
     const clamped = Math.min(Math.max(index, 0), count - 1);
-    setActiveIndex(clamped);
+    cycle.select(clamped);
     return clamped;
   }
 
@@ -79,14 +81,14 @@ export function ProcessStepper({ stages }: ProcessStepperProps) {
     }
   }
 
-  const fillPercent = count > 1 ? (activeIndex / (count - 1)) * 100 : 0;
+  const fillPercent = count > 1 ? (cycle.activeIndex / (count - 1)) * 100 : 0;
 
   return (
-    <div>
+    <div ref={cycle.containerRef} {...cycle.interactionProps} data-presentation-mode={cycle.mode}>
       <div
         id={`${panelId}-panel`}
         role="tabpanel"
-        aria-labelledby={`${panelId}-tab-${activeIndex}`}
+        aria-labelledby={`${panelId}-tab-${cycle.activeIndex}`}
         className="card grid grid-cols-1 gap-6 p-6 sm:grid-cols-[2fr_3fr] sm:items-center sm:gap-8 md:p-8"
       >
         <div>
@@ -120,7 +122,7 @@ export function ProcessStepper({ stages }: ProcessStepperProps) {
           style={{ width: `${fillPercent * 0.8}%` }}
         />
         {stages.map((stage, index) => {
-          const isActive = index === activeIndex;
+          const isActive = index === cycle.activeIndex;
           return (
             <button
               key={stage.step}
@@ -135,7 +137,7 @@ export function ProcessStepper({ stages }: ProcessStepperProps) {
               tabIndex={isActive ? 0 : -1}
               onClick={() => goTo(index)}
               onKeyDown={(event) => onKeyDown(event, index)}
-              className="relative flex flex-col items-center gap-2 text-center"
+              className="relative flex flex-col items-center gap-2 pb-2 text-center"
             >
               <span
                 aria-hidden="true"
@@ -152,6 +154,7 @@ export function ProcessStepper({ stages }: ProcessStepperProps) {
               >
                 {stage.title}
               </span>
+              {isActive ? <PresentationProgress activeIndex={cycle.activeIndex} interval={cycle.interval} isPaused={cycle.isPaused} mode={cycle.mode} /> : null}
             </button>
           );
         })}
@@ -160,7 +163,7 @@ export function ProcessStepper({ stages }: ProcessStepperProps) {
       <div className="mt-6 flex items-center justify-end gap-3">
         <button
           type="button"
-          onClick={() => focusButton(activeIndex - 1)}
+          onClick={() => focusButton(cycle.activeIndex - 1)}
           disabled={isFirst}
           className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-hairline text-heading transition-colors duration-200 hover:border-gold-deep motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-hairline"
           aria-label="Previous stage"
@@ -169,7 +172,7 @@ export function ProcessStepper({ stages }: ProcessStepperProps) {
         </button>
         <button
           type="button"
-          onClick={() => focusButton(activeIndex + 1)}
+          onClick={() => focusButton(cycle.activeIndex + 1)}
           disabled={isLast}
           className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-hairline text-heading transition-colors duration-200 hover:border-gold-deep motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-hairline"
           aria-label="Next stage"

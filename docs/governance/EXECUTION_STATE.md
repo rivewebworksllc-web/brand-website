@@ -1,7 +1,7 @@
 # Execution State
 
 **Last updated:** 2026-08-12
-**Updated by:** Codex (recording Product Office acceptance and RW-INT-02 integration)
+**Updated by:** Codex (recording RW-UX-01 implementation ownership)
 
 ## Authoritative baseline
 
@@ -12,8 +12,8 @@
 | Integration branch | `develop` |
 | Last verified integration commit | `9c1f1ce` — Insights feature commit `1fe07a2` merged cleanly into local `develop`; post-merge validation recorded under RW-INT-02 below; remote push pending at the time of this record |
 | Last confirmed feature branch (rejected, not merged) | `feature/homepage-full-personalisation` — full 11-module homepage + light/dark theme, technically `VERIFIED` (lint/typecheck/unit/build/e2e/axe all passing, 6 commits, pushed at `6072ba2`) but visually `REJECTED` by Silvester; left intact, not merged, not to be continued |
-| Current implementation owner | None after completion of Codex's bounded `RW-INT-02` integration package; Services remains excluded and preserved separately |
-| Current work package | `RW-INT-02` is `VERIFIED` on local `develop`; push is authorized and pending at the time of this record. Final imagery, premium refinement and final release regression remain deferred |
+| Current implementation owner | `Codex` for bounded package `RW-UX-01` on `feature/presentation-tabs-system`; Services remains excluded and preserved separately |
+| Current work package | `RW-UX-01` presentation-tabs interaction system is locally `VERIFIED` from baseline `a2e102ccbc87392ac5ef51a5f795b40715749fb4` (lint, typecheck, 39/39 unit, build, 94/94 E2E and visual viewport review); Silvester visual acceptance and all Git integration remain pending |
 | Sanity project | `9vajygee` |
 | Sanity dataset | `production — read-only` |
 

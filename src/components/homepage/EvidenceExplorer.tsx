@@ -1,6 +1,8 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useRef } from "react";
+import { PresentationProgress } from "@/components/ui/PresentationProgress";
+import { usePresentationCycle } from "@/hooks/usePresentationCycle";
 import type { EvidenceArtifact } from "@/lib/content/homepage";
 
 type EvidenceExplorerProps = {
@@ -17,17 +19,17 @@ type EvidenceExplorerProps = {
  * the existing direct-selection grid and keyboard (arrow key) navigation.
  */
 export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const cycle = usePresentationCycle({ itemCount: artifacts.length, interval: 7000 });
   const groupId = useId();
   const previewId = `${groupId}-preview`;
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  const active = artifacts[activeIndex];
+  const active = artifacts[cycle.activeIndex];
 
   function goTo(index: number) {
     const count = artifacts.length;
     const next = ((index % count) + count) % count;
-    setActiveIndex(next);
+    cycle.select(next);
     return next;
   }
 
@@ -47,14 +49,14 @@ export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
   }
 
   return (
-    <div>
+    <div ref={cycle.containerRef} {...cycle.interactionProps} data-presentation-mode={cycle.mode}>
       <div
         role="group"
         aria-label="Evidence Pack artifacts"
         className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {artifacts.map((artifact, index) => {
-          const isActive = index === activeIndex;
+          const isActive = index === cycle.activeIndex;
           return (
             <button
               key={artifact.id}
@@ -66,7 +68,7 @@ export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
               aria-controls={previewId}
               onClick={() => goTo(index)}
               onKeyDown={(event) => onKeyDown(event, index)}
-              className={`card h-full p-5 text-left transition-colors duration-200 motion-reduce:transition-none ${
+              className={`card relative h-full p-5 text-left transition-colors duration-300 motion-reduce:transition-none ${
                 isActive ? "border-gold-deep bg-surface shadow-sm" : "hover:border-gold-deep"
               }`}
             >
@@ -77,16 +79,17 @@ export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
               <p className="mt-1.5 text-[14px] leading-[1.6] text-body">
                 {artifact.description}
               </p>
+              {isActive ? <PresentationProgress activeIndex={cycle.activeIndex} interval={cycle.interval} isPaused={cycle.isPaused} mode={cycle.mode} /> : null}
             </button>
           );
         })}
       </div>
 
-      <div id={previewId} aria-live="polite" className="card mt-6 overflow-hidden">
+      <div id={previewId} role="region" aria-label="Selected evidence artifact" className="card mt-6 min-h-72 overflow-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-5">
           <div className="border-b border-hairline p-6 sm:col-span-3 sm:border-b-0 sm:border-r">
             <p className="text-evidence text-muted">
-              Artifact {String(activeIndex + 1).padStart(2, "0")} of {String(artifacts.length).padStart(2, "0")}
+              Artifact {String(cycle.activeIndex + 1).padStart(2, "0")} of {String(artifacts.length).padStart(2, "0")}
             </p>
             <p className="mt-2 text-eyebrow text-brand-maroon">{active.title}</p>
             <p className="mt-2 text-[15px] leading-[1.65] text-body">{active.preview}</p>
@@ -94,7 +97,7 @@ export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
             <div className="mt-6 flex items-center gap-3">
               <button
                 type="button"
-                onClick={() => focusButton(activeIndex - 1)}
+                onClick={() => focusButton(cycle.activeIndex - 1)}
                 className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-hairline text-heading transition-colors duration-200 hover:border-gold-deep motion-reduce:transition-none"
                 aria-label="Previous artifact"
               >
@@ -102,7 +105,7 @@ export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
               </button>
               <button
                 type="button"
-                onClick={() => focusButton(activeIndex + 1)}
+                onClick={() => focusButton(cycle.activeIndex + 1)}
                 className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-hairline text-heading transition-colors duration-200 hover:border-gold-deep motion-reduce:transition-none"
                 aria-label="Next artifact"
               >
@@ -121,7 +124,7 @@ export function EvidenceExplorer({ artifacts }: EvidenceExplorerProps) {
           >
             <div className="text-center">
               <p className="text-h1 text-heading" style={{ fontSize: "3.25rem" }}>
-                {String(activeIndex + 1).padStart(2, "0")}
+                {String(cycle.activeIndex + 1).padStart(2, "0")}
               </p>
               <p className="text-evidence mt-2 text-muted">{active.id}</p>
             </div>
