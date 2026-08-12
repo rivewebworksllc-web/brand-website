@@ -1,7 +1,7 @@
 # Execution State
 
 **Last updated:** 2026-08-12
-**Updated by:** Codex (recording RW-PAGE-05 implementation and verification)
+**Updated by:** Codex (recording RW-AUDIT-01 execution against the integrated Process baseline)
 
 ## Authoritative baseline
 
@@ -12,8 +12,8 @@
 | Integration branch | `develop` |
 | Last verified integration commit | `21eefcc` — RW-FIX-01 repair `e2cc436` and About feature `65c45cc` merged into `develop`, pushed and verified against `origin/develop` |
 | Last confirmed feature branch (rejected, not merged) | `feature/homepage-full-personalisation` — full 11-module homepage + light/dark theme, technically `VERIFIED` (lint/typecheck/unit/build/e2e/axe all passing, 6 commits, pushed at `6072ba2`) but visually `REJECTED` by Silvester; left intact, not merged, not to be continued |
-| Current implementation owner | `Codex` for bounded page package `RW-PAGE-05` on `feature/process-page-production` |
-| Current work package | `RW-PAGE-05` Process / Methodology production page from clean aligned `develop` baseline `93d3e21a2523fcf8913ec8cebc08d5257710c35b` |
+| Current implementation owner | `Codex` for documentation-only audit package `RW-AUDIT-01` on `feature/sitewide-design-audit`; application changes are prohibited |
+| Current work package | `RW-AUDIT-01` four-layer sitewide design audit from clean pushed `develop` baseline `4761c5b3b74b2542a40b72c651277df681dec24c` |
 | Sanity project | `9vajygee` |
 | Sanity dataset | `production — read-only` |
 
@@ -21,6 +21,7 @@
 
 | Work | State | Evidence |
 |---|---|---|
+| RW-AUDIT-01 (Four-Layer Sitewide Design Audit) | Audit `IMPLEMENTED`; Product Office review pending; no application refinement started | Inventoried all built and shared-navigation-advertised public routes; rendered all ten built destinations at 1440×900 and 375×812; applied UI/UX Pro Max, five authenticated 21st.dev metadata explorations, `design-taste-frontend` critique and Human Design Review. The durable report is `docs/design-system/SITEWIDE_DESIGN_AUDIT.md`. Final decision: ready for controlled sitewide refinement, with public route/CTA integrity preceding visual polish. |
 | RW-PAGE-05 (Process / Methodology Production Page) | Locally `IMPLEMENTED` and technically `VERIFIED`; Product Office visual acceptance pending | Added `/company/process/` as a disciplined but non-rigid operating model across Understand, Define, Architect, Build, Verify, Launch & handover, and Operate & improve. The page uses a static semantic operating trace with explicit return paths, no autoplay, no essential motion, no direct 21st.dev component adoption and no final-media dependency. Company remains a disclosure parent and the pre-existing `/company/` route remains untouched. Full capability pipeline completed before JSX: UI/UX Pro Max v2.11.0 package-specific reasoning; three authenticated 21st.dev `get_inspiration` explorations; `design-taste-frontend` critique; cross-page repetition audit; Rive synthesis and Design Decision Brief. Human Design Review found and removed one reveal-caused blank-section defect. `git diff --check`, lint, typecheck and build pass; 45/45 unit tests pass; Process E2E passes 7/7 including desktop/mobile navigation, reduced motion, FAQ keyboard operation, five viewport overflow checks and axe light/dark. Focused navigation/presentation regression completed 37/39 under two-worker load; both unchanged mobile-nav timing failures passed 2/2 serially. Full E2E completed 105/109 under two-worker load; the four unchanged Industries axe/mobile-nav/mega-menu failures passed 4/4 serially, so no deterministic regression was reproduced and the 105/109 run is not described as passing. Required 375/768/1024/1280/1440 light states plus 375/1440 dark states were rendered and inspected. Guides, Work and Services preservation stashes remain untouched. No commit exists yet; implementation is working-tree evidence pending Product Office review. |
 | RW-GOV-04B (Full Design Capability Governance) | Governance `IMPLEMENTED`; integration evidence pending | Restores UI/UX Pro Max as required reasoning, 21st.dev/Magic as required exploration, TasteSkill as critic, Rive synthesis and a pre-implementation Design Decision Brief. Expands Human Design Review and templates; records package-specific exception escalation and separates durable status from current-session callability. No application code changed. |
 | RW-REFINE-01 (Full-capability design refinement debt) | `APPROVED`, not started | Homepage, Work, Guides, Insights and About remain accepted build-phase implementations and are queued for later UI/UX Pro Max, 21st.dev/Magic, TasteSkill, cross-page repetition, final-media, responsive, spacing and motion refinement. The next major page is the first full compliance test; `/company/process/` remains only a likely candidate until separately confirmed. |
