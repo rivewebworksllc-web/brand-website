@@ -38,8 +38,38 @@
 
 ## Skill Invocation Evidence
 
-| Skill/tool | Invoked? | Evidence | Limitation or exception |
-|---|---:|---|---|
+| Capability | Invoked? | Evidence | Material influence | Direct adoption | Limitation or exception |
+|---|---:|---|---|---:|---|
+
+For major visual work, also report:
+
+### UI/UX Pro Max
+
+- Available / installed / environment:
+- Invocation method and design question:
+- Recommendations returned:
+- Recommendations adopted:
+- Recommendations rejected and reasons:
+- Material implementation impact:
+- Invocation evidence:
+
+### 21st.dev / Magic
+
+- Available / connected / environment:
+- Exploration performed and search themes:
+- Patterns reviewed and shortlisted:
+- Direct component adopted:
+- Rejected patterns and reasons:
+- Material design influence:
+- Invocation evidence:
+
+### TasteSkill, Rive synthesis and Human Design Review
+
+- TasteSkill critique and material influence:
+- Rive constraints applied:
+- Human Design Review result:
+- Cross-page repetition result:
+- Mobile and dark-mode authorship result:
 
 ## Review access
 

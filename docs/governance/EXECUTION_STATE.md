@@ -1,7 +1,7 @@
 # Execution State
 
 **Last updated:** 2026-08-12
-**Updated by:** Codex (recording RW-PAGE-04 implementation ownership)
+**Updated by:** Codex (recording RW-GOV-04B governance implementation)
 
 ## Authoritative baseline
 
@@ -10,10 +10,10 @@
 | Repository | `rivewebworksllc-web/brand-website` |
 | Remote | `git@github-rive:rivewebworksllc-web/brand-website.git` |
 | Integration branch | `develop` |
-| Last verified integration commit | `c89c9cf` — Presentation Tabs feature commit `e9a776c` merged cleanly into local `develop`; post-merge validation recorded below |
+| Last verified integration commit | `21eefcc` — RW-FIX-01 repair `e2cc436` and About feature `65c45cc` merged into `develop`, pushed and verified against `origin/develop` |
 | Last confirmed feature branch (rejected, not merged) | `feature/homepage-full-personalisation` — full 11-module homepage + light/dark theme, technically `VERIFIED` (lint/typecheck/unit/build/e2e/axe all passing, 6 commits, pushed at `6072ba2`) but visually `REJECTED` by Silvester; left intact, not merged, not to be continued |
-| Current implementation owner | `Codex` for bounded package `RW-PAGE-04` on `feature/about-page-production`; Services remains excluded and preserved separately |
-| Current work package | `RW-PAGE-04` About production build is locally `VERIFIED` from baseline `493242e2e177e8ccf3c45a5a7188d6d4359aca6c`; canonical route `/company/about/`; Silvester visual acceptance and all Git integration remain pending |
+| Current implementation owner | `Codex` for bounded governance package `RW-GOV-04B` on `feature/design-capability-governance`; application code is excluded |
+| Current work package | `RW-GOV-04B` full design-capability governance implementation from clean remote baseline `21eefccaf1cf9c8c3a494c7bfa148eba1af556ca` |
 | Sanity project | `9vajygee` |
 | Sanity dataset | `production — read-only` |
 
@@ -21,6 +21,8 @@
 
 | Work | State | Evidence |
 |---|---|---|
+| RW-GOV-04B (Full Design Capability Governance) | Governance `IMPLEMENTED`; integration evidence pending | Restores UI/UX Pro Max as required reasoning, 21st.dev/Magic as required exploration, TasteSkill as critic, Rive synthesis and a pre-implementation Design Decision Brief. Expands Human Design Review and templates; records package-specific exception escalation and separates durable status from current-session callability. No application code changed. |
+| RW-REFINE-01 (Full-capability design refinement debt) | `APPROVED`, not started | Homepage, Work, Guides, Insights and About remain accepted build-phase implementations and are queued for later UI/UX Pro Max, 21st.dev/Magic, TasteSkill, cross-page repetition, final-media, responsive, spacing and motion refinement. The next major page is the first full compliance test; `/company/process/` remains only a likely candidate until separately confirmed. |
 | RW-PAGE-04 (About Page Production Build) | Locally `IMPLEMENTED` and technically `VERIFIED`; visual acceptance pending | Added `/company/about/` as a human, organisational narrative connecting Rive's disciplines, principles, working relationship and evidence philosophy without fabricated team identities, scale, credentials or metrics. The existing `/company/` first-slice page was audited through source, history (`bacce65`), E2E and execution-state evidence and preserved unchanged pending any separate superseding route decision. Company remains a disclosure parent; About remains `/company/about/`; `/about/` is a tested 404. Connected Disciplines reuses the opt-in Presentation Tabs system at 7000ms; all other About content is static. Added three production-scale placeholders and no final imagery. TasteSkill and Human Design Review were applied; UI/UX Pro Max was unavailable under the package-specific partial-capability authorization. Lint/typecheck/build pass; 42/42 unit tests pass; About E2E passes 8/8 including desktop/mobile navigation, reduced motion, presentation takeover, overflow and light/dark axe. Focused cross-page regression completed 81/82 under two-worker load; the single existing Presentation Tabs timing case passed immediately 1/1 serially. The full suite then passed 102/102 with two workers. Six required viewport/theme states rendered with HTTP 200, one H1 and no horizontal overflow. Final imagery and premium micro-refinement remain deferred. |
 | RW-INT-03 (Presentation Tabs Integration) | `IMPLEMENTED` and integration `VERIFIED`; remote push authorized and pending at the time of this record | Audited exactly 5 new and 9 modified RW-UX-01 files with no unrelated or Services contamination. Committed the accepted package as `e9a776c` and merged it without conflict into local `develop` as `c89c9cf`. Pre-commit lint/typecheck/build passed, 39 unit tests passed, focused regression passed 56/56 and the full suite completed 93/94 under two-worker load; the sole existing Industries mega-menu visibility timeout passed immediately 1/1 serially. Post-merge lint/typecheck/build passed, 39 unit tests passed, focused cross-page regression passed 66/66, and the full suite again completed 93/94 under two-worker load; the sole existing header-alignment timing failure passed immediately 1/1 serially. The accepted source package had previously completed 94/94. Visual smoke inspection retained subtle progress, no overflow, manual task controls and intentional dark-mode hierarchy. All three recovery stashes remain untouched. Final motion cadence and premium visual refinement remain deferred. |
 | RW-UX-01 (Presentation Tabs System) | `IMPLEMENTED`, technically `VERIFIED`, accepted for the current build phase and integrated into `develop` | Added the opt-in `usePresentationCycle` primitive and branded progress treatment. Homepage OutcomeExplorer, ProcessStepper and EvidenceExplorer; WorkIncludes and BehindTheScreen; and Insights AnalysisLens adopt presentation mode. Hover/focus pause, 1500ms passive resume, permanent click/tap/keyboard takeover, 45% viewport eligibility, document visibility pause and reduced-motion manual mode are covered. Navigation, mega menus, mobile drawer, Guides/Insights filters, FAQ and forms remain manual. No dependencies added. Final presentation-motion polish remains deferred. |
