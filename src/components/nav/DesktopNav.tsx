@@ -39,7 +39,7 @@ export function DesktopNav({ items, compact = false }: DesktopNavProps) {
   const currentPath = usePathname();
   const [openLabel, setOpenLabel] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
-  const triggerRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function clearTimer() {
@@ -121,7 +121,8 @@ export function DesktopNav({ items, compact = false }: DesktopNavProps) {
       >{/* RW-PW11B: gap tightens modestly in the compact state — see Header.tsx's `compact` for the trigger. */}
         {items.map((item) => {
           const isCurrent = item.href === currentPath;
-          const group = megaMenu[item.label];
+          const candidate = megaMenu[item.label];
+          const group = candidate && (candidate.links.length > 0 || (candidate.secondaryLinks?.length ?? 0) > 0) ? candidate : undefined;
           const isOpen = group ? openLabel === item.label : false;
           const itemPanelId = group ? `megamenu-${item.label.toLowerCase()}` : undefined;
 
@@ -132,21 +133,28 @@ export function DesktopNav({ items, compact = false }: DesktopNavProps) {
               onMouseEnter={group ? () => scheduleOpen(item.label) : undefined}
               onMouseLeave={group ? scheduleClose : undefined}
             >
-              <Link
-                ref={(el) => {
-                  triggerRefs.current[item.label] = el;
-                }}
-                href={item.href}
-                aria-current={isCurrent ? "page" : undefined}
-                aria-expanded={group ? isOpen : undefined}
-                aria-controls={group ? itemPanelId : undefined}
-                onFocus={group ? () => openNow(item.label) : undefined}
-                className={`text-[15px] font-medium tracking-wide text-accent-foreground/95 transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none ${
-                  isCurrent ? "text-brand-maroon" : ""
-                }`}
-              >
-                {item.label}
-              </Link>
+              {group ? (
+                <button
+                  ref={(el) => { triggerRefs.current[item.label] = el; }}
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={itemPanelId}
+                  onFocus={() => openNow(item.label)}
+                  onClick={() => openNow(item.label)}
+                  className="inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium tracking-wide text-accent-foreground/95 transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none"
+                >
+                  {item.label}
+                  <span aria-hidden="true" className={`text-xs transition-transform motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`}>⌄</span>
+                </button>
+              ) : (
+                <Link
+                  href={item.href}
+                  aria-current={isCurrent ? "page" : undefined}
+                  className={`inline-flex min-h-11 items-center text-[15px] font-medium tracking-wide text-accent-foreground/95 transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none ${isCurrent ? "text-brand-maroon" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              )}
             </li>
           );
         })}

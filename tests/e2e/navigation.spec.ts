@@ -14,7 +14,7 @@ test("header exposes the approved reduced top-level navigation, with visibly mor
 
   const nav = page.getByRole("navigation", { name: "Primary" });
   for (const label of approvedLabels) {
-    await expect(nav.getByRole("link", { name: label, exact: true })).toBeVisible();
+    await expect(nav.getByRole(label === "Work" ? "link" : "button", { name: label, exact: true })).toBeVisible();
   }
 
   // The old 8-item labels that were consolidated must not remain as
@@ -61,7 +61,7 @@ test.describe("mega menu (RW-PW07B)", () => {
     await page.goto("/");
 
     const nav = page.getByRole("navigation", { name: "Primary" });
-    const trigger = nav.getByRole("link", { name: "Solutions", exact: true });
+    const trigger = nav.getByRole("button", { name: "Solutions", exact: true });
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
 
     await trigger.hover();
@@ -87,7 +87,7 @@ test.describe("mega menu (RW-PW07B)", () => {
     await page.goto("/");
 
     const nav = page.getByRole("navigation", { name: "Primary" });
-    await nav.getByRole("link", { name: "Solutions", exact: true }).hover();
+    await nav.getByRole("button", { name: "Solutions", exact: true }).hover();
 
     const panel = page.locator("#megamenu-solutions");
     await expect(panel.getByRole("link", { name: "Industries", exact: true })).toBeVisible();
@@ -101,10 +101,10 @@ test.describe("mega menu (RW-PW07B)", () => {
 
     const nav = page.getByRole("navigation", { name: "Primary" });
 
-    await nav.getByRole("link", { name: "Company", exact: true }).hover();
+    await nav.getByRole("button", { name: "Company", exact: true }).hover();
     await expect(page.locator("#megamenu-company").getByRole("link", { name: "Pricing", exact: true })).toBeVisible();
 
-    await nav.getByRole("link", { name: "Resources", exact: true }).hover();
+    await nav.getByRole("button", { name: "Resources", exact: true }).hover();
     await expect(
       page.locator("#megamenu-resources").getByRole("link", { name: "Trust Center", exact: true }),
     ).toBeVisible();
@@ -114,8 +114,8 @@ test.describe("mega menu (RW-PW07B)", () => {
     await page.goto("/");
     const nav = page.getByRole("navigation", { name: "Primary" });
 
-    for (const label of approvedLabels) {
-      await nav.getByRole("link", { name: label, exact: true }).hover();
+    for (const label of approvedLabels.filter((label) => label !== "Work")) {
+      await nav.getByRole("button", { name: label, exact: true }).hover();
       const panel = page.locator(`#megamenu-${label.toLowerCase()}`);
       await expect(panel.getByRole("img")).toBeVisible();
       await page.mouse.move(0, 0);
@@ -127,7 +127,7 @@ test.describe("mega menu (RW-PW07B)", () => {
     await page.goto("/");
 
     const nav = page.getByRole("navigation", { name: "Primary" });
-    const trigger = nav.getByRole("link", { name: "Services", exact: true });
+    const trigger = nav.getByRole("button", { name: "Services", exact: true });
     await trigger.focus();
 
     const panel = page.locator("#megamenu-services");
@@ -142,7 +142,7 @@ test.describe("mega menu (RW-PW07B)", () => {
     await page.goto("/");
 
     const nav = page.getByRole("navigation", { name: "Primary" });
-    const trigger = nav.getByRole("link", { name: "Company", exact: true });
+    const trigger = nav.getByRole("button", { name: "Company", exact: true });
     await trigger.hover();
 
     const panel = page.locator("#megamenu-company");
@@ -156,10 +156,10 @@ test.describe("mega menu (RW-PW07B)", () => {
     await page.goto("/");
 
     const nav = page.getByRole("navigation", { name: "Primary" });
-    await nav.getByRole("link", { name: "Solutions", exact: true }).hover();
+    await nav.getByRole("button", { name: "Solutions", exact: true }).hover();
     await expect(page.locator("#megamenu-solutions")).toBeVisible();
 
-    await nav.getByRole("link", { name: "Resources", exact: true }).hover();
+    await nav.getByRole("button", { name: "Resources", exact: true }).hover();
     await expect(page.locator("#megamenu-resources")).toBeVisible();
     await expect(page.locator("#megamenu-solutions")).toBeHidden();
   });
@@ -221,7 +221,7 @@ test.describe("header compact-on-scroll (RW-PW11B)", () => {
     async function assertOneLineAndCta() {
       const labelBoxes = await Promise.all(
         ["Solutions", "Services", "Work", "Resources", "Company"].map((label) =>
-          nav.getByRole("link", { name: label, exact: true }).boundingBox(),
+          nav.getByRole(label === "Work" ? "link" : "button", { name: label, exact: true }).boundingBox(),
         ),
       );
       const tops = labelBoxes.map((box) => Math.round(box!.y));
@@ -241,7 +241,7 @@ test.describe("header compact-on-scroll (RW-PW11B)", () => {
     await page.goto("/");
 
     const header = page.getByRole("banner");
-    const trigger = page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Solutions" });
+    const trigger = page.getByRole("navigation", { name: "Primary" }).getByRole("button", { name: "Solutions" });
     const panel = page.locator("#megamenu-solutions");
 
     async function assertFlush() {

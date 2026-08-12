@@ -1,7 +1,7 @@
 # Execution State
 
-**Last updated:** 2026-08-06  
-**Updated by:** Claude Code (recording RW-PW07C — Replace Initial Letter Badges with Semantic Icon System — implemented and technically verified)
+**Last updated:** 2026-08-12
+**Updated by:** Codex (recording RW-INT-01 integration audit)
 
 ## Authoritative baseline
 
@@ -12,8 +12,8 @@
 | Integration branch | `develop` |
 | Last verified integration commit | `5871a37` — confirmed: matches `develop` HEAD both locally and on `origin/develop`; merges task-based skill governance (`a81006a`) and the official 21st.dev MCP capability (`GOV-008`) |
 | Last confirmed feature branch (rejected, not merged) | `feature/homepage-full-personalisation` — full 11-module homepage + light/dark theme, technically `VERIFIED` (lint/typecheck/unit/build/e2e/axe all passing, 6 commits, pushed at `6072ba2`) but visually `REJECTED` by Silvester; left intact, not merged, not to be continued |
-| Current implementation owner | `Claude Code` (authorized as sole implementation writer for the `RW-PW05`/`RW-PW06` programme by explicit Product Office instruction this session, mirroring the `RW-PW02` precedent below; authorization has continued across each sub-package in this programme without being re-asked) |
-| Current work package | `RW-PHASE-02` (first slice: `/solutions/` + `/company/` + the Placeholder asset system), on `feature/sprint-04-interaction-visual-storytelling` |
+| Current implementation owner | `Codex` for the bounded `RW-INT-01` integration package; Services remains excluded and preserved separately |
+| Current work package | `RW-INT-01` (audit and consolidation of accepted build-phase Work + Guides packages into `develop`), `IN_PROGRESS` on `feature/work-page-production` |
 | Sanity project | `9vajygee` |
 | Sanity dataset | `production — read-only` |
 
@@ -21,6 +21,9 @@
 
 | Work | State | Evidence |
 |---|---|---|
+| RW-PAGE-02A (Correct Guides Route Architecture and Resource Navigation) | `IMPLEMENTED`, focused-route `VERIFIED`, and accepted for the current build phase | Existing Guides page relocated from `/guides/` to the canonical `/resources/guides/`; central Resources link, canonical metadata and tests aligned; flat route returns 404 rather than duplicating the page; no `/resources/` landing page created; no visual implementation changes. Lint/typecheck/build clean; 29 unit tests pass; 3/3 route/navigation correction tests pass; light/dark axe pass; canonical page rendered at 375×812, 768×1024 and 1440×900 with HTTP 200, correct canonical metadata and no horizontal overflow. Final imagery and premium site-wide refinement remain deferred. |
+| RW-PAGE-02 (Guides Page + Resource Editorial Foundation) | `IMPLEMENTED` and accepted for the current build phase | Codex implemented the editorial Guides page and reusable resource components/content model. RW-PAGE-02A supersedes its original flat route: the canonical page is `/resources/guides/`. Final imagery and premium site-wide refinement remain deferred; full release regression remains deferred to the release gate. |
+| RW-PAGE-01B (Work Page — Premium Editorial Production Build) | `IMPLEMENTED` and accepted for the current build phase | Codex implemented the eight-section `/work/` narrative on `feature/work-page-production` from clean `develop` baseline `ae25e5905b35393210f178b1f23bce7837245ac7`; Services WIP remains preserved untouched in stash SHA `b45059e93f46a39dd55753a6aa1b04b69fecbc7b`. UI/UX Pro Max was unavailable and Product Office explicitly authorized partial-capability execution; TasteSkill and Human Design Review were applied. Lint/typecheck clean, 26 unit tests pass, production build compiles, Work-specific Playwright tests pass in bounded runs (5 interaction/structure/mobile + 2 axe light/dark); the full 72-test suite was started but the execution window ended after its first 7 passing cases, so no full-suite pass is claimed. Six required viewports and dark theme were rendered and inspected; one reveal-caused blank-region defect was found and fixed. Final imagery and premium site-wide refinement remain deferred. |
 | Week 0 technical foundation | `VERIFIED` | Next.js/React/TypeScript/Tailwind/Sanity foundation; reported checks passed; `main` and `develop` created |
 | Week 1 initial design shell/homepage | `IMPLEMENTED` | Commit `c1516ef`; feature branch pushed |
 | Week 1 visual refinement | `VERIFIED` | Commit `20efe31`; Silvester gave explicit visual acceptance ("Outcome B — Visual refinement approved") |

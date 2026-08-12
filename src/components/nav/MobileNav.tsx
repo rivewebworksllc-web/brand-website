@@ -221,37 +221,27 @@ export function MobileNav({ items, startCta, connectCta }: MobileNavProps) {
                     return (
                       <li key={item.href} className="border-b border-hairline-faint last:border-b-0">
                         <div className="flex items-center">
-                          <Link
-                            href={item.href}
-                            onClick={close}
-                            aria-current={isCurrent ? "page" : undefined}
-                            className={`block flex-1 rounded-sm py-3.5 text-xl font-semibold transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none ${
-                              isCurrent ? "text-brand-maroon" : "text-accent-foreground"
-                            }`}
-                          >
-                            {item.label}
-                          </Link>
                           {group ? (
                             <button
                               type="button"
                               aria-expanded={isExpanded}
                               aria-controls={groupId}
-                              aria-label={`${isExpanded ? "Collapse" : "Expand"} ${item.label}`}
-                              onClick={() =>
-                                setExpanded((current) => (current === item.label ? null : item.label))
-                              }
-                              className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center text-accent-foreground/70 transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none"
+                              onClick={() => setExpanded((current) => current === item.label ? null : item.label)}
+                              className="flex min-h-14 flex-1 items-center justify-between rounded-sm py-3.5 text-left text-xl font-semibold text-accent-foreground transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none"
                             >
-                              <span
-                                aria-hidden="true"
-                                className={`inline-block text-xl transition-transform duration-200 motion-reduce:transition-none ${
-                                  isExpanded ? "rotate-45" : ""
-                                }`}
-                              >
-                                +
-                              </span>
+                              <span>{item.label}</span>
+                              <span aria-hidden="true" className={`inline-block text-base transition-transform duration-200 motion-reduce:transition-none ${isExpanded ? "rotate-180" : ""}`}>⌄</span>
                             </button>
-                          ) : null}
+                          ) : (
+                            <Link
+                              href={item.href}
+                              onClick={close}
+                              aria-current={isCurrent ? "page" : undefined}
+                              className={`block min-h-14 flex-1 rounded-sm py-3.5 text-xl font-semibold transition-colors duration-200 hover:text-brand-maroon motion-reduce:transition-none ${isCurrent ? "text-brand-maroon" : "text-accent-foreground"}`}
+                            >
+                              {item.label}
+                            </Link>
+                          )}
                         </div>
 
                         {group && isExpanded ? (
