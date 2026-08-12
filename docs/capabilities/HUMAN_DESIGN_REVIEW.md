@@ -27,6 +27,13 @@ Assess each implementation against these criteria. A design that fails several o
 - **Human judgement** — a person made a deliberate call here; it doesn't read as an average of training data.
 - **Intentional asymmetry** — used where it strengthens the design, not avoided out of caution.
 - **Deliberate restraint** — knowing what to leave out, not filling every section with content/decoration.
+- **Cross-page originality** — has the work explicitly compared itself with Homepage, Work, Guides, Insights and About rather than repeating their recipe unconsciously?
+- **Mobile authorship** — does mobile feel deliberately composed, not merely stacked from desktop?
+- **Dark-mode authorship** — is dark mode independently tuned rather than a mechanical inversion?
+- **External-exploration influence** — does the Design Decision Brief show how UI/UX Pro Max and 21st.dev exploration informed or challenged the result?
+- **Page-template repetition** — are hero, dark section, tabs, media, cards, CTA rhythm, headings and transitions materially appropriate to this page rather than copied as a package?
+
+Formal review question: **Would a senior human designer believe this page was independently art-directed, or does it feel like another page generated from the same component recipe?**
 
 ## AI-slop characteristics to actively avoid
 
@@ -52,9 +59,11 @@ These are the default failure modes of unreviewed AI-generated design. Their pre
 ## Process
 
 1. Before requesting Product Office acceptance of a major design implementation, run it against the review checklist above.
-2. Report findings honestly — including partial failures — rather than declaring general success.
-3. Product Office acceptance (Silvester Odilu) makes the final call; this checklist informs that call, it does not substitute for it.
-4. If criteria are refined over time, update this file and note the change in `docs/governance/DECISIONS.md` if material.
+2. Review the Design Decision Brief and verify that external exploration was evaluated rather than invoked as checkbox theatre.
+3. Perform the cross-page repetition audit and review mobile and dark mode as authored states.
+4. Report findings honestly — including partial failures — rather than declaring general success.
+5. Product Office acceptance (Silvester Odilu) makes the final call; this checklist informs that call, it does not substitute for it.
+6. If criteria are refined over time, update this file and note the change in `docs/governance/DECISIONS.md` if material.
 
 ## Approval authority
 

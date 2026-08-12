@@ -19,15 +19,15 @@ Authority: Product Office Capability Governance Framework (CGF v1.0), `docs/capa
 | Official Provider | 21st.dev |
 | Official Repository / Documentation | `https://21st.dev/api/mcp` |
 | Installation Status | Installed — registered in this repo's `.mcp.json` |
-| Connection Status | Connected — HTTP MCP, authenticated via `${API_KEY_21ST}` env var (no literal key committed) |
+| Connection Status | Project-configured — official HTTP MCP is registered in `.mcp.json`; a session is connected only when its environment supplies `${API_KEY_21ST}` and exposes the MCP tools |
 | Operational Status | Operational |
 | Verification Status | **VERIFIED** |
 | Owner | Engineering (invocation), Product Office (capability approval — `GOV-008`) |
 | Last Validation Date | 2026-08-03 |
 | Approved Uses | Component/pattern search, inspiration discovery, theme discovery, generation and iteration, bookmark/team-library workflows via `mcp__21st__*` tools. Only the official server — no unofficial ports or repackaged substitutes. |
-| Restrictions | Free tier: 2 component-code retrievals/day (`get_component`); search and metadata tools are free/unmetered. Passive connection is not sufficient evidence of use — a genuine tool invocation must be shown per `SKILL_REGISTRY.md` §8. |
+| Restrictions | Current-session callability must be checked afresh. Passive configuration or historical connection is not evidence of current use. Major visual packages require a purposeful exploration pass when callable; direct production component adoption remains optional. Free-tier limits must be checked before retrieval. |
 | Dependencies | `.mcp.json`, `API_KEY_21ST` environment variable |
-| Evidence | This session: `mcp__21st__get_usage` → `{"tier":"free","freeSearchesPerDay":null,"freeSearchesRemaining":null,"freeRetrievalsPerDay":2,"freeRetrievalsRemaining":2,"upgradeUrl":"https://21st.dev/pricing"}`; `mcp__21st__list_teams` → `{"teams":[]}`. Both real, live responses, not assumed. Prior session evidence: `DECISIONS.md` `GOV-008`. |
+| Evidence | Durable verification: 2026-08-03 live `mcp__21st__get_usage` and `mcp__21st__list_teams` responses, plus `DECISIONS.md` `GOV-008`. RW-GOV-04B current-session check (2026-08-12): `.mcp.json` registration present and valid; `API_KEY_21ST` absent and no `mcp__21st__*` tools exposed to Codex, so this session is not callable without changing the durable `VERIFIED` classification. Historical Claude invocation remains verified. |
 | Next Review Date | Before the next work package that relies on `get_component` retrieval (re-check remaining quota) |
 | Notes | Individual account, no team workspace (`list_teams` returned empty). |
 
@@ -38,26 +38,26 @@ Authority: Product Office Capability Governance Framework (CGF v1.0), `docs/capa
 | Category | Local design-intelligence skill (styles, palettes, typography, UX-rule database + reasoning search tool) |
 | Purpose | Query design-system recommendations, style/colour/typography options, UX guidelines and stack-specific implementation guidance |
 | Official Provider | `ui-ux-pro-max-skill` plugin |
-| Official Repository / Documentation | Installed at `~/.claude/plugins/cache/ui-ux-pro-max-skill/2.11.0/.claude/skills/ui-ux-pro-max/` (local plugin, ships its own `references/` docs and `scripts/search.py`) |
+| Official Repository / Documentation | Discover from the installed plugin cache as `~/.claude/plugins/cache/ui-ux-pro-max-skill/<package>/<current-version>/.claude/skills/ui-ux-pro-max/`. Verified current executable: `/Users/silvestr/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.11.0/.claude/skills/ui-ux-pro-max/scripts/search.py`. |
 | Installation Status | Installed — plugin present on disk |
-| Connection Status | N/A — local skill/script, no network connection required |
+| Connection Status | Direct-script callable from Codex; historically callable as a native Claude Code skill; not natively exposed as a Codex skill in RW-GOV-04B |
 | Operational Status | Operational |
 | Verification Status | **VERIFIED** |
 | Owner | Engineering / Creative Direction (invocation for design decisions) |
-| Last Validation Date | 2026-08-03 |
-| Approved Uses | Style/colour/typography/UX/animation/chart recommendations and stack-specific guidance during design or design-review work, per `docs/creative-direction/00-CHARTER.md` and `docs/design-system/00-CHARTER.md`. |
+| Last Validation Date | 2026-08-12 |
+| Approved Uses | Required reasoning pass for major visual work: answer a package-specific UX/design question before the Design Decision Brief. Also approved for style, colour, typography, animation, chart and stack-specific guidance. |
 | Restrictions | Local static database — recommendations are generic pattern guidance, not a substitute for approved Rive visual language (`docs/creative-direction/VISUAL_LANGUAGE.md`) or Human Design Review acceptance. |
 | Dependencies | Local Python 3.x, no external network calls |
-| Evidence | This session: `Skill ui-ux-pro-max:ui-ux-pro-max` invoked and returned real skill instructions; `python3 .../search.py "brand website professional trustworthy" --domain style -n 3` executed directly and returned 3 concrete database results (Enterprise SaaS (Mobile), Storytelling-Driven, Swiss Modernism 2.0) with full field data — a genuine, repeatable invocation, not a description of expected output. |
+| Evidence | Durable verification: 2026-08-03 native Claude skill invocation and successful direct `search.py` query. RW-GOV-04B focused check (2026-08-12): corrected executable exists and `python3 …/scripts/search.py --help` returned the live CLI usage; the previously documented path without the package-name directory does not exist. |
 | Next Review Date | On plugin version change, or before the next work package that depends on it for a design decision |
-| Notes | Confirms `SKILL_REGISTRY.md` §2 row "Visual direction and interface design" is genuinely callable, not merely referenced. |
+| Notes | Registered, installed, discoverable, callable and natively exposed are distinct states. Discover the current version instead of treating the verified versioned path as permanent. A failed expected invocation must be diagnosed and escalated; only Product Office may grant a package-specific waiver. |
 
 ## Capability: Taste Skill
 
 | Field | Value |
 |---|---|
 | Category | Human-designed visual judgement and refinement — third-party 13-skill package (`brandkit`, `design-taste-frontend`, `design-taste-frontend-v1`, `full-output-enforcement`, `gpt-taste`, `high-end-visual-design`, `image-to-code`, `imagegen-frontend-mobile`, `imagegen-frontend-web`, `industrial-brutalist-ui`, `minimalist-ui`, `redesign-existing-projects`, `stitch-design-taste`) |
-| Purpose | Human-calibrated design-taste review and generation guidance, distinct from rule-based UI/UX guidance |
+| Purpose | Human-calibrated design critic for restraint, composition, repetition, motion, typography and anti-generic-AI review |
 | Official Provider | Not official — third-party GitHub repo `Leonxlnx/taste-skill` (MIT license, individual maintainer, per `GOV-007`'s own characterization: "not a vendor-official source") |
 | Official Repository / Documentation | `.agents/skills/*/SKILL.md` (and `stitch-design-taste/DESIGN.md`) in the working tree; `skills-lock.json` records source path + content hash per skill |
 | Installation Status | **Partially installed** — all 14 content files (13 skills, one with an extra `DESIGN.md`) plus `skills-lock.json` restored to the working tree from commit `56da308`, byte-for-byte verified against that commit. Untracked; not staged or committed. |
@@ -66,7 +66,7 @@ Authority: Product Office Capability Governance Framework (CGF v1.0), `docs/capa
 | Verification Status | **VERIFIED** (corrected from `CONNECTED`/not-callable — see 2026-08-06 evidence) |
 | Owner | Product Office (reactivation decision, `GOV-011`); engineering may now rely on it per Restrictions below |
 | Last Validation Date | 2026-08-06 |
-| Approved Uses | Design/interaction audit and generation guidance for frontend work, per `SKILL_REGISTRY.md` routing. The Reconciliation note below (Inter ban, aggressive GSAP defaults vs. `VISUAL_LANGUAGE.md`/`HUMAN_DESIGN_REVIEW.md`) is still open — treat its opinionated defaults as advisory, not a mandate to override established Rive brand tokens (e.g. Fraunces) without a separate Product Office decision. |
+| Approved Uses | Required critique pass for major visual work after UI/UX Pro Max and 21st.dev exploration. It tests restraint, composition, repetition, motion and typographic discipline; it is not the primary design generator. Opinionated defaults remain advisory and cannot override established Rive tokens. |
 | Restrictions | Superseded 2026-08-06: no longer restricted to "not currently callable." Still subject to the open Reconciliation note (see Notes) — its default aesthetic opinions do not override approved Rive brand tokens on their own. |
 | Dependencies | `.claude/skills/*` symlinks — now present (see Evidence) |
 | Evidence | **2026-08-03** (superseded): `git show 56da308:<path>` used to extract and verify all 14 content files and `skills-lock.json`; `mkdir .claude/skills` and `ln -s` both denied by the auto-mode classifier that session. **2026-08-06** (current): `ls -la .claude/skills/design-taste-frontend` shows a real symlink to `../../.agents/skills/design-taste-frontend` (target file `SKILL.md`, 87253 bytes); the skill was listed as available in-session and invoked via the `Skill` tool (`skill: "design-taste-frontend"`), which returned its full ~87KB `SKILL.md` body into context — genuine invocation, not passive listing. Findings applied against `ProcessStepper.tsx`/`OutcomeExplorer.tsx` under `RW-PW09`. |

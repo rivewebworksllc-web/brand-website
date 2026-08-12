@@ -42,11 +42,46 @@ Invoked only when the work actually touches their domain:
 - Microsoft platform references for Azure or Microsoft 365 content
 - Copy and content-design review for homepage and service-page messaging
 
+## 3.1 Major visual capability pipeline
+
+The full gate applies to new public-facing pages; homepage, major section, mega-menu, navigation or mobile redesigns; major interaction systems; sitewide visual refinement; and major conversion surfaces. It does not automatically apply to Git integration, deployment, route correction, test repair, dependency upgrades, documentation-only governance, backend work or pure non-visual refactoring.
+
+For major visual work, complete this sequence:
+
+```text
+Product Office commission
+→ inspect the Rive system and current page family
+→ UI/UX Pro Max
+→ 21st.dev / Magic exploration
+→ TasteSkill critique
+→ Rive design-system synthesis
+→ documented Design Decision Brief
+→ implementation
+→ Human Design Review
+→ responsive QA
+→ Playwright
+→ axe / WCAG
+→ Silvester visual acceptance
+```
+
+Implementation must not begin before the Design Decision Brief. Existing Rive pages are continuity references, not substitutes for external exploration. The synthesis is external pattern exploration + UI/UX reasoning + TasteSkill critique + Rive constraints; external suggestions that conflict with Rive must be rejected and documented.
+
+UI/UX Pro Max is required and must answer a package-specific design question. Generic invocation is invalid. Evidence must report: Available, Installed, Environment, Invocation method, Design question, Recommendations returned, Recommendations adopted, Recommendations rejected, Reasons rejected, Material implementation impact and Invocation evidence.
+
+21st.dev/Magic is a required exploration pass, not a required component import. When callable, major visual packages must perform at least three purposeful pattern explorations tied to real questions such as hero composition, core interaction and mobile treatment. Evidence must report: Available, Connected, Environment, Exploration performed, Search themes, Patterns reviewed, Patterns shortlisted, Direct component adopted, Rejected patterns, Reasons rejected, Material design influence and Invocation evidence.
+
+TasteSkill is the design critic: visual restraint, anti-generic-AI review, composition and repetition critique, motion restraint and typographic discipline. It must not silently become the primary generator.
+
+Every major page declares an Interaction identity, Primary content mode, Signature section and Visual tension, and compares hero layout, dark-section structure, tab treatment, media arrangement, card pattern, CTA rhythm, heading placement and section transitions against Homepage, Work, Guides, Insights and About. Reuse is allowed; unexamined repetition is not.
+
+Current identities are continuity references, not templates: Work = Explore / Proof / Behind the Screen; Guides = Learn / Instruction / Featured Guide; Insights = Interpret / Analysis / Analysis Lens; About = Connect / Organisation / Connected Disciplines. Every future page defines its own identity and visual tension.
+
 ## 4. Task-to-skill routing matrix
 
 | Task type | Mandatory skills that apply | Conditional skills to check |
 |---|---|---|
-| Visual/homepage design change | UI/UX Pro Max, TasteSkill, Responsive QA, WCAG/axe, Playwright | 21st.dev/Magic, Figma, image generation, copy review |
+| Major visual work (§3.1) | UI/UX Pro Max, 21st.dev/Magic exploration, TasteSkill critique, Rive design-system synthesis, Human Design Review, Responsive QA, WCAG/axe, Playwright | Figma, image generation, copy review |
+| Minor visual change outside §3.1 | UI/UX Pro Max, TasteSkill, Responsive QA, WCAG/axe, Playwright | 21st.dev/Magic, Figma, image generation, copy review |
 | Component/interaction implementation (no visual redesign) | React/Next.js, TypeScript, Tailwind, Responsive QA, WCAG/axe, Playwright | Figma (only if a design-file source exists) |
 | Metadata/SEO change | Next.js metadata/SEO, Claims Register review | — |
 | Content or copy change | Claims Register review, copy/content-design review | — |
@@ -92,6 +127,10 @@ When a mandatory skill required by the routing matrix is unavailable (`REFERENCE
 
 Silent substitution of generic reasoning for a required project skill is not permitted. Acquiring a missing capability (installing software, adding credentials, connecting an external service, changing global configuration) requires explicit Product Office authorization — it must never happen silently as a side effect of an availability check.
 
+For a failed required major-visual invocation, report Capability, Expected invocation, Actual error, Environment, Attempts made, Alternative environment available, Functional substitute and Remaining design risk. Diagnose the environment, try the verified local invocation where applicable, try Claude Code where available, then escalate. Only Product Office may issue `PROCEED WITH EXCEPTION`, and every waiver is package-specific; there is no standing partial-capability exception.
+
+Durable status never proves current-session callability. Every package must report both, for example: configured and historically verified, but not connected in the current session.
+
 ## 8. No-false-claims rule
 
 An agent must not report a skill as used unless it was genuinely available and invoked in that session. Claiming UI/UX Pro Max, 21st.dev, TasteSkill, an MCP server, or any other skill was used without real invocation evidence is a governance violation, independent of whether the resulting work product happens to be acceptable.
@@ -117,3 +156,4 @@ Update this registry only when the skill baseline changes materially (a skill is
 | 2026-08-03 | Capability Governance Framework (CGF v1.0) adopted; durable capability inventory moved to `docs/capabilities/CAPABILITY_REGISTER.md` (see `DECISIONS.md` `GOV-010`). Fresh same-session audit: 21st.dev MCP re-verified `VERIFIED` (live `mcp__21st__get_usage`/`list_teams` calls); UI/UX Pro Max re-verified `VERIFIED` (live `search.py` invocation via the installed plugin, real database results returned); Taste Skill confirmed genuinely absent from this environment, classified `PLANNED` (no plugin, no MCP, no file evidence found — consistent with this table's prior `AWAITING_OFFICIAL_MCP` entry, not a change in fact). Figma MCP (`mcp__claude_ai_Figma__*`) newly observed present via the operator's global claude.ai connector, not project-pinned — classified `CONNECTED`, unvalidated for Rive use. Full evidence and classification detail lives in the register, not duplicated here. | Product Office |
 | 2026-08-03 | Local project audit found the "absent" TasteSkill classification above was incomplete: a full 13-skill third-party package (`Leonxlnx/taste-skill`, previously approved under `GOV-007`) exists intact on the unmerged `chore/register-taste-skill-capability` branch (commit `56da308`), not merged into any active baseline. Per Product Office direction (`DECISIONS.md` `GOV-011`), its content was restored into the working tree (`.agents/skills/*`, `skills-lock.json`) but the `.claude/skills/*` symlinks required for actual invocation could not be created — blocked twice by Claude Code's own auto-mode safety classifier, a platform guard, not a project rule. Reclassified in `CAPABILITY_REGISTER.md` from `PLANNED` to a caveated `CONNECTED` (content present, not callable). | Product Office |
 | 2026-08-06 | This row's own "symlinks could not be created" description is now stale: `RW-PW09`'s Product Office review directed a fresh session-local discovery, which found `.claude/skills/design-taste-frontend` (and all 12 siblings) exist as real symlinks to `.agents/skills/*` (`ls -la` evidence, dated 2026-08-03 — i.e. present since shortly after the row above, just not re-checked since), and a genuine `Skill` tool invocation of `design-taste-frontend` returned its full `SKILL.md` content into context and was applied against `ProcessStepper.tsx`/`OutcomeExplorer.tsx`. TasteSkill (`design-taste-frontend`) reclassified `INSTALLED_CALLABLE` in `CAPABILITY_REGISTER.md` (from `CONNECTED`/not-callable). §2/§4's TasteSkill row is no longer a routing gap for frontend visual work — future Skill Gates should verify callability fresh (per §5) rather than citing this correction as a standing guarantee. | Product Office (session-directed correction per Silvester, `RW-PW09`) |
+| 2026-08-12 | RW-GOV-04B restored the full major-visual pipeline: UI/UX Pro Max reasoning, 21st.dev/Magic exploration, TasteSkill critique, Rive synthesis, Design Decision Brief, implementation, Human Design Review, responsive QA, Playwright, axe/WCAG and Silvester acceptance. Major visual packages now require purposeful evidence, cross-page repetition review and package-specific exception escalation; durable status and current-session callability are reported separately. | Product Office / Silvester (`GOV-014`) |
