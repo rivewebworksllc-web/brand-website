@@ -107,7 +107,7 @@ test("Evidence Pack explorer lets a visitor select an artifact and see its previ
   await expect(securityButton).toHaveAttribute("aria-pressed", "true");
 
   const preview = page
-    .locator("[aria-live='polite']")
+    .getByRole("region", { name: "Selected evidence artifact" })
     .filter({ hasText: "Security and governance controls" });
   await expect(preview).toBeVisible();
 });

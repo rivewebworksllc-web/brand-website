@@ -4,6 +4,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import type { BuyerPath } from "@/lib/content/homepage";
 import { CAPABILITY_VISUALS, CapabilityVisual } from "@/components/homepage/CapabilityVisual";
+import { PresentationProgress } from "@/components/ui/PresentationProgress";
+import { usePresentationCycle } from "@/hooks/usePresentationCycle";
 
 type OutcomeExplorerProps = {
   paths: BuyerPath[];
@@ -32,23 +34,23 @@ const ROW_HEIGHT = 88;
  * scrolls past it, rather than the other way around.
  */
 export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const cycle = usePresentationCycle({ itemCount: paths.length, interval: 7000 });
   const [detailOpen, setDetailOpen] = useState(false);
   const panelId = useId();
   const detailId = useId();
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const active = paths[activeIndex]!;
+  const active = paths[cycle.activeIndex]!;
   const visual = CAPABILITY_VISUALS[active.title];
 
   useEffect(() => {
     setDetailOpen(false);
-  }, [activeIndex]);
+  }, [cycle.activeIndex]);
 
   function focusIndex(index: number) {
     const count = paths.length;
     const next = ((index % count) + count) % count;
     buttonRefs.current[next]?.focus();
-    setActiveIndex(next);
+    cycle.select(next);
   }
 
   function onKeyDown(event: React.KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -62,7 +64,7 @@ export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
   }
 
   return (
-    <div className="hidden lg:grid lg:grid-cols-12 lg:gap-10">
+    <div ref={cycle.containerRef} {...cycle.interactionProps} data-presentation-mode={cycle.mode} className="hidden lg:grid lg:grid-cols-12 lg:gap-10">
       <div
         role="tablist"
         aria-label="Buyer outcomes"
@@ -73,10 +75,10 @@ export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
         <span
           aria-hidden="true"
           className="absolute left-0 w-px bg-gold-deep transition-[top] duration-300 ease-out motion-reduce:transition-none"
-          style={{ top: `${activeIndex * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px` }}
+          style={{ top: `${cycle.activeIndex * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px` }}
         />
         {paths.map((path, index) => {
-          const isActive = index === activeIndex;
+          const isActive = index === cycle.activeIndex;
           const Icon = CAPABILITY_VISUALS[path.title]?.Icon;
           return (
             <button
@@ -90,10 +92,10 @@ export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
               aria-selected={isActive}
               aria-controls={`${panelId}-panel`}
               tabIndex={isActive ? 0 : -1}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => cycle.select(index)}
               onKeyDown={(event) => onKeyDown(event, index)}
               style={{ minHeight: `${ROW_HEIGHT}px` }}
-              className={`flex w-full items-center gap-4 py-5 text-left transition-colors duration-200 motion-reduce:transition-none ${
+              className={`relative flex w-full items-center gap-4 py-5 text-left transition-colors duration-300 motion-reduce:transition-none ${
                 isActive ? "text-heading" : "text-muted hover:text-heading"
               }`}
             >
@@ -108,6 +110,7 @@ export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
               <span className={`text-h3 transition-[font-weight] ${isActive ? "font-semibold" : ""}`}>
                 {path.title}
               </span>
+              {isActive ? <PresentationProgress activeIndex={cycle.activeIndex} interval={cycle.interval} isPaused={cycle.isPaused} mode={cycle.mode} /> : null}
             </button>
           );
         })}
@@ -116,16 +119,16 @@ export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
       <div
         id={`${panelId}-panel`}
         role="tabpanel"
-        aria-labelledby={`${panelId}-tab-${activeIndex}`}
+        aria-labelledby={`${panelId}-tab-${cycle.activeIndex}`}
         className="col-span-8"
       >
-        <div key={activeIndex} className="motion-safe:animate-[megamenu-in_200ms_ease-out]">
+        <div key={cycle.activeIndex} className="motion-safe:animate-[megamenu-in_300ms_ease-out]">
           <div className="flex items-start gap-4">
             <span
               aria-hidden="true"
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-accent-gold text-h3 text-heading"
             >
-              {String(activeIndex + 1).padStart(2, "0")}
+              {String(cycle.activeIndex + 1).padStart(2, "0")}
             </span>
             <div>
               <p className="text-eyebrow text-accent-azure">If this is you</p>
@@ -150,7 +153,10 @@ export function OutcomeExplorer({ paths }: OutcomeExplorerProps) {
             type="button"
             aria-expanded={detailOpen}
             aria-controls={detailId}
-            onClick={() => setDetailOpen((v) => !v)}
+            onClick={() => {
+              cycle.select(cycle.activeIndex);
+              setDetailOpen((value) => !value);
+            }}
             className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-heading"
           >
             {detailOpen ? "Hide how we work" : "See how we work"}
