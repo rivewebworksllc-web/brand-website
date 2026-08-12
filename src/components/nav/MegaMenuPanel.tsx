@@ -182,25 +182,15 @@ export function MegaMenuPanel({ group, label }: MegaMenuPanelProps) {
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
       <div className="flex flex-col gap-5 lg:col-span-4">
-        <Link
-          href={group.panel.cta.href}
-          className="group block rounded-lg p-5 text-white transition-opacity duration-200 hover:opacity-95"
+        <div
+          className="rounded-lg p-5 text-white"
           style={{
             background: "linear-gradient(135deg, var(--color-brand-maroon) 0%, var(--color-gold-deep) 130%)",
           }}
         >
           <p className="font-serif text-[17px] leading-snug font-semibold">{group.panel.heading}</p>
           <p className="mt-2 text-[13px] leading-[1.55] text-white/85">{group.panel.body}</p>
-          <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold">
-            {group.panel.cta.label}
-            <span
-              aria-hidden="true"
-              className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1 motion-reduce:transition-none"
-            >
-              →
-            </span>
-          </span>
-        </Link>
+        </div>
 
         {group.secondaryLinks && group.secondaryLinks.length > 0 ? (
           <RailLinks items={group.secondaryLinks} heading={group.secondaryHeading} currentPath={currentPath} />

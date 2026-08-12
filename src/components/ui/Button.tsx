@@ -1,5 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import Link from "next/link";
+import { isAvailableHref } from "@/lib/public-routes";
 
 /**
  * RW-PW07B: Rive's tactile button interaction system. Six variants, one
@@ -118,6 +119,7 @@ export function LinkButton({
   children,
   ...rest
 }: LinkButtonProps) {
+  if (!isAvailableHref(href)) return null;
   const showArrow = arrow ?? ARROW_VARIANTS.includes(variant);
   return (
     <Link href={href} className={`${baseClasses} ${variantClasses[variant]} ${className}`.trim()} {...rest}>
