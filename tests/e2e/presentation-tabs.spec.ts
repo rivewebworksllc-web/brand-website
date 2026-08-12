@@ -12,7 +12,9 @@ test.describe("Presentation Tabs (RW-UX-01)", () => {
     await presentation.scrollIntoViewIfNeeded();
     await page.mouse.move(0, 0);
 
+    await expect(presentation).toBeVisible();
     await expect(tablist.getByRole("tab").nth(0)).toHaveAttribute("aria-selected", "true");
+    await expect(presentation.locator("[data-presentation-progress] > span")).toHaveCSS("animation-play-state", "running");
     await page.clock.fastForward(7_100);
     await expect(tablist.getByRole("tab").nth(1)).toHaveAttribute("aria-selected", "true");
 
@@ -23,6 +25,7 @@ test.describe("Presentation Tabs (RW-UX-01)", () => {
 
     await page.mouse.move(0, 0);
     await page.clock.fastForward(1_600);
+    await expect(presentation.locator("[data-presentation-progress] > span")).toHaveCSS("animation-play-state", "running");
     await page.clock.fastForward(7_100);
     await expect(tablist.getByRole("tab").nth((held + 1) % 6)).toHaveAttribute("aria-selected", "true");
 
