@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
-import { LinkButton } from "@/components/ui/Button";
-import { footerNav, connectCta, startCta } from "@/lib/nav";
+import { footerNav } from "@/lib/nav";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -25,21 +24,10 @@ export function Footer() {
               top — with a written scope and evidence at every stage.
             </p>
 
-            <div className="mt-6 flex flex-col items-start gap-3">
-              <LinkButton href={startCta.href} variant="primary" className="px-5">
-                {startCta.label}
-              </LinkButton>
-              <Link
-                href={connectCta.href}
-                className="text-[15px] font-medium text-accent-foreground underline decoration-accent-foreground/30 underline-offset-4 hover:text-brand-maroon"
-              >
-                {connectCta.label}
-              </Link>
-            </div>
           </div>
 
           <nav aria-label="Footer" className="lg:col-span-8">
-            <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3">
               {footerNav.map((group) => (
                 <div key={group.heading}>
                   <p className="text-eyebrow text-accent-foreground/70">{group.heading}</p>
