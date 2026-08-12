@@ -13,12 +13,12 @@ type RevealProps = {
  * decoration. IntersectionObserver-based, not a scroll listener (the
  * design-taste-frontend hard ban on window.addEventListener('scroll')).
  * `prefers-reduced-motion` is checked before the first paint decision (skips
- * straight to visible) and the global reduced-motion block in globals.css
- * additionally zeroes the transition duration as a CSS-level backstop.
- * The `js-reveal` class is a stable hook for the `<noscript>` override in
- * layout.tsx — without it, content would stay permanently opacity-0 for any
- * visitor whose JavaScript never runs (the `useEffect` that reveals it would
- * simply never fire).
+ * straight to the resting position) and the global reduced-motion block in
+ * globals.css additionally zeroes the transition duration as a CSS-level
+ * backstop. Text remains fully opaque throughout: fading a whole content
+ * container creates a temporary low-contrast state while colours blend with
+ * the section surface. The `js-reveal` class remains the stable hook for the
+ * `<noscript>` transform override in layout.tsx.
  */
 export function Reveal({ children, className = "" }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,8 +49,8 @@ export function Reveal({ children, className = "" }: RevealProps) {
   return (
     <div
       ref={ref}
-      className={`js-reveal transition-all duration-700 ease-out motion-reduce:transition-none ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      className={`js-reveal transition-transform duration-700 ease-out motion-reduce:transition-none ${
+        visible ? "translate-y-0" : "translate-y-4"
       } ${className}`.trim()}
     >
       {children}
