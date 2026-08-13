@@ -21,7 +21,7 @@ export default function GuidesPage() {
           <div>
             <p className="text-eyebrow text-brand-maroon">{hero.eyebrow}</p>
             <h1 id="guides-heading" className="text-h1 mt-5 max-w-[13ch] text-balance text-heading">{hero.heading}</h1>
-            <p className="mt-6 max-w-lg text-[15px] leading-[1.7] text-body md:text-base">{hero.description}</p>
+            <p className="text-hero-lead mt-6 max-w-lg text-body">{hero.description}</p>
             <a href="#guide-library" className="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-maroon underline decoration-brand-maroon/30 underline-offset-4">Explore the guides <span aria-hidden="true">↓</span></a>
           </div>
           <Placeholder meta={hero.media} className="w-full" />

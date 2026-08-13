@@ -35,7 +35,7 @@ export default function CompanyPage() {
           >
             {statement.lead}
           </h1>
-          <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-body md:text-base">
+          <p className="text-hero-lead mt-6 max-w-xl text-body">
             {statement.body}
           </p>
         </div>

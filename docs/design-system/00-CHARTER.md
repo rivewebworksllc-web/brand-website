@@ -22,6 +22,7 @@ Component behaviour is routed here per `docs/OFFICES.md` § Refinement-ownership
 ## Outputs
 
 - Notes on component/token conventions as they're established (this office starts with no backfilled history — see `docs/creative-direction/VISUAL_LANGUAGE.md` for the token decisions already made).
+- `TYPOGRAPHY.md` for the approved semantic type-role model and Work-reference boundary.
 
 ## Approval authority
 
