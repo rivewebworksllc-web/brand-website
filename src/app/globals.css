@@ -209,6 +209,14 @@ body {
   transition: background-color 200ms, color 200ms;
 }
 
+/* Fraunces is Rive's sitewide heading and title face. Semantic headings
+   inherit it even when a component uses a page-specific size instead of a
+   canonical text-h* utility; body copy and operational UI remain in Inter. */
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   body {
     transition: none;
@@ -230,10 +238,9 @@ body {
   }
 }
 
-/* Semantic typography scale — the single source for heading/body sizing so
-   components never hard-code font-size/line-height ad hoc. h1/h2 and the
-   editorial "statement" size use the serif display face; h3 and everything
-   else stays on the sans workhorse face for contrast. */
+/* Semantic typography scale — the single source for standard heading/body
+   sizing. All heading/title roles use Fraunces; explanatory and operational
+   text stays on the sans workhorse face for contrast. */
 @layer utilities {
   .text-h1 {
     font-family: var(--font-serif);
@@ -268,9 +275,12 @@ body {
   }
 
   .text-h3 {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
     font-size: 20px;
     font-weight: 600;
     line-height: 1.3;
+    letter-spacing: -0.005em;
   }
 
   .text-eyebrow {

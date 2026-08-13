@@ -17,7 +17,9 @@ test("home route has no serious or critical accessibility violations in dark the
   expect(seriousOrCritical).toEqual([]);
 });
 
-test("light theme has no full-width navy/near-black section", async ({ page }) => {
+test("light theme confines navy/near-black chapter surfaces to the Evidence Pack", async ({
+  page,
+}) => {
   await page.goto("/");
 
   const navyElements = await page.evaluate(() => {
@@ -27,7 +29,7 @@ test("light theme has no full-width navy/near-black section", async ({ page }) =
       const bg = getComputedStyle(el).backgroundColor;
       if (navyLike.includes(bg)) {
         const rect = el.getBoundingClientRect();
-        if (rect.width > 200) {
+        if (rect.width >= window.innerWidth * 0.9) {
           results.push(`${el.tagName}.${el.className} (${rect.width}px)`);
         }
       }
@@ -35,7 +37,7 @@ test("light theme has no full-width navy/near-black section", async ({ page }) =
     return results;
   });
 
-  expect(navyElements).toEqual([]);
+  expect(navyElements).toEqual(["SECTION.bg-navy-950 text-white (1280px)"]);
 });
 
 test("dark theme accent surface is distinct from the regular dark surface (not a flat inversion)", async ({

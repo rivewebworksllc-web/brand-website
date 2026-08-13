@@ -39,7 +39,7 @@ test("header carries exactly one CTA (RW-PW11) — the hero keeps its own two, u
 
   const main = page.locator("#main-content");
   await expect(main.getByRole("link", { name: "Find Your Solution", exact: true }).first()).toBeVisible();
-  await expect(main.getByRole("link", { name: "Book a Discovery Call", exact: true }).first()).toBeVisible();
+  await expect(main.getByRole("link", { name: "Explore Services", exact: true }).first()).toBeVisible();
 });
 
 test("no navigation link uses a href=\"#\" placeholder", async ({ page }) => {

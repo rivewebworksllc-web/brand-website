@@ -1,37 +1,31 @@
+import Link from "next/link";
 import { Section } from "@/components/layout/Section";
-import { BuyerPathAccordion } from "@/components/homepage/BuyerPathAccordion";
-import { OutcomeExplorer } from "@/components/homepage/OutcomeExplorer";
 import type { BuyerPath, HomepageContent } from "@/lib/content/homepage";
 
-type BuyerPathGridProps = {
-  intro: HomepageContent["buyerPathsIntro"];
-  paths: BuyerPath[];
-};
-
-/**
- * Guided Outcome Explorer (RW-PW04): a two-column selector from `lg` up,
- * the original native-<details> accordion below it. Both render in
- * server-rendered HTML at all times — only CSS (`hidden lg:grid` /
- * `lg:hidden`) decides which one is visible, so no content depends on JS
- * or viewport for search engines or no-JS users.
- */
-export function BuyerPathGrid({ intro, paths }: BuyerPathGridProps) {
+export function BuyerPathGrid({ intro, paths }: { intro: HomepageContent["buyerPathsIntro"]; paths: BuyerPath[] }) {
   return (
-    <Section aria-labelledby="buyer-paths-heading" className="border-t border-hairline-faint bg-surface-alt">
-      <div className="max-w-2xl">
-        <h2 id="buyer-paths-heading" className="text-h2 text-heading">
-          {intro.heading}
-        </h2>
-        <p className="mt-3 text-[15px] leading-[1.65] text-body md:text-base">
-          {intro.description}
-        </p>
+    <Section aria-labelledby="buyer-paths-heading" className="bg-surface" spacing="generous">
+      <div className="max-w-3xl">
+        <p className="text-eyebrow text-brand-maroon">{intro.eyebrow}</p>
+        <h2 id="buyer-paths-heading" className="text-h2 mt-4 max-w-[14ch] text-heading">{intro.heading}</h2>
+        <p className="mt-5 max-w-xl text-[15px] leading-[1.7] text-body">{intro.description}</p>
       </div>
-      <div className="mt-10">
-        <OutcomeExplorer paths={paths} />
-        <div className="lg:hidden">
-          <BuyerPathAccordion paths={paths} />
-        </div>
-      </div>
+      <ol className="mt-12 grid gap-px border border-hairline bg-hairline md:grid-cols-2 xl:grid-cols-4">
+        {paths.map((path, index) => (
+          <li key={path.title} className="bg-surface-alt">
+            <Link href={path.cta.href} className="group flex min-h-[22rem] h-full flex-col p-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-maroon md:p-8">
+              <span className="text-evidence text-brand-maroon">0{index + 1}</span>
+              <h3 className="text-h3 mt-5 max-w-[12ch] text-heading">{path.title}</h3>
+              <p className="mt-5 text-[14px] leading-[1.65] text-body">{path.problem}</p>
+              <div className="mt-auto pt-8">
+                <p className="text-[11px] font-semibold tracking-[0.12em] text-muted uppercase">Likely first move</p>
+                <p className="mt-2 text-[13px] leading-[1.5] font-semibold text-heading">{path.startingEngagements.join(" / ")}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-brand-maroon">{path.cta.label}<span aria-hidden="true" className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none">→</span></span>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ol>
     </Section>
   );
 }

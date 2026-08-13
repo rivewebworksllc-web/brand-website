@@ -1,38 +1,26 @@
 import { Section } from "@/components/layout/Section";
-import { ProcessStepper } from "@/components/homepage/ProcessStepper";
-import { ArchitectureNode } from "@/components/homepage/ArchitectureNode";
-import type { ArchitectureFlowStep, HomepageContent } from "@/lib/content/homepage";
+import { LinkButton } from "@/components/ui/Button";
+import type { HomepageContent } from "@/lib/content/homepage";
 
-type ProcessSectionProps = {
-  content: HomepageContent["process"];
-  stage: { index: number; step: ArchitectureFlowStep };
-};
-
-export function ProcessSection({ content, stage }: ProcessSectionProps) {
+export function ProcessSection({ content }: { content: HomepageContent["process"] }) {
   return (
-    <Section
-      id={`stage-${stage.step.id}`}
-      aria-labelledby="process-heading"
-      className="border-t border-hairline-faint bg-surface"
-    >
-      <div className="max-w-2xl">
-        {/* RW-PW05: eyebrow ("Founder-led delivery") dropped — the
-            description below already says "a founder-led approach", making
-            the eyebrow purely redundant on top of the page-wide reduction. */}
-        <h2 id="process-heading" className="text-h2 text-heading">
-          {content.heading}
-        </h2>
-        <p className="mt-3 text-[15px] leading-[1.65] text-body md:text-base">
-          {content.description}
-        </p>
-      </div>
-      <div className="mt-10">
-        <ProcessStepper stages={content.stages} />
-      </div>
-
-      {/* RW-PW06A: attachment point — "Managed Outcomes" stage. */}
-      <div className="mt-10 border-t border-hairline-faint pt-4">
-        <ArchitectureNode index={stage.index} label={stage.step.label} />
+    <Section aria-labelledby="process-heading" className="bg-surface" spacing="generous">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <p className="text-eyebrow text-brand-maroon">{content.eyebrow}</p>
+          <h2 id="process-heading" className="text-h2 mt-4 max-w-[13ch] text-heading">{content.heading}</h2>
+          <p className="mt-5 max-w-lg text-[15px] leading-[1.75] text-body">{content.description}</p>
+          <div className="mt-8"><LinkButton href={content.cta.href} variant="secondary">{content.cta.label}</LinkButton></div>
+        </div>
+        <ol className="border-t border-hairline lg:col-span-7">
+          {content.stages.map((stage) => (
+            <li key={stage.step} className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-hairline py-7 sm:grid-cols-[3rem_9rem_1fr] sm:items-baseline">
+              <span className="text-evidence text-brand-maroon">{stage.step}</span>
+              <h3 className="text-h3 text-heading">{stage.title}</h3>
+              <p className="col-start-2 text-[14px] leading-[1.7] text-body sm:col-start-auto">{stage.description}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </Section>
   );

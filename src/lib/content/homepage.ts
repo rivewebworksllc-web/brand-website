@@ -1,29 +1,8 @@
 export type CtaLink = { label: string; href: string };
-
-export type ArchitectureFlowStep = {
-  id: string;
-  label: string;
-  description: string;
-  /** Two supporting systems at this layer, e.g. "AWS and Microsoft foundation" for Cloud Foundation. */
-  subItems: [string, string];
-};
-
-export type HeroContent = {
-  eyebrow: string;
-  heading: string;
-  summary: string;
-  primaryCta: CtaLink;
-  secondaryCta: CtaLink;
-  trustLine: string;
-  /** Digital Experience → Cloud Foundation → Governed AI → Managed Outcomes. */
-  architectureFlow: ArchitectureFlowStep[];
-};
-
-export type ManifestoContent = {
-  eyebrow: string;
-  lead: string;
-  body: string;
-};
+export type ArchitectureFlowStep = { id: string; label: string; description: string; subItems: [string, string] };
+export type GovernedAiFlowStep = { id: string; label: string };
+export type ProcessStage = { step: string; title: string; description: string };
+export type ResourceCard = { category: string; title: string; summary: string; href: string; metaStatus: "pending" };
 
 export type BuyerPath = {
   title: string;
@@ -31,416 +10,259 @@ export type BuyerPath = {
   outcome: string;
   startingEngagements: string[];
   cta: CtaLink;
-  /** Self-authored supporting detail for the Guided Outcome Explorer (RW-PW04) — not separately copy-approved. */
   symptoms: string[];
   whatWeExamine: string;
   expectedOutput: string;
   managedFollowOn: string;
 };
 
-export type FeaturedEngagementContent = {
-  eyebrow: string;
-  heading: string;
-  description: string;
-  outcomes: string[];
-  primaryCta: CtaLink;
-  secondaryCta: CtaLink;
-};
-
-export type PlatformGroup = {
-  platform: "AWS" | "Microsoft";
-  heading: string;
-  items: string[];
-};
-
-export type EvidenceArtifact = {
-  id: string;
-  title: string;
-  description: string;
-  preview: string;
-};
-
-export type EvidencePackContent = {
-  heading: string;
-  description: string;
-  cta: CtaLink;
-  artifacts: EvidenceArtifact[];
-};
-
-export type GovernedAiCapability = {
-  title: string;
-  description: string;
-};
-
-export type GovernedAiFlowStep = {
-  id: string;
+export type EvidenceArtifact = { id: string; title: string; description: string; preview: string };
+export type PillarOffer = {
+  id: "cloud" | "ai" | "web";
   label: string;
-};
-
-export type Industry = {
-  name: string;
-  description: string;
-  featured?: boolean;
-};
-
-export type ProcessStage = {
-  step: string;
-  title: string;
-  description: string;
-};
-
-/** Author/date/reading-time are not yet approved — render an honest "pending" state, never invented values. */
-export type ResourceCard = {
-  category: string;
-  title: string;
-  summary: string;
-  href: string;
-  metaStatus: "pending";
-};
-
-export type FinalConversionContent = {
   heading: string;
   description: string;
-  primaryCta: CtaLink;
-  secondaryCta: CtaLink;
-  reassurance: string;
+  capabilities: string[];
+  cta: CtaLink;
+  note?: string;
 };
 
 export type HomepageContent = {
-  hero: HeroContent;
-  manifesto: ManifestoContent;
-  buyerPaths: BuyerPath[];
-  buyerPathsIntro: { heading: string; description: string };
-  featuredEngagement: FeaturedEngagementContent;
-  platformParity: {
+  hero: {
+    eyebrow: string;
     heading: string;
-    description: string;
-    groups: PlatformGroup[];
-    sharedLayer: string[];
+    summary: string;
+    primaryCta: CtaLink;
+    secondaryCta: CtaLink;
+    trustItems: string[];
+    field: Array<{ title: string; detail: string }>;
+    architectureFlow: ArchitectureFlowStep[];
   };
-  evidencePack: EvidencePackContent;
-  governedAi: {
+  evidencePack: { heading: string; description: string; cta: CtaLink; artifacts: EvidenceArtifact[] };
+  homepageEvidencePack: { heading: string; description: string; cta: CtaLink; artifacts: EvidenceArtifact[] };
+  buyerPathsIntro: { eyebrow: string; heading: string; description: string };
+  buyerPaths: BuyerPath[];
+  pillars: { eyebrow: string; heading: string; description: string; items: PillarOffer[] };
+  process: {
     eyebrow: string;
     heading: string;
     description: string;
-    capabilities: GovernedAiCapability[];
-    flow: GovernedAiFlowStep[];
+    stages: Array<{ step: string; title: string; description: string }>;
     cta: CtaLink;
   };
   industries: {
     heading: string;
     description: string;
-    items: Industry[];
+    items: Array<{ name: string; description: string; featured?: boolean }>;
   };
-  process: {
+  homepageIndustries: {
+    eyebrow: string;
     heading: string;
     description: string;
-    stages: ProcessStage[];
+    items: Array<{ name: string; description: string }>;
+    cta: CtaLink;
   };
-  proofFootnote: string;
-  resources: {
+  capabilities: {
+    eyebrow: string;
     heading: string;
-    cards: ResourceCard[];
+    description: string;
+    items: Array<{ title: string; description: string }>;
+    cta: CtaLink;
   };
-  finalConversion: FinalConversionContent;
+  resources: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    items: Array<{ category: string; title: string; summary: string; href: string }>;
+    cards: ResourceCard[];
+    cta: CtaLink;
+  };
+  finalConversion: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    primaryCta: CtaLink;
+    secondaryCta: CtaLink;
+    reassurance: string;
+  };
+  manifesto: { eyebrow: string; lead: string; body: string };
+  featuredEngagement: { eyebrow: string; heading: string; description: string; outcomes: string[]; primaryCta: CtaLink; secondaryCta: CtaLink };
+  platformParity: { heading: string; description: string; groups: Array<{ platform: "AWS" | "Microsoft"; heading: string; items: string[] }>; sharedLayer: string[] };
+  governedAi: { eyebrow: string; heading: string; description: string; capabilities: Array<{ title: string; description: string }>; flow: GovernedAiFlowStep[]; cta: CtaLink };
+  proofFootnote: string;
 };
 
-/**
- * Typed local fallback for the homepage. Sanity's `production` dataset has
- * no homepage schema yet (Week 2 scope) — this is the single source of
- * truth for now. `getHomepageContent()` is the seam Week 2 replaces with a
- * Sanity fetch; no component below should be redesigned to make that swap.
- *
- * RW-PW02 sprint 2: full rebuild after Silvester rejected sprint 1 as
- * reading like a generic AI-templated SaaS site. Copy here is deliberately
- * more direct/specific and less brochure-formulaic than sprint 1's; it
- * covers the same real, factual capabilities (web/cloud/AI, AWS+Microsoft
- * parity, Evidence Pack™, founder-led delivery) — no new unapproved claims,
- * pricing, credentials or proof were introduced. This voice/structure has
- * not been separately copy-approved and should be treated as a proposal
- * for Silvester's visual/content review, same as sprint 1's was.
- */
 export const homepageFallbackContent: HomepageContent = {
   hero: {
     eyebrow: "RIVE WEBWORKS",
-    heading: "One accountable team — not three vendors pointing at each other.",
+    heading: "Cloud, AI & Web Design Built on Evidence, Not Promises",
     summary:
-      "Rive builds the website, modernizes the AWS or Microsoft cloud behind it, and ships governed AI on top. One written scope and documented evidence at every stage, from a team that stays after launch.",
+      "Rive Webworks is founder-led. Work directly with the architect responsible for designing, building and standing behind your AWS or Microsoft cloud foundation, governed AI system or modern web platform, with a documented Evidence Pack™ supporting each engagement.",
     primaryCta: { label: "Find Your Solution", href: "/start/" },
-    secondaryCta: { label: "Book a Discovery Call", href: "/connect/" },
-    trustLine:
-      "AWS-aligned · Microsoft cloud-aligned · Security-first · Evidence Pack™ on every engagement",
+    secondaryCta: { label: "Explore Services", href: "/services/" },
+    trustItems: [
+      "Founder-led delivery",
+      "AWS & Microsoft Cloud",
+      "Governed AI",
+      "Modern Web & Next.js",
+      "Evidence-led delivery",
+      "GCP / Oracle on request",
+    ],
+    field: [
+      { title: "Cloud", detail: "AWS and Microsoft foundations" },
+      { title: "AI", detail: "Governed intelligence and automation" },
+      { title: "Web", detail: "Modern digital experience" },
+    ],
     architectureFlow: [
-      {
-        id: "experience",
-        label: "Digital Experience",
-        description: "Websites and applications your buyers actually use.",
-        subItems: ["Website and application layer", "Content and customer journey"],
-      },
-      {
-        id: "cloud",
-        label: "Cloud Foundation",
-        description: "AWS and Microsoft foundations sized to what you run.",
-        subItems: ["AWS and Microsoft foundation", "Identity and security"],
-      },
-      {
-        id: "governed-ai",
-        label: "Governed AI",
-        description: "Automation and AI with scope, review and evidence.",
-        subItems: ["Data and observability", "Governed retrieval and automation"],
-      },
-      {
-        id: "outcomes",
-        label: "Managed Outcomes",
-        description: "Operated, monitored and supported after launch.",
-        subItems: ["Evaluation and human oversight", "Monitoring and managed operations"],
-      },
+      { id: "experience", label: "Digital Experience", description: "Websites and applications your buyers actually use.", subItems: ["Website and application layer", "Content and customer journey"] },
+      { id: "cloud", label: "Cloud Foundation", description: "AWS and Microsoft foundations sized to what you run.", subItems: ["AWS and Microsoft foundation", "Identity and security"] },
+      { id: "governed-ai", label: "Governed AI", description: "Automation and AI with scope, review and evidence.", subItems: ["Data and observability", "Governed retrieval and automation"] },
+      { id: "outcomes", label: "Managed Outcomes", description: "Operated, monitored and supported after launch.", subItems: ["Evaluation and human oversight", "Monitoring and managed operations"] },
     ],
   },
-
+  evidencePack: {
+    heading: "Know what was decided, built, tested and handed over",
+    description: "Every engagement produces documented evidence: a record of how it was scoped, built, verified and handed off.",
+    cta: { label: "Explore the Evidence Pack™", href: "/trust/evidence-pack/" },
+    artifacts: [
+      { id: "scope", title: "Scope and decision record", description: "The written, agreed boundary of the work.", preview: "Scope, decisions and approvals." },
+      { id: "architecture", title: "Architecture record", description: "How the solution is structured and why.", preview: "Structure, constraints and trade-offs." },
+      { id: "security", title: "Security and governance controls", description: "The controls applied and how they are enforced.", preview: "Access, data boundaries and review." },
+      { id: "quality", title: "Quality evidence", description: "What was tested and the results observed.", preview: "Accessibility, performance and functional checks." },
+      { id: "launch", title: "Launch and handoff record", description: "What shipped, when and under which conditions.", preview: "Release, validation and rollback readiness." },
+      { id: "roadmap", title: "Improvement roadmap", description: "What is next, ranked and ready to scope.", preview: "Priorities, dependencies and next moves." },
+    ],
+  },
+  homepageEvidencePack: {
+    heading: "Evidence is part of the deliverable.",
+    description:
+      "Each engagement leaves a usable record of what was agreed, how it was designed, what was tested, what launched and what should happen next.",
+    cta: { label: "See Evidence Pack", href: "/trust/evidence-pack/" },
+    artifacts: [
+      { id: "scope", title: "Scope record", description: "The agreed boundary, decisions and owners.", preview: "Scope, decisions and approvals." },
+      { id: "architecture", title: "Architecture", description: "The solution structure and the reasons behind it.", preview: "Structure, constraints and trade-offs." },
+      { id: "qa", title: "QA evidence", description: "The checks performed and the results observed.", preview: "Accessibility, performance and functional checks." },
+      { id: "launch", title: "Launch checklist", description: "What shipped, when and under which conditions.", preview: "Release, validation and rollback readiness." },
+      { id: "runbook", title: "Runbook", description: "The practical operating and handoff record.", preview: "Ownership, operation and support notes." },
+      { id: "backlog", title: "Improvement backlog", description: "The next opportunities, ordered for decision.", preview: "Priorities, dependencies and next moves." },
+    ],
+  },
+  buyerPathsIntro: {
+    eyebrow: "CHOOSE AN ENTRY POINT",
+    heading: "Start with the problem you can see.",
+    description: "You do not need to diagnose the whole system. Choose the pressure you recognise and see where Rive would begin.",
+  },
+  buyerPaths: [
+    {
+      title: "AWS & Microsoft Cloud", problem: "Architecture, migration, security, resilience or cloud cost needs a defensible plan.", outcome: "A documented cloud foundation matched to your operating reality.", startingEngagements: ["Architecture Review", "Migration Readiness Assessment"], cta: { label: "Explore Cloud Modernization", href: "/solutions/cloud-modernization/" }, symptoms: ["Costs are unpredictable", "Modernization keeps slipping", "Security posture is unclear"], whatWeExamine: "Architecture, cost drivers, identity, security posture and platform fit.", expectedOutput: "A sequenced architecture or readiness plan.", managedFollowOn: "Cloud operations, cost governance and continuing security review.",
+    },
+    {
+      title: "Secure AI & Automation", problem: "AI needs a useful job, controlled data access and human oversight before production.", outcome: "A governed AI path with evaluation and responsibility designed in.", startingEngagements: ["AI Readiness Sprint", "Secure RAG Pilot"], cta: { label: "Explore Secure AI & Automation", href: "/solutions/ai-data-automation/" }, symptoms: ["Pilots stall", "Data boundaries are unclear", "Outputs lack review"], whatWeExamine: "Data readiness, workflow candidates, risks and controls.", expectedOutput: "A scoped readiness plan or pilot.", managedFollowOn: "Agent and automation operations with continuing evaluation.",
+    },
+    {
+      title: "Website & Growth", problem: "The website is slow, unclear, difficult to manage or failing to convert attention into action.", outcome: "A modern platform with a clearer proposition and evidence-backed launch.", startingEngagements: ["Discovery & Roadmap", "Modern Web Build"], cta: { label: "Explore Website & Growth", href: "/solutions/web-growth/" }, symptoms: ["Traffic rarely converts", "The site is hard to change", "The proposition is unclear"], whatWeExamine: "Customer journey, content model, measurement and constraints.", expectedOutput: "A roadmap or build scope.", managedFollowOn: "Performance, accessibility and conversion improvement.",
+    },
+    {
+      title: "Managed Care & Advisory", problem: "What has been built needs accountable operation, improvement and specialist attention.", outcome: "A clear operating relationship without assembling a complete internal team.", startingEngagements: ["Managed Care Assessment"], cta: { label: "Explore Managed Care & Advisory", href: "/solutions/managed-services/" }, symptoms: ["Ownership is unclear", "Small issues linger", "Specialist coverage is missing"], whatWeExamine: "The deployed estate, ownership and support gaps.", expectedOutput: "A defined operating scope.", managedFollowOn: "Continuing, documented operational ownership.",
+    },
+  ],
+  pillars: {
+    eyebrow: "CLOUD, AI, WEB",
+    heading: "Three lead capabilities. One accountable relationship.",
+    description: "Cloud leads, governed AI follows, and modern web completes the public experience. Choose a subject to see where Rive starts.",
+    items: [
+      { id: "cloud", label: "Cloud Architecture & Modernization", heading: "A cloud foundation you can explain and operate.", description: "AWS and Microsoft receive equal attention, selected around your estate rather than a house preference.", capabilities: ["AWS and Microsoft foundations", "Architecture and migration reviews", "Security and resilience", "FinOps and cost governance"], cta: { label: "Assess My Cloud", href: "/start/" }, note: "GCP and Oracle remain available where the wider environment requires them." },
+      { id: "ai", label: "AI & Intelligent Automation", heading: "Intelligence with boundaries, evaluation and ownership.", description: "Readiness, secure retrieval, agents and automation are designed around approved data and consequential human decisions.", capabilities: ["AI readiness and secure RAG", "Agentic workflows and Copilot Studio", "Evaluation and governance", "AI operations and custom engineering"], cta: { label: "Plan My AI Solution", href: "/start/" } },
+      { id: "web", label: "Web Design & Digital Experience", heading: "A modern platform chosen for the work, not the trend.", description: "Composable and Next.js delivery provide a modern path. WordPress remains supported when it is the better operational fit.", capabilities: ["Composable Web and Next.js", "Experience and content architecture", "Performance and accessibility", "Operational continuity and measurement"], cta: { label: "Explore Modern Web Platforms", href: "/services/web-design-development/" } },
+    ],
+  },
+  process: {
+    eyebrow: "HOW RIVE WORKS", heading: "Continuity from first engagement to lasting ownership.", description: "The same founder-led team carries context from discovery through launch and into managed continuity. There is no account-manager handoff between the idea and the system.", stages: [
+      { step: "01", title: "Land", description: "Start with the visible pressure and define a useful first engagement." },
+      { step: "02", title: "Expand", description: "Connect the adjacent architecture, experience or operating work that makes the first result durable." },
+      { step: "03", title: "Retain", description: "Continue accountable operation, governance and improvement where continuity matters." },
+    ], cta: { label: "See Delivery Process", href: "/company/process/" },
+  },
+  industries: {
+    heading: "Built where mistakes are expensive.",
+    description: "Regulated data, thin margins, or a brand that cannot absorb a bad launch: these are the constraints we design around.",
+    items: [
+      { name: "Healthcare", description: "Regulated data handling, dependable uptime, and documentation that holds up to scrutiny.", featured: true },
+      { name: "Professional Services", description: "Credibility-led sites and back-office modernization." },
+      { name: "SaaS and Technology Companies", description: "Conversion-focused sites and scalable cloud foundations." },
+      { name: "Local and Multi-Location Businesses", description: "Fast, findable sites that convert local demand across every location." },
+      { name: "Nonprofits and Mission-Led Organizations", description: "Lean, dependable delivery within constrained budgets." },
+    ],
+  },
+  homepageIndustries: {
+    eyebrow: "OPERATING CONDITIONS", heading: "Technology decisions land in real organisations.", description: "Regulation, credibility, growth pressure, local demand and constrained resources change what good delivery looks like.", items: [
+      { name: "Healthcare", description: "Consequence, regulated data and dependable operation." },
+      { name: "B2B SaaS / IT Services", description: "Scale, conversion and technical confidence." },
+      { name: "Professional Services", description: "Credibility, trust and operational maturity." },
+      { name: "Local Services", description: "Findability, practical conversion and local context." },
+      { name: "Nonprofit", description: "Human impact and dependable delivery within constraints." },
+    ], cta: { label: "Choose My Industry", href: "/industries/" },
+  },
+  capabilities: {
+    eyebrow: "SELECTED CAPABILITIES", heading: "The wider system stays within reach.", description: "Specialist work is surfaced selectively, without turning the homepage into the catalog.", items: [
+      { title: "Agentic workflows", description: "Constrained tools, actions and human approval paths." },
+      { title: "Microsoft Copilot Studio agents", description: "Microsoft-aligned agent experiences with governed scope." },
+      { title: "Lakehouse / BI modernization", description: "Data foundations and decision surfaces designed together." },
+      { title: "Identity & security", description: "Access, boundary and control thinking across the system." },
+      { title: "Observability & cost", description: "Signals and financial discipline that continue after launch." },
+      { title: "Managed operations", description: "Accountable continuity for the systems Rive helps shape." },
+    ], cta: { label: "View All Capabilities", href: "/services/" },
+  },
+  resources: {
+    eyebrow: "DECISION RESOURCES", heading: "Make the next technology decision with more context.", description: "Guides and analysis for the questions that usually appear before a useful scope does.", items: [
+      { category: "Guide", title: "How to know when your website needs a rebuild", summary: "Separate a visual refresh from a structural rebuild.", href: "/resources/how-to-know-when-your-website-needs-a-rebuild/" },
+      { category: "Comparison", title: "AWS or Azure: choosing the right foundation", summary: "Match the platform to the organisation and operating model.", href: "/resources/aws-or-azure-choosing-the-right-foundation/" },
+      { category: "Architecture", title: "What governed AI looks like in practice", summary: "Turn governance from a slogan into system boundaries and review.", href: "/resources/what-governed-ai-looks-like-in-practice/" },
+    ],
+    cards: [
+      { category: "Guide", title: "How to know when your website needs a rebuild", summary: "Separate a visual refresh from a structural rebuild.", href: "/resources/how-to-know-when-your-website-needs-a-rebuild/", metaStatus: "pending" },
+      { category: "Comparison", title: "AWS or Azure: choosing the right foundation", summary: "Match the platform to the organisation and operating model.", href: "/resources/aws-or-azure-choosing-the-right-foundation/", metaStatus: "pending" },
+      { category: "Architecture", title: "What governed AI looks like in practice", summary: "Turn governance from a slogan into system boundaries and review.", href: "/resources/what-governed-ai-looks-like-in-practice/", metaStatus: "pending" },
+    ],
+    cta: { label: "Explore Resources", href: "/resources/guides/" },
+  },
+  finalConversion: {
+    eyebrow: "CHOOSE THE NEXT MOVE", heading: "Start with direction, or start the conversation.", description: "If the right service is unclear, find the starting point. If the problem is already defined, open a direct conversation.", primaryCta: { label: "Find Your Solution", href: "/start/" }, secondaryCta: { label: "Start a Conversation", href: "/connect/" }, reassurance: "No obligation. Do not submit confidential data or protected health information.",
+  },
   manifesto: {
     eyebrow: "How we think about this",
     lead: "A website, its cloud, and the AI layered on top are one system.",
     body: "Most vendors specialize in a layer and hand you off at the seam: a design shop for the site, a reseller for the cloud, a bolt-on for AI. Rive scopes, builds and operates all three as a single accountable engagement, with a written record of what was decided and why, not a folder of disconnected invoices.",
   },
-
-  buyerPathsIntro: {
-    heading: "Tell us what's broken. We'll tell you where to start.",
-    description: "You don't need to know the service name. Pick the outcome.",
-  },
-  buyerPaths: [
-    {
-      title: "Website & Growth",
-      problem: "A weak, slow or low-converting website with an unclear proposition.",
-      outcome: "A high-converting site with a clear proposition and measurable funnel.",
-      startingEngagements: ["Discovery & Roadmap Engagement", "Website Rebuild"],
-      cta: { label: "Explore Website & Growth", href: "/solutions/web-growth/" },
-      symptoms: [
-        "Traffic arrives but rarely converts",
-        "The site is slow, dated, or hard to update",
-        "Visitors can't tell what you actually do",
-      ],
-      whatWeExamine: "Current funnel performance, information architecture, and technical/CMS constraints.",
-      expectedOutput: "A scoped roadmap or a full rebuild, with a clear conversion path and CMS-controlled content.",
-      managedFollowOn: "Ongoing performance, accessibility and content support after launch.",
-    },
-    {
-      title: "AWS & Microsoft Cloud",
-      problem: "Architecture, migration, security, cost control, M365 or cloud readiness gaps.",
-      outcome: "A documented cloud foundation matched to the platform you already run.",
-      startingEngagements: ["Architecture Review", "Migration Readiness Assessment"],
-      cta: { label: "Explore Cloud Modernization", href: "/solutions/cloud-modernization/" },
-      symptoms: [
-        "Cloud costs are unpredictable or climbing",
-        "Migration or modernization keeps getting delayed",
-        "Security or compliance posture is unclear",
-      ],
-      whatWeExamine: "Current architecture, cost drivers, identity and security posture, and platform fit.",
-      expectedOutput: "A documented architecture review or migration readiness assessment with sequencing.",
-      managedFollowOn: "Managed cloud operations, cost governance and ongoing security review.",
-    },
-    {
-      title: "Secure AI & Automation",
-      problem: "Useful, governed and integrated AI or automation.",
-      outcome: "AI and automation with human oversight built into every consequential step.",
-      startingEngagements: ["AI Readiness Sprint", "Secure RAG Pilot"],
-      cta: { label: "Explore Secure AI & Automation", href: "/solutions/ai-data-automation/" },
-      symptoms: [
-        "AI pilots stall before reaching production",
-        "No clear boundary on what data a model can access",
-        "Automation exists but nobody reviews its output",
-      ],
-      whatWeExamine: "Data readiness, workflow candidates, and the governance controls already in place.",
-      expectedOutput: "A scoped AI Readiness Sprint or Secure RAG pilot with named human sign-off points.",
-      managedFollowOn: "Managed agents and automation with ongoing evaluation and oversight.",
-    },
-    {
-      title: "Managed Care & Advisory",
-      problem: "Ongoing specialist help without hiring a complete internal team.",
-      outcome: "A documented, accountable operating partner for what you've already built.",
-      startingEngagements: ["Managed Care Assessment"],
-      cta: { label: "Explore Managed Care & Advisory", href: "/solutions/managed-services/" },
-      symptoms: [
-        "What you have works, but nobody owns it",
-        "Small requests take too long to get attention",
-        "You need specialist coverage without a full hire",
-      ],
-      whatWeExamine: "What's currently deployed, who supports it today, and where the gaps are.",
-      expectedOutput: "A Managed Care Assessment defining scope, response expectations and coverage.",
-      managedFollowOn: "An ongoing accountable operating relationship with documented response times.",
-    },
-  ],
-
   featuredEngagement: {
     eyebrow: "THE MOST COMMON STARTING POINT",
     heading: "Rebuild the site. Fix what's actually behind it.",
-    description:
-      "A full website rebuild that pairs a clearer proposition and conversion path with the frontend architecture, content control and evidence to support it going forward.",
-    outcomes: [
-      "Clearer positioning and conversion paths",
-      "Responsive design system",
-      "Modern frontend architecture",
-      "CMS-controlled content",
-      "Technical SEO and structured data",
-      "Accessibility and performance validation",
-      "Analytics-ready conversion tracking",
-      "Evidence Pack™ handoff",
-    ],
+    description: "A full website rebuild that pairs a clearer proposition and conversion path with the frontend architecture, content control and evidence to support it going forward.",
+    outcomes: ["Clearer positioning and conversion paths", "Responsive design system", "Modern frontend architecture", "CMS-controlled content", "Technical SEO and structured data", "Accessibility and performance validation", "Analytics-ready conversion tracking", "Evidence Pack™ handoff"],
     primaryCta: { label: "Explore Website Rebuild", href: "/work/website-rebuild/" },
     secondaryCta: { label: "See what the Evidence Pack contains", href: "#evidence-pack-heading" },
   },
-
   platformParity: {
     heading: "AWS or Microsoft. We don't have a favorite.",
-    description:
-      "Most shops lean one way and treat the other as an afterthought. Rive runs full-depth practice on both ecosystems, matched to what you already run, not to a house preference.",
+    description: "Rive works across both ecosystems, matched to what you already run rather than a house preference.",
     groups: [
-      {
-        platform: "AWS",
-        heading: "Cloud foundations and landing zones",
-        items: [
-          "Cloud foundations and landing zones",
-          "Architecture reviews",
-          "Security and resilience",
-          "Migration readiness",
-          "Cost governance and FinOps",
-          "Managed cloud operations",
-        ],
-      },
-      {
-        platform: "Microsoft",
-        heading: "Azure architecture and modernization",
-        items: [
-          "Azure architecture and modernization",
-          "Microsoft 365 security",
-          "Identity and access readiness",
-          "Copilot readiness",
-          "Governance and compliance controls",
-          "Managed Microsoft operations",
-        ],
-      },
+      { platform: "AWS", heading: "Cloud foundations and landing zones", items: ["Cloud foundations and landing zones", "Architecture reviews", "Security and resilience", "Migration readiness", "Cost governance and FinOps", "Managed cloud operations"] },
+      { platform: "Microsoft", heading: "Azure architecture and modernization", items: ["Azure architecture and modernization", "Microsoft 365 security", "Identity and access readiness", "Copilot readiness", "Governance and compliance controls", "Managed Microsoft operations"] },
     ],
     sharedLayer: ["Identity", "Security", "Observability", "Cost", "Evidence", "Operations"],
   },
-
-  evidencePack: {
-    heading: "Know what was decided, built, tested and handed over",
-    description:
-      "Every engagement produces documented evidence: not just a delivered artifact, but a record of how it was scoped, built, verified, and handed off.",
-    cta: { label: "Explore the Evidence Pack™", href: "/trust/evidence-pack/" },
-    artifacts: [
-      { id: "scope", title: "Scope and decision record", description: "The written, agreed boundary of the work.", preview: "Approved scope, sign-off dates and named decision owners." },
-      { id: "architecture", title: "Architecture record", description: "How the solution is structured and why.", preview: "System diagram, key decisions and rejected alternatives." },
-      { id: "security", title: "Security and governance controls", description: "The controls applied and how they're enforced.", preview: "Access model, data boundaries and review checkpoints." },
-      { id: "quality", title: "Quality evidence", description: "What was tested and the results observed.", preview: "Test coverage, accessibility scan results, known limitations." },
-      { id: "launch", title: "Launch and handoff record", description: "What shipped, when, and under what conditions.", preview: "Release notes, rollback plan and go-live checklist." },
-      { id: "roadmap", title: "Improvement roadmap", description: "What's next, ranked and ready to scope.", preview: "Prioritized backlog with rough sizing." },
-    ],
-  },
-
   governedAi: {
-    eyebrow: "SECURE AI & AUTOMATION",
-    heading: "AI that has to justify itself.",
-    description:
-      "We don't ship an AI feature because it's expected. Every deployment traces from approved data through evaluation to a named human who signs off on what matters.",
+    eyebrow: "SECURE AI & AUTOMATION", heading: "AI that has to justify itself.", description: "Every deployment traces from approved data through evaluation to a named human who signs off on what matters.",
     capabilities: [
-      { title: "AI Readiness", description: "Assess data, workflows and governance before any model touches production." },
-      { title: "Secure RAG", description: "Retrieval scoped to approved sources, with access boundaries enforced at query time." },
-      { title: "Managed Agents", description: "Agents constrained to defined tools and actions, with human sign-off on consequential steps." },
-      { title: "Workflow Automation", description: "Automation applied to well-understood, already-documented processes first." },
+      { title: "AI Readiness", description: "Assess data, workflows and governance before production." },
+      { title: "Secure RAG", description: "Retrieval scoped to approved sources." },
+      { title: "Managed Agents", description: "Agents constrained to defined tools and actions." },
+      { title: "Workflow Automation", description: "Automation applied to understood processes." },
     ],
-    flow: [
-      { id: "data", label: "Approved Data" },
-      { id: "retrieval", label: "Retrieval and Tools" },
-      { id: "system", label: "AI System" },
-      { id: "evaluation", label: "Evaluation" },
-      { id: "oversight", label: "Human Oversight" },
-    ],
+    flow: [{ id: "data", label: "Approved Data" }, { id: "retrieval", label: "Retrieval and Tools" }, { id: "system", label: "AI System" }, { id: "evaluation", label: "Evaluation" }, { id: "oversight", label: "Human Oversight" }],
     cta: { label: "Plan an AI Readiness Sprint", href: "/start/" },
   },
-
-  industries: {
-    heading: "Built where mistakes are expensive.",
-    description:
-      "Regulated data, thin margins, or a brand that can't absorb a bad launch: these are the constraints we design around.",
-    items: [
-      {
-        name: "Healthcare",
-        description:
-          "Regulated data handling, dependable uptime, and documentation that holds up to scrutiny.",
-        featured: true,
-      },
-      {
-        name: "Professional Services",
-        description: "Credibility-led sites and back-office modernization.",
-      },
-      {
-        name: "SaaS and Technology Companies",
-        description: "Conversion-focused sites and scalable cloud foundations.",
-      },
-      {
-        name: "Local and Multi-Location Businesses",
-        description: "Fast, findable sites that convert local demand across every location.",
-      },
-      {
-        name: "Nonprofits and Mission-Led Organizations",
-        description: "Lean, dependable delivery within constrained budgets.",
-      },
-    ],
-  },
-
-  process: {
-    heading: "How an engagement actually runs.",
-    description:
-      "A founder-led approach with a documented method at every stage, not a handoff to an anonymous production queue.",
-    stages: [
-      { step: "01", title: "Discover", description: "Assess current state against your stated goals." },
-      { step: "02", title: "Architect", description: "Decide structure and constraints before any tool is chosen." },
-      { step: "03", title: "Build", description: "Deliver against the documented scope, in the open." },
-      { step: "04", title: "Prove", description: "Test, validate and record the evidence as the work happens." },
-      { step: "05", title: "Support", description: "Operate, monitor and support what shipped." },
-    ],
-  },
-
-  proofFootnote:
-    "We don't have client case studies published yet. Until we do, anything shown here is labeled for exactly what it is: a methodology walkthrough or a sample artifact, never dressed up as a completed client result.",
-
-  resources: {
-    heading: "Make a better technology decision",
-    cards: [
-      {
-        category: "Guide",
-        title: "How to know when your website needs a rebuild",
-        summary: "The signals that separate a refresh from a full rebuild, and how to tell which one you actually need.",
-        href: "/resources/how-to-know-when-your-website-needs-a-rebuild/",
-        metaStatus: "pending",
-      },
-      {
-        category: "Guide",
-        title: "AWS or Azure: choosing the right foundation",
-        summary: "A framework for matching cloud platform to what your organization already runs and where it's headed.",
-        href: "/resources/aws-or-azure-choosing-the-right-foundation/",
-        metaStatus: "pending",
-      },
-      {
-        category: "Insight",
-        title: "What governed AI looks like in practice",
-        summary: "Concrete controls, not slogans, for deploying AI with scoped data access and human oversight.",
-        href: "/resources/what-governed-ai-looks-like-in-practice/",
-        metaStatus: "pending",
-      },
-    ],
-  },
-
-  finalConversion: {
-    heading: "Not sure where to start?",
-    description:
-      "Answer three short questions and Rive will recommend the most appropriate starting engagement, why it fits and what should happen next.",
-    primaryCta: { label: "Find Your Solution", href: "/start/" },
-    secondaryCta: { label: "Book a Discovery Call", href: "/connect/" },
-    reassurance:
-      "Clear response expectations. No obligation. Do not submit confidential data or protected health information.",
-  },
+  proofFootnote: "We don't have client case studies published yet. Anything shown here is labeled for exactly what it is: a methodology walkthrough or sample artifact, never a completed client result.",
 };
 
 export async function getHomepageContent(): Promise<HomepageContent> {

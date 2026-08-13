@@ -7,12 +7,12 @@ describe("homepage fallback content", () => {
 
     expect(hero.eyebrow).toBe("RIVE WEBWORKS");
     expect(hero.heading).toBe(
-      "One accountable team — not three vendors pointing at each other.",
+      "Cloud, AI & Web Design Built on Evidence, Not Promises",
     );
     expect(hero.primaryCta).toEqual({ label: "Find Your Solution", href: "/start/" });
     expect(hero.secondaryCta).toEqual({
-      label: "Book a Discovery Call",
-      href: "/connect/",
+      label: "Explore Services",
+      href: "/services/",
     });
   });
 
@@ -27,9 +27,9 @@ describe("homepage fallback content", () => {
 
   it("uses the four approved buyer path routes", () => {
     expect(homepageFallbackContent.buyerPaths.map((path) => path.cta.href)).toEqual([
-      "/solutions/web-growth/",
       "/solutions/cloud-modernization/",
       "/solutions/ai-data-automation/",
+      "/solutions/web-growth/",
       "/solutions/managed-services/",
     ]);
   });
