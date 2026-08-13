@@ -13,7 +13,7 @@ Authority: Product Office / Silvester, `RW-TYPE-01`.
 | Page hero H1 | Fraunces, 600 | `clamp()` floor 40px | fluid through 54.4px at 768px and 67.2px at 1024px; 68px cap | 1.05 | -0.015em |
 | Hero lead | Inter, 400 | 15px | 16px from 768px | 1.7 | normal |
 | Standard section H2 | Fraunces, 600 | 30px | 40px from 768px | 1.15 | -0.01em |
-| Standard secondary H3 | Inter, 600 | 20px | 23px from 768px | 1.3 | normal |
+| Standard secondary H3 | Fraunces, 600 | 20px | 23px from 768px | 1.3 | -0.005em |
 | Body | Inter, 400 | 15px | 16px from 768px | 1.65 standard; 1.7 lead | normal |
 | Eyebrow | Inter, 600 | 11px | 12px from 768px | 1.3 | 0.1em |
 | Evidence / metadata | system mono | 12px | 13px from 768px | 1.8 | normal |
@@ -26,6 +26,8 @@ The implementation source of truth remains `src/app/globals.css`. This office re
 - Every genuine page-level hero H1 uses `text-h1`.
 - Equivalent introductory hero copy uses `text-hero-lead`.
 - `text-h2` and `text-h3` apply to standard section and secondary-heading roles.
+- Fraunces is the sitewide heading and title face. Semantic `h1`–`h6` elements inherit it even when a page-specific scale is used; title-like labels outside heading markup use `font-serif` explicitly.
+- Inter remains the body and operational-interface face for paragraphs, navigation labels, buttons, form labels, metadata and explanatory UI.
 - Signature editorial display headings, resource titles, Process phase typography, Start interface options and recommendation headings may retain distinct scales when their semantic role differs.
 - Normalize by semantic role, not by HTML tag.
 - Resolve difficult wrapping through measure and composition before changing the canonical scale.
