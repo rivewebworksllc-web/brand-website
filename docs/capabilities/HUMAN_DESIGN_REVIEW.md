@@ -14,6 +14,7 @@ Assess each implementation against these criteria. A design that fails several o
 
 - **Visual originality** — does it look distinct, or interchangeable with any generic template?
 - **Brand identity** — does it read as Rive Webworks specifically, using the recorded visual language (`docs/creative-direction/VISUAL_LANGUAGE.md`), not a generic brand?
+- **Visual-language coherence** — does it belong beside Industries, Work and Connect while preserving its own thesis and register?
 - **Typography quality** — deliberate hierarchy and pairing, not default/uninspected type choices.
 - **Spacing rhythm** — considered, varied rhythm, not uniform padding applied everywhere by default.
 - **Information hierarchy** — the most important content is visually most important; nothing competes with itself.
@@ -58,12 +59,21 @@ For every major page, record `PASS` or `FAIL` for:
 | Mobile authorship | Does the page preserve its thesis at approximately 375px rather than merely stacking desktop? |
 | Dark-mode authorship | Does dark mode preserve atmosphere and identity rather than invert mechanically? |
 | CTA/conclusion quality | Does the conversion section conclude this page's story rather than appear appended? |
+| Brand coherence | Does the page use the mature Rive grammar recorded in `RIVE_VISUAL_LANGUAGE.md`? |
+| Register clarity | Is the dominant immersive, systemic or intimate register understandable and narratively justified? |
+| Register misuse | Has the register remained a creative mode rather than becoming a recipe? |
+| Tonal rhythm | Do surface changes correspond to narrative transitions rather than automatic alternation? |
+| Card dependence | Does every container represent a real discrete object, or could stronger editorial composition replace it? |
+| Micro-detail consistency | Are rules, labels, numbering and accents recognisably Rive without repetitive decoration? |
+| Gold discipline | Is gold selective enough to retain meaning and hierarchy? |
 
 Any `FAIL` requires refinement, explicit documented acceptance of the remaining risk, or a Product Office exception.
 
 The full-page screenshot is a mandatory review artifact. Inspect it at full scale and reduced scale. Confirm identifiable chapters, intentional media, meaningful whitespace, non-monotonous rhythm, visual memory and a CTA that reads as the ending. The squint test intentionally makes copy secondary so mass, colour, imagery, density and transitions can be judged.
 
 Industries is the current Product Office quality benchmark, not the expected composition. Ask whether the page received the same level of thought, not whether it looks like Industries. Platforms demonstrates an equally valid architectural/systematic result.
+
+Industries, Work and Connect are the primary visual-language evidence set. Use `docs/creative-direction/RIVE_VISUAL_LANGUAGE.md` to evaluate shared grammar and distinct registers. Do not require a page to combine their devices. A successful review confirms both brand coherence and independent authorship.
 
 ## AI-slop characteristics to actively avoid
 

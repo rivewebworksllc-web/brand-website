@@ -74,6 +74,9 @@ For major visual work, also report:
 ### Rive Authored Page Standard evidence
 
 - Final visual thesis:
+- Primary / secondary visual register:
+- Register transition result:
+- Mature Rive grammar applied:
 - Media decisions:
 - Media considered and rejected:
 - Memorable moments delivered:
@@ -89,6 +92,11 @@ For major visual work, also report:
 - Mobile authorship:
 - Dark-mode authorship:
 - CTA/conclusion quality:
+- Tonal-rhythm result:
+- Card-dependence review:
+- Micro-detail consistency:
+- Gold-discipline result:
+- New visual-language contribution:
 - Human Design Review gate results:
 - Silvester visual acceptance:
 
