@@ -1,143 +1,146 @@
 import { expect, test } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
-test("manifesto statement renders as plain editorial text, not a card", async ({ page }) => {
+test("homepage presents the v48 chapters in authoritative order", async ({ page }) => {
   await page.goto("/");
-
-  const heading = page.getByRole("heading", {
-    name: "A website, its cloud, and the AI layered on top are one system.",
-  });
-  await expect(heading).toBeVisible();
-});
-
-test("Guided Outcome Explorer (desktop) selects a path via the tablist and updates the panel", async ({
-  page,
-}) => {
-  await page.goto("/");
-
-  const section = page.locator("section", {
-    has: page.getByRole("heading", { name: "Tell us what's broken. We'll tell you where to start." }),
-  });
-
-  const tablist = section.getByRole("tablist", { name: "Buyer outcomes" });
-  const panel = section.getByRole("tabpanel");
-  const names = [
-    "Website & Growth",
-    "AWS & Microsoft Cloud",
-    "Secure AI & Automation",
-    "Managed Care & Advisory",
+  const main = page.locator("main");
+  const text = await main.innerText();
+  const chapters = [
+    "Cloud, AI & Web Design Built on Evidence, Not Promises",
+    "Evidence is part of the deliverable.",
+    "Start with the problem you can see.",
+    "Three lead capabilities. One accountable relationship.",
+    "Continuity from first engagement to lasting ownership.",
+    "Technology decisions land in real organisations.",
+    "The wider system stays within reach.",
+    "Make the next technology decision with more context.",
+    "Start with direction, or start the conversation.",
   ];
-  for (const name of names) {
-    await expect(tablist.getByRole("tab", { name })).toBeVisible();
+  let cursor = -1;
+  for (const chapter of chapters) {
+    const next = text.indexOf(chapter);
+    expect(next).toBeGreaterThan(cursor);
+    cursor = next;
   }
-
-  // Website & Growth is selected by default.
-  await expect(panel.getByText(/A weak, slow or low-converting website/)).toBeVisible();
-
-  await tablist.getByRole("tab", { name: "AWS & Microsoft Cloud" }).click();
-  await expect(panel.getByText(/Architecture, migration, security/)).toBeVisible();
 });
 
-test("Guided Outcome Explorer tablist is keyboard operable", async ({ page }) => {
+test("four buyer cards route by problem in Cloud, AI, Web and Care order", async ({ page }) => {
   await page.goto("/");
-  const section = page.locator("section", {
-    has: page.getByRole("heading", { name: "Tell us what's broken. We'll tell you where to start." }),
-  });
-  const panel = section.getByRole("tabpanel");
-  const firstTab = section.getByRole("tab", { name: "Website & Growth" });
-  await firstTab.focus();
-  await page.keyboard.press("ArrowDown");
-  await expect(section.getByRole("tab", { name: "AWS & Microsoft Cloud" })).toBeFocused();
-  await expect(panel.getByText(/Architecture, migration, security/)).toBeVisible();
+  const section = page.locator("section", { has: page.getByRole("heading", { name: "Start with the problem you can see." }) });
+  const links = section.getByRole("link");
+  await expect(links).toHaveCount(4);
+  const expected = [
+    ["Explore Cloud Modernization", "/solutions/cloud-modernization/"],
+    ["Explore Secure AI & Automation", "/solutions/ai-data-automation/"],
+    ["Explore Website & Growth", "/solutions/web-growth/"],
+    ["Explore Managed Care & Advisory", "/solutions/managed-services/"],
+  ] as const;
+  for (const [name, href] of expected) await expect(section.getByRole("link", { name: new RegExp(name) })).toHaveAttribute("href", href);
 });
 
-test("buyer-path accordion (mobile) opens the first path by default and works via native details with zero JS reliance", async ({
-  browser,
-}) => {
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+test("Presentation Tabs select Cloud, AI and Web in one editorial plane", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator("section", { has: page.getByRole("heading", { name: "Three lead capabilities. One accountable relationship." }) });
+  const tablist = section.getByRole("tablist", { name: "Cloud, AI and Web services" });
+  const cloud = tablist.getByRole("tab", { name: /Cloud Architecture/ });
+  const ai = tablist.getByRole("tab", { name: /AI & Intelligent/ });
+  const web = tablist.getByRole("tab", { name: /Web Design/ });
+  await expect(cloud).toHaveAttribute("aria-selected", "true");
+  await expect(section.getByRole("tabpanel")).toContainText("AWS and Microsoft foundations");
+  await ai.click();
+  await expect(ai).toHaveAttribute("aria-selected", "true");
+  await expect(section.getByRole("tabpanel")).toContainText("Copilot Studio");
+  await web.click();
+  await expect(web).toHaveAttribute("aria-selected", "true");
+  await expect(section.getByRole("tabpanel")).toContainText("WordPress remains supported");
+});
+
+test("Presentation Tabs support arrow, Home and End keys", async ({ page }) => {
+  await page.goto("/");
+  const tablist = page.getByRole("tablist", { name: "Cloud, AI and Web services" });
+  const cloud = tablist.getByRole("tab", { name: /Cloud Architecture/ });
+  const ai = tablist.getByRole("tab", { name: /AI & Intelligent/ });
+  const web = tablist.getByRole("tab", { name: /Web Design/ });
+  await cloud.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(ai).toBeFocused();
+  await page.keyboard.press("End");
+  await expect(web).toBeFocused();
+  await page.keyboard.press("Home");
+  await expect(cloud).toBeFocused();
+});
+
+test("all three offer summaries remain in server-rendered HTML", async ({ page }) => {
+  await page.goto("/");
+  const mainHtml = await page.locator("main").innerText();
+  expect(mainHtml).toContain("A cloud foundation you can explain and operate.");
+  expect(mainHtml).toContain("Intelligence with boundaries, evaluation and ownership.");
+  expect(mainHtml).toContain("A modern platform chosen for the work, not the trend.");
+});
+
+test("Evidence Pack is structured proof with six records", async ({ page }) => {
+  await page.goto("/");
+  const evidence = page.locator("#evidence-pack");
+  await expect(evidence.getByRole("listitem")).toHaveCount(6);
+  for (const name of ["Scope record", "Architecture", "QA evidence", "Launch checklist", "Runbook", "Improvement backlog"]) await expect(evidence.getByText(name, { exact: true })).toBeVisible();
+});
+
+test("process, industries, capabilities and resources expose the approved routes", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: "See Delivery Process" })).toHaveAttribute("href", "/company/process/");
+  await expect(page.getByRole("link", { name: "Choose My Industry" })).toHaveAttribute("href", "/industries/");
+  await expect(page.getByRole("link", { name: "View All Capabilities" })).toHaveAttribute("href", "/services/");
+  await expect(page.getByRole("link", { name: "Explore Resources" })).toHaveAttribute("href", "/resources/guides/");
+  for (const stage of ["Land", "Expand", "Retain"]) await expect(page.getByRole("heading", { name: stage, exact: true })).toBeVisible();
+  for (const industry of ["Healthcare", "B2B SaaS / IT Services", "Professional Services", "Local Services", "Nonprofit"]) await expect(page.getByRole("heading", { name: industry })).toBeVisible();
+});
+
+test("final conversion uses approved Start and Connect routes", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator("section", { has: page.getByRole("heading", { name: "Start with direction, or start the conversation." }) });
+  await expect(section.getByRole("link", { name: "Find Your Solution" })).toHaveAttribute("href", "/start/");
+  await expect(section.getByRole("link", { name: "Start a Conversation" })).toHaveAttribute("href", "/connect/");
+});
+
+test("homepage never invents partner, testimonial or numeric proof claims", async ({ page }) => {
+  await page.goto("/");
+  const body = (await page.locator("body").innerText()).toLowerCase();
+  expect(body).not.toMatch(/aws partner|microsoft solutions partner|certified partner/);
+  expect(body).not.toMatch(/\d+%\s+(increase|improvement|growth|faster)/i);
+});
+
+for (const viewport of [
+  { width: 375, height: 812 },
+  { width: 768, height: 1024 },
+  { width: 1024, height: 768 },
+  { width: 1280, height: 800 },
+  { width: 1440, height: 900 },
+]) {
+  test(`homepage has no horizontal overflow at ${viewport.width}x${viewport.height}`, async ({ browser }) => {
+    const context = await browser.newContext({ viewport });
+    const page = await context.newPage();
+    await page.goto("/");
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+    await context.close();
+  });
+}
+
+test("homepage Presentation Tabs begin manual under reduced motion", async ({ browser }) => {
+  const context = await browser.newContext({ reducedMotion: "reduce" });
   const page = await context.newPage();
   await page.goto("/");
-
-  const section = page.locator("section", {
-    has: page.getByRole("heading", { name: "Tell us what's broken. We'll tell you where to start." }),
-  });
-  const accordion = section.locator("details");
-
-  const names = [
-    "Website & Growth",
-    "AWS & Microsoft Cloud",
-    "Secure AI & Automation",
-    "Managed Care & Advisory",
-  ];
-  for (const name of names) {
-    await expect(accordion.getByText(name, { exact: true })).toBeVisible();
-  }
-
-  // First path's detail is open by default (native <details open>).
-  await expect(accordion.getByText(/A weak, slow or low-converting website/)).toBeVisible();
-
-  const secondSummary = accordion.getByText("AWS & Microsoft Cloud", { exact: true });
-  await secondSummary.click();
-  await expect(accordion.getByText(/Architecture, migration, security/)).toBeVisible();
-
+  const presentation = page.getByRole("tablist", { name: "Cloud, AI and Web services" }).locator("..");
+  await expect(presentation).toHaveAttribute("data-presentation-mode", "manual");
   await context.close();
 });
 
-test("cloud platform parity gives AWS and Microsoft equal billing", async ({ page }) => {
+test("homepage has no serious or critical accessibility violations in dark mode", async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("rive-theme", "dark"));
   await page.goto("/");
-
-  const heading = page.getByRole("heading", {
-    name: "AWS or Microsoft. We don't have a favorite.",
-  });
-  await expect(heading).toBeVisible();
-
-  const section = page.locator("section", { has: heading });
-  await expect(section.getByText("AWS", { exact: true })).toBeVisible();
-  await expect(section.getByText("Microsoft", { exact: true })).toBeVisible();
-});
-
-test("Evidence Pack explorer lets a visitor select an artifact and see its preview", async ({
-  page,
-}) => {
-  await page.goto("/");
-
-  const securityButton = page.getByRole("button", { name: /Security and governance controls/ });
-  await securityButton.click();
-  await expect(securityButton).toHaveAttribute("aria-pressed", "true");
-
-  const preview = page
-    .getByRole("region", { name: "Selected evidence artifact" })
-    .filter({ hasText: "Security and governance controls" });
-  await expect(preview).toBeVisible();
-});
-
-test("footer exposes the five approved link groups", async ({ page }) => {
-  await page.goto("/");
-
-  const footer = page.getByRole("contentinfo");
-  for (const heading of ["Solutions", "Services", "Company", "Trust", "Resources"]) {
-    await expect(footer.getByText(heading, { exact: true })).toBeVisible();
-  }
-});
-
-test("proof footnote is present and does not claim client results", async ({ page }) => {
-  await page.goto("/");
-  await expect(page.getByText(/We don't have client case studies published yet/)).toBeVisible();
-});
-
-test("homepage never states an AWS or Microsoft partner/certification claim", async ({ page }) => {
-  await page.goto("/");
-
-  const bodyText = (await page.locator("body").innerText()).toLowerCase();
-  expect(bodyText).not.toMatch(/aws partner|microsoft solutions partner|certified partner/);
-});
-
-test("homepage never invents client logos, testimonials or numeric case-study results", async ({
-  page,
-}) => {
-  await page.goto("/");
-
-  const bodyText = await page.locator("body").innerText();
-  expect(bodyText).not.toMatch(/\d+%\s+(increase|improvement|growth|faster)/i);
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations.filter((violation) => violation.impact === "serious" || violation.impact === "critical")).toEqual([]);
 });

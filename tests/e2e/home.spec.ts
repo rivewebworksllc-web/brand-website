@@ -7,7 +7,7 @@ test("home route renders the approved H1 and primary CTA", async ({ page }) => {
 
   const h1 = page.getByRole("heading", { level: 1 });
   await expect(h1).toHaveText(
-    "One accountable team — not three vendors pointing at each other.",
+    "Cloud, AI & Web Design Built on Evidence, Not Promises",
   );
 
   const primaryCta = page.getByRole("link", { name: "Find Your Solution" }).first();
@@ -15,13 +15,11 @@ test("home route renders the approved H1 and primary CTA", async ({ page }) => {
   await expect(primaryCta).toHaveAttribute("href", "/start/");
 });
 
-test("trust line is visible in server-rendered content", async ({ page }) => {
+test("authority signals are visible in server-rendered content", async ({ page }) => {
   await page.goto("/");
-  await expect(
-    page.getByText(
-      "AWS-aligned · Microsoft cloud-aligned · Security-first · Evidence Pack™ on every engagement",
-    ),
-  ).toBeVisible();
+  for (const signal of ["Founder-led delivery", "AWS & Microsoft Cloud", "Governed AI", "Modern Web & Next.js", "Evidence-led delivery", "GCP / Oracle on request"]) {
+    await expect(page.getByLabel("Rive delivery authority").getByText(signal, { exact: true })).toBeVisible();
+  }
 });
 
 test("skip link is keyboard reachable and focuses main content", async ({ page }) => {
