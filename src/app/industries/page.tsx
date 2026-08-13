@@ -33,7 +33,7 @@ export default function IndustriesPage() {
           <h1 id="industries-heading" className="text-h1 mt-5 text-balance text-heading">
             {heading}
           </h1>
-          <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-body md:text-base">
+          <p className="text-hero-lead mt-6 max-w-xl text-body">
             {description}
           </p>
         </div>

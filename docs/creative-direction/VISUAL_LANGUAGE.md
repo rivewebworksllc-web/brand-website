@@ -12,6 +12,7 @@ Current, repository-resident statement of Rive Webworks's visual direction. Toke
 ## Typography
 
 - Serif display typography is used for headings/hero content as the brand's expressive register, paired with a standard sans body face for readability — the serif/sans split is the deliberate signal of "premium, technically credible" rather than "generic SaaS."
+- `/work/` is the approved scale reference for equivalent page-hero and supporting-copy roles. `docs/design-system/TYPOGRAPHY.md` defines the semantic boundary: shared scale does not require shared composition, and signature editorial or interactive roles remain distinct.
 
 ## Illustration and motion
 

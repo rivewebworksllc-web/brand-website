@@ -33,7 +33,7 @@ export default function ProcessPage() {
             </h1>
           </div>
           <div className="lg:col-span-5 lg:col-start-7">
-            <p className="max-w-xl text-[17px] leading-[1.7] text-body md:text-lg">
+            <p className="text-hero-lead max-w-xl text-body">
               {hero.summary}
             </p>
             <div className="mt-8">

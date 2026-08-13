@@ -21,8 +21,8 @@ export default function InsightsPage() {
         <div className="grid gap-14 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <p className="text-eyebrow text-brand-maroon">{masthead.eyebrow}</p>
-            <h1 id="insights-heading" className="mt-5 max-w-[14ch] font-serif text-[clamp(2.75rem,6.2vw,5.75rem)] leading-[0.98] font-semibold tracking-[-0.025em] text-heading">{masthead.heading}</h1>
-            <p className="mt-7 max-w-xl text-[15px] leading-[1.75] text-body md:text-base">{masthead.description}</p>
+            <h1 id="insights-heading" className="text-h1 mt-5 max-w-[14ch] text-heading">{masthead.heading}</h1>
+            <p className="text-hero-lead mt-7 max-w-xl text-body">{masthead.description}</p>
           </div>
           <nav aria-label="Current insight themes" className="border-t border-hairline pt-5 lg:col-span-3 lg:col-start-10">
             <p className="mb-4 text-sm font-semibold text-heading">Current themes</p>

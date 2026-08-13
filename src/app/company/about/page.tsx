@@ -21,10 +21,10 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <p className="text-eyebrow text-brand-maroon">{hero.eyebrow}</p>
-            <h1 id="about-heading" className="mt-5 max-w-[13ch] font-serif text-[clamp(2.8rem,6vw,5.7rem)] leading-[0.99] font-semibold tracking-[-0.025em] text-heading">{hero.heading}</h1>
+            <h1 id="about-heading" className="text-h1 mt-5 max-w-[13ch] text-heading">{hero.heading}</h1>
           </div>
           <div className="lg:col-span-5 lg:pl-8">
-            <p className="max-w-md text-[16px] leading-[1.75] text-body md:text-lg">{hero.description}</p>
+            <p className="text-hero-lead max-w-md text-body">{hero.description}</p>
           </div>
         </div>
         <div className="mt-14 grid gap-5 md:grid-cols-12 md:items-end">

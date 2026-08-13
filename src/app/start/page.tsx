@@ -18,10 +18,10 @@ export default function StartPage() {
         className="-mt-20 border-b border-hairline-faint bg-surface pt-36 pb-16 md:pt-44 md:pb-20"
       >
         <p className="text-eyebrow text-brand-maroon">{startContent.hero.eyebrow}</p>
-        <h1 id="start-heading" className="mt-5 max-w-[13ch] font-serif text-[clamp(2.8rem,6.6vw,6.4rem)] leading-[0.96] font-semibold tracking-[-0.028em] text-heading">
+        <h1 id="start-heading" className="text-h1 mt-5 max-w-[13ch] text-heading">
           {startContent.hero.heading}
         </h1>
-        <p className="mt-7 max-w-xl text-[16px] leading-[1.75] text-body md:text-lg">{startContent.hero.description}</p>
+        <p className="text-hero-lead mt-7 max-w-xl text-body">{startContent.hero.description}</p>
       </Section>
 
       <Section spacing="generous" aria-label="Solution direction finder" className="bg-surface-alt">

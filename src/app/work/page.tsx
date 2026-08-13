@@ -24,7 +24,7 @@ export default function WorkPage() {
           <div>
             <p className="text-eyebrow text-brand-maroon">{hero.eyebrow}</p>
             <h1 id="work-hero-heading" className="text-h1 mt-5 max-w-[12ch] text-balance text-heading">{hero.heading}</h1>
-            <p className="mt-6 max-w-lg text-[15px] leading-[1.7] text-body md:text-base">{hero.summary}</p>
+            <p className="text-hero-lead mt-6 max-w-lg text-body">{hero.summary}</p>
             <div className="mt-8"><LinkButton href={hero.cta.href}>{hero.cta.label}</LinkButton></div>
           </div>
           <Placeholder meta={{ ...hero.visual, motion: "none" }} className="w-full" />

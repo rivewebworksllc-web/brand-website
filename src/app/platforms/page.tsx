@@ -36,7 +36,7 @@ export default function PlatformsPage() {
           <h1 id="platforms-heading" className="text-h1 mt-5 text-balance text-accent-foreground">
             {heading}
           </h1>
-          <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-accent-foreground/85 md:text-base">
+          <p className="text-hero-lead mt-6 max-w-xl text-accent-foreground/85">
             {description}
           </p>
         </div>

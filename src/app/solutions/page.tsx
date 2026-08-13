@@ -40,7 +40,7 @@ export default function SolutionsPage() {
             >
               {intro.heading}
             </h1>
-            <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-accent-foreground/85 md:text-base">
+            <p className="text-hero-lead mt-6 max-w-xl text-accent-foreground/85">
               {intro.description}
             </p>
           </div>
