@@ -2,6 +2,8 @@
 
 Current, repository-resident statement of Rive Webworks's visual direction. Token *values* live in `src/app/globals.css` (source of truth — do not duplicate numbers here that will drift); this file records the intent behind them. Update this file whenever a visual-language refinement is approved (`docs/OFFICES.md` § Refinement-ownership routing), rather than leaving the rationale only in chat or a commit message.
 
+The canonical mature visual grammar, three expressive registers and evidence-page analysis live in [`RIVE_VISUAL_LANGUAGE.md`](./RIVE_VISUAL_LANGUAGE.md). This file retains the foundational visual intent and `GOV-017` authored-page doctrine; future major-page briefs must use both documents without copying an evidence page's composition.
+
 ## Colour system
 
 - **Primary palette:** navy (`--color-navy-950`) as the dominant dark/heading colour, warm gold (`--color-brand-gold`, `--color-gold-deep`) as the primary accent, maroon (`--color-brand-maroon`) as a secondary brand colour.
@@ -69,6 +71,8 @@ Reject the default sequence `content → choose reusable component → insert co
 ### Narrative rhythm and visual modes
 
 Every major page must define its section rhythm before JSX. For each substantial section, record its narrative role, visual mode, energy, media role and transition to adjacent sections; then review the sequence as one composition.
+
+Also record the surface or tonal state. Surface changes must correspond to narrative changes rather than alternate mechanically. Declare the primary Rive visual register and any secondary register using `RIVE_VISUAL_LANGUAGE.md`; a register is a creative mode, never a predefined layout.
 
 Possible visual modes include editorial typography, environmental or human photography, contextual illustration, technical diagram, data visualisation, typography as visual material, immersive background media, inline media, spatial composition, interactive demonstration, restrained text-only composition and conversion composition. This list is a thinking tool, not a mandatory menu.
 

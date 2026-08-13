@@ -10,7 +10,7 @@ Visual acceptance rests with Silvester Odilu (`docs/governance/AUTHORITY.md`, ro
 
 ## Responsibilities
 
-- Maintain `VISUAL_LANGUAGE.md` as the current, authoritative statement of visual direction (tokens, theme behaviour, illustration/motion intent).
+- Maintain `VISUAL_LANGUAGE.md` as the authoritative foundational visual direction (tokens, theme behaviour, illustration/motion intent) and `RIVE_VISUAL_LANGUAGE.md` as the canonical mature grammar, visual-register and cross-page authorship standard.
 - Record why a visual decision was made, not only what changed — the underlying rationale is what a future engineer or agent needs, since the code itself already shows the "what."
 - Flag when a proposed implementation would depart from recorded visual language, before implementation proceeds.
 
@@ -22,7 +22,7 @@ Visual acceptance rests with Silvester Odilu (`docs/governance/AUTHORITY.md`, ro
 
 ## Outputs
 
-- `VISUAL_LANGUAGE.md` updates.
+- `VISUAL_LANGUAGE.md` and `RIVE_VISUAL_LANGUAGE.md` updates.
 - Visual/content defect reports (per `AGENTS.md` § Claude responsibilities).
 
 ## Approval authority

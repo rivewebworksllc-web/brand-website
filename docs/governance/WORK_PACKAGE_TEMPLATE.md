@@ -66,6 +66,22 @@ For major visual work, include durable status and current-session status separat
 
 ### Page-Specific Art Direction — major visual work only
 
+#### Rive Visual Register
+
+- Primary register:
+- Secondary register (optional):
+- Why this register fits the subject:
+- Register transition points and narrative purpose:
+
+#### Rive Grammar
+
+- Typography strategy:
+- Surface / tonal strategy:
+- Whitespace strategy:
+- Rule / micro-detail strategy:
+- Gold usage:
+- Burgundy usage:
+
 - Narrative rhythm:
 - Section visual-mode map:
 - Memorable moment 1 (purpose / reason / medium):
@@ -83,12 +99,14 @@ For major visual work, include durable status and current-session status separat
 - Conceptual, compositional and media differentiation:
 - Template-resistance plan:
 - Content-swap risk:
+- New contribution to the Rive visual vocabulary:
 
 ### Section Rhythm Map — repeat for every major section
 
 - Section:
 - Narrative role:
 - Visual mode:
+- Surface / tonal state:
 - Energy:
 - Media role:
 - Transition from previous section:
@@ -99,6 +117,8 @@ For major visual work, include durable status and current-session status separat
 | Section | Story purpose | Photography | Illustration | Diagram | Background media | Typography as media | Final decision |
 |---|---|---:|---:|---:|---:|---:|---|
 |  |  |  |  |  |  |  |  |
+
+For each substantial section also classify the final media decision as `REQUIRED`, `BENEFICIAL`, `OPTIONAL` or `NO MEDIA`, with reasoning. No-media decisions are valid and must be explicit.
 
 ### Pattern Decision Log
 
