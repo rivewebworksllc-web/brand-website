@@ -1,7 +1,7 @@
 # Execution State
 
-**Last updated:** 2026-08-12
-**Updated by:** Codex (executing RW-RECOVERY-01 product-scope restoration)
+**Last updated:** 2026-08-13
+**Updated by:** Codex (executing RW-INT-07 Start integration)
 
 ## Authoritative baseline
 
@@ -12,8 +12,8 @@
 | Integration branch | `develop` |
 | Last verified integration commit | `21eefcc` — RW-FIX-01 repair `e2cc436` and About feature `65c45cc` merged into `develop`, pushed and verified against `origin/develop` |
 | Last confirmed feature branch (rejected, not merged) | `feature/homepage-full-personalisation` — full 11-module homepage + light/dark theme, technically `VERIFIED` (lint/typecheck/unit/build/e2e/axe all passing, 6 commits, pushed at `6072ba2`) but visually `REJECTED` by Silvester; left intact, not merged, not to be continued |
-| Current implementation owner | `Codex` for `RW-RECOVERY-01` on `fix/restore-pre-ia-public-architecture` |
-| Current work package | `RW-RECOVERY-01` non-destructive restoration of the pre-RW-IA-01 planned public architecture from `develop` baseline `f26b92f44e021fd9fd97698ce149f49e2fbdacee` |
+| Current implementation owner | `Codex` for `RW-INT-07` on `feature/rw-page-07-start` pending integration into `develop` |
+| Current work package | `RW-INT-07` audited integration of the Product Office-accepted RW-PAGE-07 Start package from baseline `d9e24ddd74885fc6b49fab6ae7c4d88da052c1f1`; deterministic pre-commit validation complete, integration in progress |
 | Sanity project | `9vajygee` |
 | Sanity dataset | `production — read-only` |
 
@@ -21,6 +21,7 @@
 
 | Work | State | Evidence |
 |---|---|---|
+| RW-PAGE-07 (Start / Find Your Solution) | `IMPLEMENTED`, technically `VERIFIED` and accepted by Product Office for build-phase integration; RW-INT-07 in progress | Safely preserved the combined RW-PAGE-06 + RW-INFRA-01 Connect package in named stash SHA `d199afe544cbb722ea884e35794ebb5040a2cb16`, synchronized clean `develop` at `d9e24ddd74885fc6b49fab6ae7c4d88da052c1f1`, and created `feature/rw-page-07-start`. Added `/start/` as a deterministic, intent-first guided experience with five primary visitor states, one optional refinement layer, a no-dead-end uncertainty path and planned `/connect/` handoff. Full design pipeline completed before JSX: UI/UX Pro Max v2.11.0 package queries, four authenticated 21st.dev inspiration explorations, `design-taste-frontend` critique, cross-page repetition audit, Rive synthesis and Design Decision Brief. Current RW-INT-07 pre-commit validation: diff check, lint, typecheck and production build pass; 51/51 unit tests pass; focused Start/navigation/Process/Presentation Tabs/accessibility regression passes 54/54; full E2E completed 113/116 under four-worker load, with all three unchanged navigation failures passing in serial or isolated reruns and classified load-sensitive. Five required responsive/theme states have no overflow, and nine required runtime routes return HTTP 200. No dependency, navigation, footer, Connect, Services or Solutions implementation changed. |
 | RW-RECOVERY-01 (Restore Pre-RW-IA-01 Public Architecture) | `IMPLEMENTED`; integration pending | Product Office rejected RW-IA-01's audit-driven scope reduction. Commit `b2047f6` was reverted non-destructively as `2438f2f` without conflicts. Planned navigation, mega menus, footer destinations and conversion references are restored byte-for-byte to accepted pre-IA baseline `cdefd1f`; Process, RW-FIX-02 and `SITEWIDE_DESIGN_AUDIT.md` remain preserved. Diff check, lint, typecheck, unit execution and production compilation pass. The complete 93-test focused set and 97-test aggregate were attempted, but this execution channel ended before either aggregate produced a final count; no aggregate pass is claimed. |
 | RW-IA-01 (Public IA & Conversion Integrity) | Implementation interpretation `REJECTED` and `SUPERSEDED` by RW-RECOVERY-01 | The underlying audit observations remain useful, but hiding/removing planned destinations was not authorised product-scope change. Unbuilt destinations are planned build work unless Product Office explicitly removes or replaces them. |
 | RW-AUDIT-01 (Four-Layer Sitewide Design Audit) | Audit `IMPLEMENTED`; Product Office review pending; no application refinement started | Inventoried all built and shared-navigation-advertised public routes; rendered all ten built destinations at 1440×900 and 375×812; applied UI/UX Pro Max, five authenticated 21st.dev metadata explorations, `design-taste-frontend` critique and Human Design Review. The durable report is `docs/design-system/SITEWIDE_DESIGN_AUDIT.md`. Final decision: ready for controlled sitewide refinement, with public route/CTA integrity preceding visual polish. |
