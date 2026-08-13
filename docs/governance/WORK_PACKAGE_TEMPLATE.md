@@ -48,6 +48,11 @@ For major visual work, include durable status and current-session status separat
 
 - Package and page:
 - Design problem:
+- Visual thesis:
+- Primary storytelling metaphor:
+- Emotional / functional intent:
+- Intended page feeling:
+- Subject-specific visual distinction:
 - UI/UX Pro Max findings:
 - 21st.dev/Magic explorations (minimum three purposeful searches when callable):
 - TasteSkill critique:
@@ -59,12 +64,48 @@ For major visual work, include durable status and current-session status separat
 - Accessibility intent:
 - Implementation boundaries:
 
+### Page-Specific Art Direction — major visual work only
+
+- Narrative rhythm:
+- Section visual-mode map:
+- Memorable moment 1 (purpose / reason / medium):
+- Memorable moment 2 (purpose / reason / medium):
+- Photography strategy:
+- Illustration strategy:
+- Diagram strategy:
+- Background-image strategy:
+- Typography-as-visual-material strategy:
+- Whitespace strategy:
+- Mobile transformation at approximately 375px:
+- Dark-mode authorship:
+- Closest existing Rive page:
+- Similarity risk:
+- Conceptual, compositional and media differentiation:
+- Template-resistance plan:
+- Content-swap risk:
+
+### Section Rhythm Map — repeat for every major section
+
+- Section:
+- Narrative role:
+- Visual mode:
+- Energy:
+- Media role:
+- Transition from previous section:
+- Transition into next section:
+
+### Media Opportunity Audit
+
+| Section | Story purpose | Photography | Illustration | Diagram | Background media | Typography as media | Final decision |
+|---|---|---:|---:|---:|---:|---:|---|
+|  |  |  |  |  |  |  |  |
+
 ### Pattern Decision Log
 
 | Section | Options considered | Chosen | Rejected | Reason |
 |---|---|---|---|---|
 
-Implementation must not begin until this brief is complete.
+Implementation must not begin until the Design Decision Brief, Page-Specific Art Direction, Section Rhythm Map, Media Opportunity Audit and Pattern Decision Log are complete.
 
 ## Scope
 
@@ -97,6 +138,7 @@ Implementation must not begin until this brief is complete.
 - Validation output
 - Preview URL/instructions
 - Screenshots where visual acceptance is required
+- Full-page desktop screenshot and reduced-scale/squint review for major visual work
 - Explicit omissions and blockers
 - Push/PR/merge status
 - Sanity production untouched confirmation, when applicable

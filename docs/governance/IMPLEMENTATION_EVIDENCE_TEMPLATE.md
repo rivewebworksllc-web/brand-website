@@ -71,10 +71,33 @@ For major visual work, also report:
 - Cross-page repetition result:
 - Mobile and dark-mode authorship result:
 
+### Rive Authored Page Standard evidence
+
+- Final visual thesis:
+- Media decisions:
+- Media considered and rejected:
+- Memorable moments delivered:
+- Narrative-rhythm result:
+- Section-mode variation result:
+- Typography-as-visual-material result:
+- Whitespace-intent result:
+- Full-page screenshot reviewed:
+- Squint-test result:
+- Template-resistance result:
+- Content-swap result:
+- Cross-page differentiation:
+- Mobile authorship:
+- Dark-mode authorship:
+- CTA/conclusion quality:
+- Human Design Review gate results:
+- Silvester visual acceptance:
+
 ## Review access
 
 - Preview URL/instructions:
 - Screenshots:
+- Full-page screenshot artifact:
+- Reduced-scale/squint artifact:
 
 ## Safety confirmations
 

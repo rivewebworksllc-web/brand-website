@@ -51,30 +51,42 @@ For major visual work, complete this sequence:
 ```text
 Product Office commission
 → inspect the Rive system and current page family
+→ cross-page repetition review
 → UI/UX Pro Max
 → 21st.dev / Magic exploration
+→ page-specific visual thesis
+→ media opportunity audit
+→ section rhythm map
+→ memorable-moment definition
 → TasteSkill critique
 → Rive design-system synthesis
 → documented Design Decision Brief
+→ documented Media Plan
 → implementation
 → Human Design Review
+→ full-page screenshot review
+→ squint test
+→ template-resistance test
+→ content-swap test
 → responsive QA
 → Playwright
 → axe / WCAG
 → Silvester visual acceptance
 ```
 
-Implementation must not begin before the Design Decision Brief. Existing Rive pages are continuity references, not substitutes for external exploration. The synthesis is external pattern exploration + UI/UX reasoning + TasteSkill critique + Rive constraints; external suggestions that conflict with Rive must be rejected and documented.
+Implementation must not begin before the Design Decision Brief, Page-Specific Art Direction, Media Opportunity Audit, Section Rhythm Map and memorable-moment definition. Existing Rive pages are continuity references, not substitutes for external exploration or page-specific thinking. The synthesis is external pattern exploration + UI/UX reasoning + TasteSkill critique + Rive constraints; external suggestions that conflict with Rive must be rejected and documented.
 
 UI/UX Pro Max is required and must answer a package-specific design question. Generic invocation is invalid. Evidence must report: Available, Installed, Environment, Invocation method, Design question, Recommendations returned, Recommendations adopted, Recommendations rejected, Reasons rejected, Material implementation impact and Invocation evidence.
 
 21st.dev/Magic is a required exploration pass, not a required component import. When callable, major visual packages must perform at least three purposeful pattern explorations tied to real questions such as hero composition, core interaction and mobile treatment. Evidence must report: Available, Connected, Environment, Exploration performed, Search themes, Patterns reviewed, Patterns shortlisted, Direct component adopted, Rejected patterns, Reasons rejected, Material design influence and Invocation evidence.
 
-TasteSkill is the design critic: visual restraint, anti-generic-AI review, composition and repetition critique, motion restraint and typographic discipline. It must not silently become the primary generator.
+TasteSkill is the design critic: visual restraint, anti-generic-AI review, composition, cardification, media repetition, weak rhythm, template behaviour, motion restraint and typographic discipline. It must not silently become the primary generator.
 
 Every major page declares an Interaction identity, Primary content mode, Signature section and Visual tension, and compares hero layout, dark-section structure, tab treatment, media arrangement, card pattern, CTA rhythm, heading placement and section transitions against Homepage, Work, Guides, Insights and About. Reuse is allowed; unexamined repetition is not.
 
 Current identities are continuity references, not templates: Work = Explore / Proof / Behind the Screen; Guides = Learn / Instruction / Featured Guide; Insights = Interpret / Analysis / Analysis Lens; About = Connect / Organisation / Connected Disciplines. Every future page defines its own identity and visual tension.
+
+Industries is the current quality benchmark, not a page recipe. Major visual work must match its level of thought rather than its appearance, and must satisfy the Rive Authored Page Standard in `docs/creative-direction/VISUAL_LANGUAGE.md` plus the enforcement gates in `docs/capabilities/HUMAN_DESIGN_REVIEW.md`.
 
 ## 4. Task-to-skill routing matrix
 
@@ -157,3 +169,4 @@ Update this registry only when the skill baseline changes materially (a skill is
 | 2026-08-03 | Local project audit found the "absent" TasteSkill classification above was incomplete: a full 13-skill third-party package (`Leonxlnx/taste-skill`, previously approved under `GOV-007`) exists intact on the unmerged `chore/register-taste-skill-capability` branch (commit `56da308`), not merged into any active baseline. Per Product Office direction (`DECISIONS.md` `GOV-011`), its content was restored into the working tree (`.agents/skills/*`, `skills-lock.json`) but the `.claude/skills/*` symlinks required for actual invocation could not be created — blocked twice by Claude Code's own auto-mode safety classifier, a platform guard, not a project rule. Reclassified in `CAPABILITY_REGISTER.md` from `PLANNED` to a caveated `CONNECTED` (content present, not callable). | Product Office |
 | 2026-08-06 | This row's own "symlinks could not be created" description is now stale: `RW-PW09`'s Product Office review directed a fresh session-local discovery, which found `.claude/skills/design-taste-frontend` (and all 12 siblings) exist as real symlinks to `.agents/skills/*` (`ls -la` evidence, dated 2026-08-03 — i.e. present since shortly after the row above, just not re-checked since), and a genuine `Skill` tool invocation of `design-taste-frontend` returned its full `SKILL.md` content into context and was applied against `ProcessStepper.tsx`/`OutcomeExplorer.tsx`. TasteSkill (`design-taste-frontend`) reclassified `INSTALLED_CALLABLE` in `CAPABILITY_REGISTER.md` (from `CONNECTED`/not-callable). §2/§4's TasteSkill row is no longer a routing gap for frontend visual work — future Skill Gates should verify callability fresh (per §5) rather than citing this correction as a standing guarantee. | Product Office (session-directed correction per Silvester, `RW-PW09`) |
 | 2026-08-12 | RW-GOV-04B restored the full major-visual pipeline: UI/UX Pro Max reasoning, 21st.dev/Magic exploration, TasteSkill critique, Rive synthesis, Design Decision Brief, implementation, Human Design Review, responsive QA, Playwright, axe/WCAG and Silvester acceptance. Major visual packages now require purposeful evidence, cross-page repetition review and package-specific exception escalation; durable status and current-session callability are reported separately. | Product Office / Silvester (`GOV-014`) |
+| 2026-08-13 | RW-GOV-05 adopted the Rive Authored Page Standard (`GOV-017`): major visual packages now define a page-specific visual thesis, media opportunity audit, section rhythm and memorable moments before implementation, then pass full-page screenshot, squint, template-resistance and content-swap gates during Human Design Review. Industries is the quality benchmark, not a compositional template. | Product Office / Silvester |
