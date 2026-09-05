@@ -4,7 +4,7 @@
  * Commercial source: Catalog v8.5.4 / "v49," reconciled into
  * `docs/governance/CLAIMS_REGISTER.md` (`CLM-007`) via `GOV-020`. Every
  * price/timeline/evidence/inclusion/exclusion figure below is taken verbatim
- * from the RW-PAGE-08B Product Office directive — nothing here is invented.
+ * from the RW-PAGE-08B Product Office directive - nothing here is invented.
  *
  * Two fields are deliberately left unresolved rather than fabricated, per
  * the directive's own instruction (§17, §26): Package 1's exact starting
@@ -12,9 +12,18 @@
  * inclusions, exclusions, tier structure, add-ons). `unresolved: true` /
  * `unresolvedFields` mark these so the UI renders them honestly instead of
  * inventing a number to keep the grid symmetrical.
+ *
+ * RW-PRICING-UXR-01A: adds `UXR-01` ("UX Audit + Conversion Roadmap") as an
+ * eleventh package, in a new `strategy` group. Commercial facts (price
+ * floor, timeline, evidence tier, deliverables, exclusions, attach paths)
+ * are reused verbatim from the already-approved `CLM-008` authority
+ * (`GOV-021`, `RW-PAGE-11A`) - not re-invented here - and reconciled for
+ * this new placement via `CLM-008`'s `RW-PRICING-UXR-01A` scope note and
+ * `GOV-023`. See `src/lib/content/ux-audit-conversion-roadmap.ts` for the
+ * full standalone-page content this package summarizes.
  */
 
-export type PackageGroupId = "web" | "ai" | "cloud-data";
+export type PackageGroupId = "strategy" | "web" | "ai" | "cloud-data";
 
 export type PackageGroup = {
   id: PackageGroupId;
@@ -90,6 +99,11 @@ export type ManagedService = {
 
 export const packageGroups: PackageGroup[] = [
   {
+    id: "strategy",
+    label: "Strategy & Experience",
+    description: "Understand the problem before committing to the build.",
+  },
+  {
     id: "web",
     label: "Web",
     description: "Launch and website foundation work.",
@@ -107,6 +121,36 @@ export const packageGroups: PackageGroup[] = [
 ];
 
 export const projectPackages: ProjectPackage[] = [
+  {
+    id: "ux-audit-conversion-roadmap",
+    number: 11,
+    group: "strategy",
+    name: "UX Audit + Conversion Roadmap",
+    code: "UXR-01",
+    price: { unresolved: false, from: 3500, display: "From $3,500" },
+    purpose:
+      "Find out what is stopping visitors from converting, evidenced by behavior, funnels, accessibility and performance, before spending on a redesign.",
+    timeline: "2-4 weeks",
+    evidence: "E2",
+    included: [
+      "Heatmap and session-recording analysis (Microsoft Clarity, 14 days)",
+      "GA4 funnel report (bounce rate, scroll depth, form abandonment)",
+      "WCAG 2.2 AA accessibility audit (axe, WAVE, manual keyboard test)",
+      "Core Web Vitals snapshot (mobile and desktop)",
+      "User-flow audit (up to 5 buyer paths)",
+      "Conversion bottleneck report (top 5 friction points, evidence-backed)",
+      "Prioritized roadmap (quick wins, medium, rebuild scope)",
+    ],
+    excluded: ["Implementation of changes", "Copywriting", "New design", "A/B testing", "Paid media analysis"],
+    attach: {
+      note: "Natural next step",
+      options: [
+        { code: "OPT-01", name: "Quick-win implementation" },
+        { code: "BLD-02", name: "Rebuild" },
+        { code: "OPT-07", name: "A/B testing" },
+      ],
+    },
+  },
   {
     id: "website-launch-llm-discoverability",
     number: 1,
@@ -672,7 +716,7 @@ export const pricingContent = {
   },
   packagesIntro: {
     eyebrow: "Project engagements",
-    heading: "Ten bounded starting points, grouped by the problem they solve.",
+    heading: "Eleven bounded starting points, grouped by the problem they solve.",
     description:
       "Each package is a real, scoped engagement, not a placeholder tier. Open a package for its full inclusions, exclusions and natural next step.",
   },
