@@ -27,6 +27,23 @@ export function WebIcon({ className }: IconProps) {
   );
 }
 
+/**
+ * RW-PRICING-UXR-01A: group badge for the new "Strategy & Experience"
+ * category. A magnifying glass (this file's established diagnosis motif,
+ * reused from `DiscoveryIcon`'s lens/handle construction) reading a small
+ * friction spike, rather than a generic target/bullseye, so the mark ties
+ * specifically to evidence-based diagnosis instead of a generic "goal" icon.
+ */
+export function StrategyIcon({ className }: IconProps) {
+  return (
+    <svg {...strokeProps} className={className} aria-hidden="true">
+      <circle cx="10" cy="10" r="6.5" />
+      <path d="M7 11.2l1.3 -2.4l1.4 3.6l1.1 -2.4l0.9 1.2" />
+      <path d="M19 19l-4.6 -4.6" />
+    </svg>
+  );
+}
+
 export function AiIcon({ className }: IconProps) {
   return (
     <svg {...strokeProps} className={className} aria-hidden="true">
@@ -124,6 +141,7 @@ export function AttachIcon({ className }: IconProps) {
 }
 
 export const groupIcon = {
+  strategy: StrategyIcon,
   web: WebIcon,
   ai: AiIcon,
   "cloud-data": CloudIcon,

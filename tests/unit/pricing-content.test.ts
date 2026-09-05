@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   managedServiceTermNote,
   managedServices,
+  packageGroups,
   paidDiscovery,
   pricingContent,
   pricingDisclaimer,
@@ -10,9 +11,11 @@ import {
 } from "@/lib/content/pricing";
 
 describe("Pricing content (RW-PAGE-08B)", () => {
-  it("declares exactly ten project packages, numbered 1-10 without gaps", () => {
-    expect(projectPackages).toHaveLength(10);
-    expect(projectPackages.map((p) => p.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  it("declares exactly eleven project packages, numbered 1-11 without gaps", () => {
+    expect(projectPackages).toHaveLength(11);
+    expect(projectPackages.map((p) => p.number).slice().sort((a, b) => a - b)).toEqual([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+    ]);
   });
 
   it("leaves Package 1's exact starting price unresolved rather than inventing one", () => {
@@ -133,5 +136,61 @@ describe("Pricing content (RW-PAGE-08B)", () => {
   it("does not fabricate an unearned partner/certification claim", () => {
     const text = JSON.stringify({ projectPackages, managedServices });
     expect(text).not.toMatch(/AWS Partner|Microsoft Partner|SOC 2 certified|ISO 27001 certified/i);
+  });
+});
+
+describe("Pricing content - UXR-01 expansion (RW-PRICING-UXR-01A)", () => {
+  it("lists UXR-01 exactly once, in a new strategy group, ahead of the existing three families", () => {
+    const matches = projectPackages.filter((p) => p.code === "UXR-01");
+    expect(matches).toHaveLength(1);
+    expect(matches[0].group).toBe("strategy");
+    expect(pricingContent.hero.eyebrow).toBeDefined();
+    expect(packageGroups[0].id).toBe("strategy");
+    expect(packageGroups.map((g) => g.id)).toEqual(["strategy", "web", "ai", "cloud-data"]);
+  });
+
+  it("publishes UXR-01's approved commercial facts (from CLM-008), not the family-level band", () => {
+    const uxr = projectPackages.find((p) => p.code === "UXR-01")!;
+    expect(uxr.name).toBe("UX Audit + Conversion Roadmap");
+    expect(uxr.price.unresolved).toBe(false);
+    if (!uxr.price.unresolved) {
+      expect(uxr.price.from).toBe(3500);
+      expect(uxr.price.display).toBe("From $3,500");
+    }
+    expect(uxr.timeline).toBe("2-4 weeks");
+    expect(uxr.evidence).toBe("E2");
+  });
+
+  it("states UXR-01's exclusions so the diagnosis/implementation boundary is explicit", () => {
+    const uxr = projectPackages.find((p) => p.code === "UXR-01")!;
+    expect(uxr.excluded).toEqual([
+      "Implementation of changes",
+      "Copywriting",
+      "New design",
+      "A/B testing",
+      "Paid media analysis",
+    ]);
+  });
+
+  it("does not disturb any previously-approved package's number, price or code", () => {
+    const byNumber: Record<number, { code: string; from?: number }> = {
+      1: { code: "Web launch" },
+      2: { code: "AI-10", from: 2500 },
+      3: { code: "AI-11 + AI-14", from: 8500 },
+      4: { code: "M365-01 + GOV-15", from: 5500 },
+      5: { code: "OP-18", from: 6500 },
+      6: { code: "CLD-AI-01 + CLD-SEC-02", from: 8500 },
+      7: { code: "CLD-SEC-02 + CLD-RES-01 + CLD-DR-01", from: 7500 },
+      8: { code: "AI-18 + AI-14", from: 6500 },
+      9: { code: "CLD-DATA-03 + CLD-BI-01", from: 9500 },
+      10: { code: "OP-10 / CLD-FND-01", from: 6500 },
+    };
+    for (const [number, expected] of Object.entries(byNumber)) {
+      const pkg = projectPackages.find((p) => p.number === Number(number))!;
+      expect(pkg.code).toBe(expected.code);
+      if (expected.from !== undefined && !pkg.price.unresolved) {
+        expect(pkg.price.from).toBe(expected.from);
+      }
+    }
   });
 });

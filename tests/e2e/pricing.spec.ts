@@ -9,12 +9,13 @@ test.describe("Pricing (RW-PAGE-08B)", () => {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /\/pricing\/$/);
   });
 
-  test("shows all ten project packages grouped into Web / AI / Cloud & Data", async ({ page }) => {
+  test("shows all eleven project packages grouped into Strategy & Experience / Web / AI / Cloud & Data", async ({ page }) => {
     await page.goto("/pricing/");
-    for (const heading of ["Web", "AI", "Cloud & Data"]) {
+    for (const heading of ["Strategy & Experience", "Web", "AI", "Cloud & Data"]) {
       await expect(page.getByRole("heading", { name: heading, exact: true })).toBeVisible();
     }
     for (const name of [
+      "UX Audit + Conversion Roadmap",
       "Website Launch + LLM Discoverability",
       "AI Readiness Sprint",
       "Secure RAG + Knowledge Search",
@@ -120,6 +121,22 @@ test.describe("Pricing (RW-PAGE-08B)", () => {
       await page.setViewportSize(viewport);
       await page.goto("/pricing/");
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    }
+  });
+
+  test("UXR-01 commercial facts are present in server-rendered HTML (RW-PRICING-UXR-01A)", async ({ request }) => {
+    const response = await request.get("/pricing/");
+    const html = await response.text();
+    for (const phrase of [
+      // Raw HTML entity-escapes "&"; the visible-DOM assertion above already
+      // covers the rendered "Strategy & Experience" heading text.
+      "Strategy &amp; Experience",
+      "UX Audit + Conversion Roadmap",
+      "UXR-01",
+      "$3,500",
+      "2-4 weeks",
+    ]) {
+      expect(html).toContain(phrase);
     }
   });
 
