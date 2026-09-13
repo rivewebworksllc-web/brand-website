@@ -10,7 +10,19 @@ import type { ProjectPackage } from "@/lib/content/pricing";
  * relationships-row device) - not a signature moment, and every prop is
  * pulled straight from the catalog, never re-authored per page.
  */
-export function EngagementCard({ pkg }: { pkg: ProjectPackage }) {
+type EngagementCardProps = {
+  pkg: ProjectPackage;
+  /**
+   * RW-PAGE-P0-SOLUTIONS-02: some packages (e.g. `UXR-01`) already have
+   * their own full standalone page, a richer destination than the generic
+   * Pricing card detail. Defaults to `/pricing/`, unchanged from every
+   * existing caller.
+   */
+  href?: string;
+  linkLabel?: string;
+};
+
+export function EngagementCard({ pkg, href = "/pricing/", linkLabel = "See full scope on Pricing" }: EngagementCardProps) {
   return (
     <li className="border border-hairline bg-surface-alt p-6">
       <div className="flex items-baseline justify-between gap-3">
@@ -37,10 +49,10 @@ export function EngagementCard({ pkg }: { pkg: ProjectPackage }) {
       )}
       <div className="mt-5">
         <Link
-          href="/pricing/"
+          href={href}
           className="text-[13px] font-medium text-brand-maroon underline decoration-hairline underline-offset-4 hover:decoration-brand-maroon"
         >
-          See full scope on Pricing
+          {linkLabel}
         </Link>
       </div>
     </li>
